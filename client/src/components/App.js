@@ -1,7 +1,13 @@
 import React, { Component } from "react";
-import { Router } from "@reach/router";
+import Home from "./pages/Home.js";
+import RequestFeed from "./pages/RequestFeed.js";
+import Deck from "./pages/Deck.js";
+import Incoming from "./pages/Incoming.js";
+import Login from "./pages/Login.js";
+import Profile from "./pages/Profile.js";
+import MyRequests from "./pages/MyRequests.js";
+import TradeHistory from "./pages/TradeHistory.js";
 import NotFound from "./pages/NotFound.js";
-import Skeleton from "./pages/Skeleton.js";
 
 import "../utilities.css";
 
@@ -48,12 +54,19 @@ class App extends Component {
     return (
       <>
         <Router>
-          <Skeleton
-            path="/"
+          <Home path="/" userId={this.state.userId} />
+          <RequestFeed path="/requests" userId={this.state.userId} />
+          <Deck path="/deck" userId={this.state.userId} />
+          <Incoming path="/incoming" userId={this.state.userId} />
+          <Login
+            path="/login"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userId={this.state.userId}
           />
+          <Profile path="/profile/:userId" />
+          <MyRequests path ="/profile/:userId/my_requests" />
+          <TradeHistory path="/profile/:userId/trade_history" />
           <NotFound default />
         </Router>
       </>
