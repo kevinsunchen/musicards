@@ -1,3 +1,4 @@
+import { Link } from "@reach/router";
 import React, { Component } from "react";
 
 import "../../utilities.css";
@@ -19,6 +20,24 @@ class Home extends Component {
       <>
         <h1>HOME</h1>
         <h2>Home page. Includes icons linking to the public Requests feed, the user's Incoming cards page, the user's Deck page, and the user's Profile page.</h2>
+        <Link to="/requests">
+          Requests <br />
+        </Link>
+        <Link to="/incoming">
+          Incoming <br />
+        </Link>
+        <Link to="/deck">
+          Deck <br />
+        </Link>
+        {this.props.userId ? (
+          <Link to={`/profile/${this.props.userId}`}>
+            Profile <br />
+          </Link>
+        ) : (
+          <Link to='/login'>
+            Login <br />
+          </Link>
+        )}
       </>
     );
   }

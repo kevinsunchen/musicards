@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { navigate, Router } from "@reach/router";
 import Home from "./pages/Home.js";
 import RequestFeed from "./pages/RequestFeed.js";
 import Deck from "./pages/Deck.js";
@@ -64,8 +65,13 @@ class App extends Component {
             handleLogout={this.handleLogout}
             userId={this.state.userId}
           />
-          <Profile path="/profile/:userId" />
-          <MyRequests path ="/profile/:userId/my_requests" />
+          <Profile 
+            path="/profile/:userId"
+            handleLogin={this.handleLogin}
+            handleLogout={this.handleLogout}
+            userId={this.state.userId}
+          />
+          <MyRequests path="/profile/:userId/my_requests" />
           <TradeHistory path="/profile/:userId/trade_history" />
           <NotFound default />
         </Router>
