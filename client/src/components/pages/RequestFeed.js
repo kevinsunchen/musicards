@@ -22,6 +22,7 @@ class RequestFeed extends Component {
     return (
       <>
         <h1>REQUESTS FEED</h1>
+        <h2>The page displaying the public requests feed. Includes links to a users' own pending requests, as well as their trade history.</h2>
       </>
     );
   }

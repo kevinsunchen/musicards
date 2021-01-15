@@ -4,10 +4,10 @@ import GoogleLogin, { GoogleLogout } from "react-google-login";
 import "../../utilities.css";
 import "./Skeleton.css";
 
-//TODO: REPLACE WITH YOUR OWN CLIENT_ID
-const GOOGLE_CLIENT_ID = "121479668229-t5j82jrbi9oejh7c8avada226s75bopn.apps.googleusercontent.com";
+// GOOGLE CLIENT_ID
+const GOOGLE_CLIENT_ID = "734806594873-usrpgt9023lsm2qin4eip4gsful5c2h3.apps.googleusercontent.com";
 
-class Skeleton extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     // Initialize Default State
@@ -21,6 +21,8 @@ class Skeleton extends Component {
   render() {
     return (
       <>
+        <h1>LOGIN</h1>
+        <h2>Page that displays when a user is not logged in and performs any action that requires being logged in.</h2>
         {this.props.userId ? (
           <GoogleLogout
             clientId={GOOGLE_CLIENT_ID}
@@ -41,4 +43,4 @@ class Skeleton extends Component {
   }
 }
 
-export default Skeleton;
+export default Login;

@@ -1,13 +1,10 @@
 import React, { Component } from "react";
-import GoogleLogin, { GoogleLogout } from "react-google-login";
 
 import "../../utilities.css";
 import "./Skeleton.css";
 
-//TODO: REPLACE WITH YOUR OWN CLIENT_ID
-const GOOGLE_CLIENT_ID = "121479668229-t5j82jrbi9oejh7c8avada226s75bopn.apps.googleusercontent.com";
 
-class MyDeck extends Component {
+class Deck extends Component {
   constructor(props) {
     super(props);
     // Initialize Default State
@@ -22,9 +19,10 @@ class MyDeck extends Component {
     return (
       <>
         <h1>MY DECK</h1>
+        <h2>Page where the user can view their deck.</h2>
       </>
     );
   }
 }
 
-export default MyDeck;
+export default Deck;

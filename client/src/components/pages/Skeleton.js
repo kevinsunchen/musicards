@@ -4,8 +4,8 @@ import GoogleLogin, { GoogleLogout } from "react-google-login";
 import "../../utilities.css";
 import "./Skeleton.css";
 
-//TODO: REPLACE WITH YOUR OWN CLIENT_ID
-const GOOGLE_CLIENT_ID = "121479668229-t5j82jrbi9oejh7c8avada226s75bopn.apps.googleusercontent.com";
+//REPLACED WITH YOUR OWN CLIENT_ID
+const GOOGLE_CLIENT_ID = "734806594873-usrpgt9023lsm2qin4eip4gsful5c2h3.apps.googleusercontent.com";
 
 class Skeleton extends Component {
   constructor(props) {
