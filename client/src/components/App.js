@@ -48,12 +48,13 @@ class App extends Component {
 
   handleLogout = () => {
     this.setState({ userId: undefined });
-    post("/api/logout");
+    post("/api/logout").then(() => navigate('/login'));
   };
 
   render() {
     return (
       <>
+        {console.log("Logged in?", this.state.userId)}
         <Router>
           <Home path="/" userId={this.state.userId} />
           <RequestFeed path="/requests" userId={this.state.userId} />
@@ -66,13 +67,13 @@ class App extends Component {
             userId={this.state.userId}
           />
           <Profile 
-            path="/profile/:userId"
+            path="/profile/:profileId"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             userId={this.state.userId}
           />
-          <MyRequests path="/profile/:userId/my_requests" />
-          <TradeHistory path="/profile/:userId/trade_history" />
+          <MyRequests path="/profile/:profileId/my_requests" />
+          <TradeHistory path="/profile/:profileId/trade_history" />
           <NotFound default />
         </Router>
       </>
