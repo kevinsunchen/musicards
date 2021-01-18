@@ -69,6 +69,16 @@ router.get('/getMe', (req, res) => {
     });
 })
 
+router.get('/getUser', (req, res) => {
+  spotifyApi.getUser(req.query.spotifyId)
+    .then(function (data) {
+      console.log('Some information about this authenticated user', data.body);
+      res.send(data)
+    }, function (err) {
+      console.log('Something went wrong!', err);
+    });
+})
+
 router.post("/logout", (req, res) => { auth.logout(req, res, spotifyApi) });
 
 router.get("/whoami", (req, res) => {

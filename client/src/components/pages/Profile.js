@@ -40,19 +40,20 @@ class Profile extends Component {
         {console.log("2) On a profile page, profileId prop:", this.props.profileId)}
         <h1>PROFILE</h1>
         <h2>Page where a user can view and update their profile information.</h2>
-        <p>Viewing profile of user {this.state.viewingUser.name}, who has ID {this.props.profileId}.</p>
+        <p>Viewing profile of user <strong>{this.state.viewingUser.name}</strong>, who has ID <strong>{this.props.profileId}</strong>.</p>
+        
         {(this.state.loggedInUser) ? (
           <>
-          <p>Currently logged in as user {this.state.loggedInUser.name}, who has ID {this.props.userId}.</p>
+            <p>Currently logged in as user <strong>{this.state.loggedInUser.name}</strong>, who has ID <strong>{this.props.userId}</strong>.</p>
+            {(this.state.loggedInUser._id === this.state.viewingUser._id) ? (
+              <button onClick={this.props.handleLogout}>logout</button>
+            ) : (
+              <><p>This is someone else's profile! Enjoy your stay :)</p></>
+            )}
           </>
-        ) : (
-          <p>Not logged in.</p>
-        )}
-        {(this.state.loggedInUser && (this.state.loggedInUser._id === this.state.viewingUser._id)) ? (
-          <button onClick={this.props.handleLogout}>logout</button>
-        ) : (
-          <></>
-        )}
+        ) : (<p>Not logged in.</p>)
+        }
+
       </>
     );
   }
