@@ -47,7 +47,7 @@ class App extends Component {
   handleLogout = () => {
     this.setState({ userId: undefined });
     console.log("logging out")
-    post("/api/logout");
+    post("/api/logout").then(() => navigate('/login'));
   };
 
   render() {
