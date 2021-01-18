@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { navigate, Router } from "@reach/router";
+import { navigate, Router, Match } from "@reach/router";
+import NavBar from "./modules/NavBar.js";
 import Home from "./pages/Home.js";
 import RequestFeed from "./pages/RequestFeed.js";
 import Deck from "./pages/Deck.js";
@@ -54,6 +55,17 @@ class App extends Component {
     return (
       <>
         {console.log("Logged in?", this.state.userId)}
+        <Match path="/">
+          {props =>
+            props.match ? (
+              <></>
+            ) : (
+              <NavBar
+                userId={this.state.userId}
+              />
+            )
+          }
+        </Match>
         <Router>
           <Home path="/" userId={this.state.userId} />
           <RequestFeed path="/requests" userId={this.state.userId} />
