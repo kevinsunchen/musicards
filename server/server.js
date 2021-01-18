@@ -13,13 +13,12 @@
 | - Actually starts the webserver
 */
 
-require('dotenv').config();
-
 // validator runs some basic checks to make sure you've set everything up correctly
 // this is a tool provided by staff, so you don't need to worry about it
 const validator = require("./validator");
 validator.checkSetup();
 
+require('dotenv').config();
 //import libraries needed for the webserver to work!
 const http = require("http");
 const express = require("express"); // backend framework for our node server.
@@ -31,13 +30,13 @@ const api = require("./api");
 const auth = require("./auth");
 
 // socket stuff
-const socketManager = require("./server-socket");
+const socket = require("./server-socket");
 
 // Server configuration below
-// TODO change connection URL after setting up your team database
+// Server configuration below
 const mongoConnectionURL = process.env.ATLAS_SRV;
 // TODO change database name to the name you chose
-const databaseName = "musicards";
+const databaseName = "test";
 
 // connect to mongodb
 mongoose
@@ -97,9 +96,9 @@ app.use((err, req, res, next) => {
 });
 
 // hardcode port to 3000 for now
-const port = process.env.PORT || 3000;
+const port = 3000;
 const server = http.Server(app);
-socketManager.init(server);
+socket.init(server);
 
 server.listen(port, () => {
   console.log(`Server running on port: ${port}`);

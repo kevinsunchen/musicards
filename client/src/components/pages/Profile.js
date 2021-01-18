@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { get } from "../../utilities";
-import GoogleLogin, { GoogleLogout } from "react-google-login";
 
 import "../../utilities.css";
 import "./Skeleton.css";
@@ -50,12 +49,7 @@ class Profile extends Component {
           <p>Not logged in.</p>
         )}
         {(this.state.loggedInUser && (this.state.loggedInUser._id === this.state.viewingUser._id)) ? (
-          <GoogleLogout
-            clientId={GOOGLE_CLIENT_ID}
-            buttonText="Logout"
-            onLogoutSuccess={this.props.handleLogout}
-            onFailure={(err) => console.log(err)}
-          />
+          <button onClick={this.props.handleLogout}>logout</button>
         ) : (
           <></>
         )}

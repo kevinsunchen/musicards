@@ -24,19 +24,9 @@ class Login extends Component {
         <h1>LOGIN</h1>
         <h2>Page that displays when a user is not logged in and performs any action that requires being logged in.</h2>
         {this.props.userId ? (
-          <GoogleLogout
-            clientId={GOOGLE_CLIENT_ID}
-            buttonText="Logout"
-            onLogoutSuccess={this.props.handleLogout}
-            onFailure={(err) => console.log(err)}
-          />
-        ) : (
-          <GoogleLogin
-            clientId={GOOGLE_CLIENT_ID}
-            buttonText="Login"
-            onSuccess={this.props.handleLogin}
-            onFailure={(err) => console.log(err)}
-          />
+            <button onClick={this.props.handleLogout}>logout</button>
+          ) : (
+            <button onClick={this.props.handleLogin}>spotify login</button>
         )}
       </>
     );

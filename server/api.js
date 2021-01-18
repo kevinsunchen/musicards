@@ -19,10 +19,58 @@ const auth = require("./auth");
 const router = express.Router();
 
 //initialize socket
-const socketManager = require("./server-socket");
+const socket = require("./server-socket");
 
-router.post("/login", auth.login);
-router.post("/logout", auth.logout);
+
+// documentation here https://www.npmjs.com/package/spotify-web-api-node
+const SpotifyWebApi = require('spotify-web-api-node');
+scopes = ['user-read-private', 'user-read-email', 'playlist-modify-public', 'playlist-modify-private', 'user-library-read', 'user-top-read']
+
+// TODO: create an account at https://developer.spotify.com/dashboard/ 
+// fill in your spotify developer information in .env
+const spotifyApi = new SpotifyWebApi({
+  clientId: process.env.SPOTIFY_API_ID,
+  clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+  redirectUri: process.env.CALLBACK_URI,
+});
+
+router.get("/user", (req, res) => {
+  User.findById(req.query.userid).then((user) => {
+    res.send(user);
+  });
+});
+
+router.get('/spotifyLogin', (req, res) => {
+  auth.spotifyLogin(req, res, spotifyApi)
+})
+router.get('/callback', async (req, res) => {
+  auth.callback(req, res, spotifyApi)
+});
+
+router.get('/playlists', async (req, res) => {
+  try {
+    const result = await spotifyApi.getUserPlaylists();
+    console.log(result.body);
+    console.log(req.session.user)
+    console.log(req.user)
+    res.status(200).send(result.body);
+  } catch (err) {
+    res.status(400).send(err)
+  }
+});
+
+router.get('/getMe', (req, res) => {
+  spotifyApi.getMe()
+    .then(function (data) {
+      console.log('Some information about the authenticated user', data.body);
+      res.send(data)
+    }, function (err) {
+      console.log('Something went wrong!', err);
+    });
+})
+
+router.post("/logout", (req, res) => { auth.logout(req, res, spotifyApi) });
+
 router.get("/whoami", (req, res) => {
   if (!req.user) {
     // not logged in
@@ -32,15 +80,9 @@ router.get("/whoami", (req, res) => {
   res.send(req.user);
 });
 
-router.get("/user", (req, res) => {
-  User.findById(req.query.userid).then((user) => {
-    res.send(user);
-  });
-});
-
 router.post("/initsocket", (req, res) => {
   // do nothing if user not logged in
-  if (req.user) socketManager.addUser(req.user, socketManager.getSocketFromSocketID(req.body.socketid));
+  if (req.user) socket.addUser(req.user, socket.getSocketFromSocketID(req.body.socketid));
   res.send({});
 });
 
@@ -53,7 +95,5 @@ router.all("*", (req, res) => {
   console.log(`API route not found: ${req.method} ${req.url}`);
   res.status(404).send({ msg: "API route not found" });
 });
-
-
 
 module.exports = router;
