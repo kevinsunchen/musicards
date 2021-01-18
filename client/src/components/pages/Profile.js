@@ -41,17 +41,15 @@ class Profile extends Component {
         {console.log("2) On a profile page, profileId prop:", this.props.profileId)}
         <h1>PROFILE</h1>
         <h2>Page where a user can view and update their profile information.</h2>
-        <p>Viewing profile of user {this.state.viewingUser.name}.</p>
-        <p>This user has ID {this.props.profileId}.</p>
+        <p>Viewing profile of user {this.state.viewingUser.name}, who has ID {this.props.profileId}.</p>
         {(this.state.loggedInUser) ? (
           <>
-          <p>Currently logged in as user {this.state.loggedInUser.name}.</p>
-          <p>{this.props.userId}</p>
+          <p>Currently logged in as user {this.state.loggedInUser.name}, who has ID {this.props.userId}.</p>
           </>
         ) : (
           <p>Not logged in.</p>
         )}
-        {(this.state.loggedInUser) ? (
+        {(this.state.loggedInUser && (this.state.loggedInUser._id === this.state.viewingUser._id)) ? (
           <GoogleLogout
             clientId={GOOGLE_CLIENT_ID}
             buttonText="Logout"
@@ -59,12 +57,7 @@ class Profile extends Component {
             onFailure={(err) => console.log(err)}
           />
         ) : (
-          <GoogleLogin
-            clientId={GOOGLE_CLIENT_ID}
-            buttonText="Login"
-            onSuccess={this.props.handleLogin}
-            onFailure={(err) => console.log(err)}
-          />
+          <></>
         )}
       </>
     );
