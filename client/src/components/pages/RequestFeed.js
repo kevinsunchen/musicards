@@ -1,22 +1,37 @@
 import React, { Component } from "react";
-import GoogleLogin, { GoogleLogout } from "react-google-login";
 
 import "../../utilities.css";
 import "./Skeleton.css";
 
-//TODO: REPLACE WITH YOUR OWN CLIENT_ID
-const GOOGLE_CLIENT_ID = "121479668229-t5j82jrbi9oejh7c8avada226s75bopn.apps.googleusercontent.com";
+import { get } from "../../utilities";
 
 class RequestFeed extends Component {
   constructor(props) {
     super(props);
-    // Initialize Default State
-    this.state = {};
+    this.state = {
+      requests: [],
+    };
   }
 
+  // called when the "Feed" component "mounts", i.e.
+  // when it shows up on screen
   componentDidMount() {
-    // remember -- api calls go here!
+    document.title = "Requests Feed";
+    get("/api/getRequestFeed").then((requestObjs) => {
+      let reversedRequestObjs = requestObjs.reverse();
+      reversedRequestObjs.map((requestObj) => {
+        this.setState({ requests: this.state.requests.concat([requestObj]) });
+      });
+    });
   }
+
+  // this gets called when the user pushes "Submit", so their
+  // post gets added to the screen right away
+  addNewStory = (storyObj) => {
+    this.setState({
+      stories: [storyObj].concat(this.state.stories),
+    });
+  };
 
   render() {
     return (
