@@ -1,6 +1,8 @@
 const User = require("./models/user");
 const socket = require("./server-socket");
 
+require('dotenv').config();
+
 // gets user from DB, or makes a new account if it doesn't exist yet
 function getOrCreateUser(user) {
   // the "sub" field means "subject", which is a unique identifier for each user
@@ -38,7 +40,7 @@ const callback = async (req, res, spotifyApi) => {
         console.log('Something went wrong!', err);
       }).then((user) => {
         req.session.user = user;
-        res.redirect('http://localhost:5000/');
+        res.redirect(process.env.HOMEPATH);
       }).catch((err) => {
         console.log(`Failed to log in: ${err}`);
         res.status(401).send({ err });
