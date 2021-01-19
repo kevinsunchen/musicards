@@ -11,6 +11,7 @@ const express = require("express");
 
 // import models so we can interact with the database
 const User = require("./models/user");
+const Request = require("./models/request");
 
 // import authentication library
 const auth = require("./auth");
@@ -133,9 +134,7 @@ router.get('/getTrackProcessed', (req, res) => {
 router.get("/getUserDeck", (req, res) => {
   // do nothing if user not logged in
   if (req.user) {
-    User.findById(req.user._id).then((user) => {
-      res.send(user.deck);
-    });
+    User.findById(req.user._id).then((user) => res.send(user.deck));
   }
 })
 
@@ -159,6 +158,11 @@ router.post("/addToUserDeck", (req, res) => {
     user.save();
     res.send(user.deck);
   });
+})
+
+router.get("/getRequestFeed", (req, res) => {
+  console.log(req.query)
+  Request.find({}).then((stories) => res.send(stories));
 })
 
 // anything else falls to this "not found" case
