@@ -11,7 +11,6 @@ const express = require("express");
 
 // import models so we can interact with the database
 const User = require("./models/user");
-const Deck = require("./models/deck");
 
 // import authentication library
 const auth = require("./auth");
@@ -83,6 +82,7 @@ router.get('/getUser', (req, res) => {
 router.post("/logout", (req, res) => { auth.logout(req, res, spotifyApi) });
 
 router.get("/whoami", (req, res) => {
+  // console.log(req)
   if (!req.user) {
     // not logged in
     return res.send({});
@@ -102,7 +102,10 @@ router.post("/initsocket", (req, res) => {
 // |------------------------------|
 
 router.get("/getUserDeck", (req, res) => {
-  
+  // do nothing if user not logged in
+  User.findById(req.query.userid).then((user) => {
+    res.send(user.deck);
+  });
 })
 
 // anything else falls to this "not found" case

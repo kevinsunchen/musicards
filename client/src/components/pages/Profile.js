@@ -4,9 +4,6 @@ import { get } from "../../utilities";
 import "../../utilities.css";
 import "./Skeleton.css";
 
-// GOOGLE CLIENT_ID
-const GOOGLE_CLIENT_ID = "734806594873-usrpgt9023lsm2qin4eip4gsful5c2h3.apps.googleusercontent.com";
-
 class Profile extends Component {
   constructor(props) {
     super(props);
