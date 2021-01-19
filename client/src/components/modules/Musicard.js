@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Link } from "@reach/router";
 import { get } from "../../utilities";
+
+import "./Musicard.css";
 
 /**
  * Story is a component that renders creator and content of a story
@@ -28,12 +29,11 @@ class Musicard extends Component {
       return <div> Loading card... </div>
     }
     return (
-      <div className="Musicard-wrapper">
+      <div className="Musicard-container">
         <img className="Musicard-image" src={this.state.trackInfo.images[1].url} />
         <div className="Musicard-title">{this.state.trackInfo.name}</div>
         <div className="Musicard-artists">{this.state.trackInfo.artists.join(", ")}</div>
         <div className="Musicard-album">{this.state.trackInfo.album}</div>
-        <br />
       </div>
     );
   }
