@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { get } from "../../utilities";
 
 import "../../utilities.css";
 import "./Skeleton.css";
@@ -15,7 +16,7 @@ class Deck extends Component {
 
   componentDidMount() {
     // remember -- api calls go here!
-
+    get('/api/getUserDeck');
   }
 
   render() {

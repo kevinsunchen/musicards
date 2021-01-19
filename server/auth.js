@@ -9,15 +9,14 @@ function getOrCreateUser(user) {
   return User.findOne({ spotifyId: user.id }).then((existingUser) => {
     if (existingUser) return existingUser;
 
-
     const newUser = new User({
       name: user.display_name,
       spotifyId: user.id,
     });
-
     return newUser.save();
   });
 }
+
 const spotifyLogin = (req, res, spotifyApi) => {
   var html = spotifyApi.createAuthorizeURL(scopes)
   console.log(html)
@@ -67,7 +66,6 @@ function ensureLoggedIn(req, res, next) {
   if (!req.user) {
     return res.status(401).send({ err: "not logged in" });
   }
-
   next();
 }
 
