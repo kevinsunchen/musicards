@@ -19,9 +19,7 @@ class Musicard extends Component {
   componentDidMount() {
     get("/api/getTrackProcessed", { trackId: this.props.trackId }).then((trackInfo) => {
       console.log(trackInfo);
-      this.setState({
-        trackInfo: trackInfo
-      });
+      this.setState({trackInfo: trackInfo});
     })
   }
 
