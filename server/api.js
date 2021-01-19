@@ -101,9 +101,11 @@ router.post("/initsocket", (req, res) => {
 
 router.get("/getUserDeck", (req, res) => {
   // do nothing if user not logged in
-  User.findById(req.query.userid).then((user) => {
-    res.send(user.deck);
-  });
+  if (req.user) {
+    User.findById(req.user._id).then((user) => {
+      res.send(user.deck);
+    });
+  }
 })
 
 router.get("/getTopTracks", (req, res) => {
@@ -111,21 +113,20 @@ router.get("/getTopTracks", (req, res) => {
   spotifyApi.getMyTopTracks({ limit: req.query.numToGet })
   .then(function(data) {
     let topTracks = data.body.items;
-
-    console.log(topTracks.map((track) => {
-      return [track.id, track.name];
-    }), topTracks.length);
     res.send(topTracks.map((track) => {return track.id}));
   }, function(err) {
     console.log('Something went wrong!', err);
   });
 })
 
-router.post("/updateUserDeck", (req, res) => {
+router.post("/addToUserDeck", (req, res) => {
   console.log("POST req to update deck received")
-  console.log(req.body)
+  console.log(req.body.tracks)
   User.findById(req.user._id).then((user) => {
-    res.send(user);
+    console.log(user);
+    user.deck = user.deck.concat(req.body.tracks);
+    user.save();
+    res.send({deck: user.deck});
   });
 })
 

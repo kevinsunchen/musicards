@@ -8,12 +8,19 @@ class Deck extends Component {
   constructor(props) {
     super(props);
     // Initialize Default State
-    this.state = {};
+    this.state = {
+      deck: undefined
+    };
   }
 
   componentDidMount() {
+    document.title = "My Deck";
     // remember -- api calls go here!
     console.log("Mounting", this.props.loggedInUser);
+    get("/api/getUserDeck").then((deck) => {
+      this.setState({ deck: deck })
+      console.log(this.state.deck)
+    })
   }
 
   populateEmptyDeck() {
@@ -22,7 +29,10 @@ class Deck extends Component {
       //this.setState({ deck: tracks });
       var body = {tracks: tracks};
       console.log(body)
-      post("/api/updateUserDeck", body);
+      post("/api/addToUserDeck", body).then((deck) => {
+        console.log(deck)
+        this.setState({ deck: deck});
+      });
     });
   }
 
@@ -39,6 +49,10 @@ class Deck extends Component {
     console.log("User's deck is NOT empty")
   }
 
+  renderDeckContent() {
+
+  }
+
   render() {
     var currUser = this.props.loggedInUser;
     if (!currUser) {
@@ -50,7 +64,7 @@ class Deck extends Component {
         <h1>MY DECK</h1>
         <h2>Page where the user can view their deck.</h2>
         <p>Current user <strong>{currUser.name}</strong> with ID <strong>{currUser.uid}</strong> and Spotify username <strong>{currUser.spotifyId}</strong>.</p>
-        <p>{currUser.name}'s deck: {currUser.deck}</p>
+        <p>{currUser.name}'s deck: {this.state.deck}</p>
         {this.renderDeckEmptyContent()}
       </>
     );

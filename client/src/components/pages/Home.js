@@ -12,6 +12,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    document.title = "musicards!";
     // remember -- api calls go here!
   }
 

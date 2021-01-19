@@ -18,6 +18,7 @@ class Profile extends Component {
   }
 
   componentDidMount() {
+    document.title = "Profile";
     // remember -- api calls go here!
     console.log("Mounting -- profileId prop:", this.props.profileId);
     this.updateViewingUser();
