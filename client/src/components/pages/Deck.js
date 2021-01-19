@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { get, post } from "../../utilities";
+import Musicard from "../modules/Musicard.js";
 
 import "../../utilities.css";
 import "./Skeleton.css";
@@ -25,7 +26,7 @@ class Deck extends Component {
 
   populateEmptyDeck() {
     console.log("User's deck is empty, so populate it with their top 13 listened to tracks on Spotify.")
-    get("/api/getTopTracks", { numToGet: 13 }).then((tracks) => {
+    get("/api/getMyTopTracks", { limit: 13 }).then((tracks) => {
       //this.setState({ deck: tracks });
       var body = {tracks: tracks};
       console.log(body)
@@ -37,20 +38,27 @@ class Deck extends Component {
   }
 
   renderDeckEmptyContent() {
-    if (this.props.loggedInUser.deck.length === 0) {
-      console.log("User's deck is empty")
-      return (
-        <>
-          <p>Deck is empty</p>
-          <button onClick={this.populateEmptyDeck}> button </button>
-        </>
-      )
-    }
-    console.log("User's deck is NOT empty")
+    console.log("User's deck is empty")
+    return (
+      <>
+        <p>Deck is empty</p>
+        <button onClick={this.populateEmptyDeck}> button </button>
+      </>
+    )
   }
 
   renderDeckContent() {
-
+    console.log("User's deck is NOT empty")
+    let deckCards = this.state.deck.map((trackId) => (
+      <Musicard trackId={trackId} />
+    ))
+    console.log(deckCards)
+    return (
+      <>
+        <p>{this.props.loggedInUser.name}'s deck:</p>
+        {deckCards}
+      </>
+    )
   }
 
   render() {
@@ -58,14 +66,20 @@ class Deck extends Component {
     if (!currUser) {
       return <div> Log in to view your deck! </div>
     }
+    if (!this.state.deck) {
+      return <div> Loading... </div>
+    }
     console.log(currUser)
     return (
       <>
         <h1>MY DECK</h1>
         <h2>Page where the user can view their deck.</h2>
         <p>Current user <strong>{currUser.name}</strong> with ID <strong>{currUser.uid}</strong> and Spotify username <strong>{currUser.spotifyId}</strong>.</p>
-        <p>{currUser.name}'s deck: {this.state.deck}</p>
-        {this.renderDeckEmptyContent()}
+        {this.state.deck.length === 0 ? (
+          this.renderDeckEmptyContent()
+        ) : (
+          this.renderDeckContent()
+        )}
       </>
     );
   }

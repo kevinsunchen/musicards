@@ -99,6 +99,38 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
+router.get('/getTrack', (req, res) => {
+  console.log(req.query.trackId)
+  spotifyApi.getTrack(req.query.trackId)
+    .then(function (data) {
+      console.log('Response', data.body);
+      res.send(data.body)
+    }, function (err) {
+      console.log('Something went wrong!', err);
+    });
+})
+
+router.get('/getTrackProcessed', (req, res) => {
+  console.log(req.query.trackId)
+  spotifyApi.getTrack(req.query.trackId)
+    .then(function (data) {
+      const trackInfo = data.body
+      console.log('Response', trackInfo);
+      let trackInfoProcessed = {
+        _id: trackInfo.id,
+        name: trackInfo.name,
+        artists: trackInfo.artists.map((artistInfo) => artistInfo.name),
+        album: trackInfo.album.name,
+        images: trackInfo.album.images,
+        url: trackInfo.external_urls.spotify,
+        preview_url: trackInfo.preview_url
+      };
+      res.send(trackInfoProcessed)
+    }, function (err) {
+      console.log('Something went wrong!', err);
+    });
+})
+
 router.get("/getUserDeck", (req, res) => {
   // do nothing if user not logged in
   if (req.user) {
@@ -108,9 +140,9 @@ router.get("/getUserDeck", (req, res) => {
   }
 })
 
-router.get("/getTopTracks", (req, res) => {
-  console.log("GET req to get top", req.query.numToGet, "tracks received");
-  spotifyApi.getMyTopTracks({ limit: req.query.numToGet })
+router.get("/getMyTopTracks", (req, res) => {
+  console.log("GET req to get top", req.query.limit, "tracks received");
+  spotifyApi.getMyTopTracks({ limit: req.query.limit })
   .then(function(data) {
     let topTracks = data.body.items;
     res.send(topTracks.map((track) => {return track.id}));
