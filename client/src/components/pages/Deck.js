@@ -8,14 +8,18 @@ class Deck extends Component {
   constructor(props) {
     super(props);
     // Initialize Default State
-    this.state = {};
+    this.state = {
+      loggedInUserDeck: undefined
+    };
   }
 
   componentDidMount() {
     // remember -- api calls go here!
+
   }
 
   render() {
+    console.log(1)
     return (
       <>
         <h1>MY DECK</h1>

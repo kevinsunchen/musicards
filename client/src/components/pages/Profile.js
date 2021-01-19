@@ -59,9 +59,11 @@ class Profile extends Component {
           {(this.state.loggedInUser) ? (
             <>
               <p>Currently logged in as user <strong>{this.state.loggedInUser.name}</strong>, who has ID <strong>{this.props.userId}</strong>.</p>
+
               {(this.state.loggedInUser._id === this.state.viewingUser._id) && (
                 <button onClick={this.props.handleLogout}>logout</button>
               )}
+
             </>
           ) : (<p>Not logged in.</p>)
           }
