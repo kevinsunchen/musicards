@@ -106,8 +106,27 @@ router.get("/getUserDeck", (req, res) => {
   });
 })
 
-router.post("/api/updateUserDeck", (req, res) => {
-  res.send({})
+router.get("/getTopTracks", (req, res) => {
+  console.log("GET req to get top", req.query.numToGet, "tracks received");
+  spotifyApi.getMyTopTracks({ limit: req.query.numToGet })
+  .then(function(data) {
+    let topTracks = data.body.items;
+
+    console.log(topTracks.map((track) => {
+      return [track.id, track.name];
+    }), topTracks.length);
+    res.send(topTracks.map((track) => {return track.id}));
+  }, function(err) {
+    console.log('Something went wrong!', err);
+  });
+})
+
+router.post("/updateUserDeck", (req, res) => {
+  console.log("POST req to update deck received")
+  console.log(req.body)
+  User.findById(req.user._id).then((user) => {
+    res.send(user);
+  });
 })
 
 // anything else falls to this "not found" case
