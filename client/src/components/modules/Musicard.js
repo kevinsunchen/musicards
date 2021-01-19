@@ -31,10 +31,10 @@ class Musicard extends Component {
     }
     return (
       <div className="Musicard-wrapper">
-        <img classname="Musicard-image" src={this.state.trackInfo.images[1].url} />
+        <img className="Musicard-image" src={this.state.trackInfo.images[1].url} />
         <div className="Musicard-title">{this.state.trackInfo.name}</div>
         <div className="Musicard-artists">{this.state.trackInfo.artists.join(", ")}</div>
-        <div className="Musicard-album"> {this.state.trackInfo.album}</div>
+        <div className="Musicard-album">{this.state.trackInfo.album}</div>
         <br />
       </div>
     );

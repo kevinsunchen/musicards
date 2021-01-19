@@ -111,12 +111,11 @@ router.get('/getTrack', (req, res) => {
 })
 
 router.get('/getTrackProcessed', (req, res) => {
-  console.log(req.query.trackId)
   spotifyApi.getTrack(req.query.trackId)
     .then(function (data) {
       const trackInfo = data.body
       console.log('Response', trackInfo);
-      let trackInfoProcessed = {
+      const trackInfoProcessed = {
         _id: trackInfo.id,
         name: trackInfo.name,
         artists: trackInfo.artists.map((artistInfo) => artistInfo.name),
@@ -158,7 +157,7 @@ router.post("/addToUserDeck", (req, res) => {
     console.log(user);
     user.deck = user.deck.concat(req.body.tracks);
     user.save();
-    res.send({deck: user.deck});
+    res.send(user.deck);
   });
 })
 

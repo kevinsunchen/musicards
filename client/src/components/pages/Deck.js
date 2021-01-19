@@ -24,15 +24,14 @@ class Deck extends Component {
     })
   }
 
-  populateEmptyDeck() {
+  populateEmptyDeck = () => {
     console.log("User's deck is empty, so populate it with their top 13 listened to tracks on Spotify.")
     get("/api/getMyTopTracks", { limit: 13 }).then((tracks) => {
       //this.setState({ deck: tracks });
       var body = {tracks: tracks};
       console.log(body)
       post("/api/addToUserDeck", body).then((deck) => {
-        console.log(deck)
-        this.setState({ deck: deck});
+        this.setState({ deck: deck });
       });
     });
   }
@@ -41,16 +40,16 @@ class Deck extends Component {
     console.log("User's deck is empty")
     return (
       <>
-        <p>Deck is empty</p>
-        <button onClick={this.populateEmptyDeck}> button </button>
+        <p>Your deck is empty :(</p>
+        <button onClick={this.populateEmptyDeck}> Populate Deck from Spotify! </button>
       </>
     )
   }
 
   renderDeckContent() {
-    console.log("User's deck is NOT empty")
+    console.log("User's deck is NOT empty:", this.state.deck)
     let deckCards = this.state.deck.map((trackId) => (
-      <Musicard trackId={trackId} />
+      <Musicard key={trackId} trackId={trackId} />
     ))
     console.log(deckCards)
     return (
