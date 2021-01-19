@@ -29,8 +29,8 @@ class Home extends Component {
         <Link to="/deck">
           Deck <br />
         </Link>
-        {this.props.userId ? (
-          <Link to={`/profile/${this.props.userId}`}>
+        {this.props.loggedInUser ? (
+          <Link to={`/profile/${this.props.loggedInUser._id}`}>
             Profile <br />
           </Link>
         ) : (

@@ -1,11 +1,7 @@
 import React, { Component } from "react";
-import GoogleLogin, { GoogleLogout } from "react-google-login";
 
 import "../../utilities.css";
 import "./Skeleton.css";
-
-// GOOGLE CLIENT_ID
-const GOOGLE_CLIENT_ID = "734806594873-usrpgt9023lsm2qin4eip4gsful5c2h3.apps.googleusercontent.com";
 
 class Login extends Component {
   constructor(props) {
@@ -23,7 +19,7 @@ class Login extends Component {
       <>
         <h1>LOGIN</h1>
         <h2>Page that displays when a user is not logged in and performs any action that requires being logged in.</h2>
-        {this.props.userId ? (
+        {this.props.loggedInUser ? (
             <button onClick={this.props.handleLogout}>logout</button>
           ) : (
             <button onClick={this.props.handleLogin}>spotify login</button>

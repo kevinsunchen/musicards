@@ -20,8 +20,8 @@ class NavBar extends Component {
           <Link to="/" className="NavBar-link">
             Home
           </Link>
-          {this.props.userId ? (
-            <Link to={`/profile/${this.props.userId}`} className="NavBar-link">
+          {this.props.loggedInUser ? (
+            <Link to={`/profile/${this.props.loggedInUser._id}`} className="NavBar-link">
               Profile
             </Link>
           ) : (

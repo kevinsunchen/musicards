@@ -25,7 +25,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: undefined,
+      loggedInUser: undefined,
     };
   }
 
@@ -33,7 +33,7 @@ class App extends Component {
     get("/api/whoami").then((user) => {
       if (user._id) {
         // they are registed in the database, and currently logged in.
-        this.setState({ userId: user._id });
+        this.setState({ loggedInUser: user });
       }
     });
   }
@@ -46,7 +46,7 @@ class App extends Component {
   }
 
   handleLogout = () => {
-    this.setState({ userId: undefined });
+    this.setState({ loggedInUser: undefined });
     console.log("logging out")
     post("/api/logout").then(() => navigate('/login'));
   };
@@ -54,34 +54,34 @@ class App extends Component {
   render() {
     return (
       <>
-        {console.log("Logged in?", this.state.userId)}
+        {console.log("Logged in?", this.state.loggedInUser)}
         <Match path="/">
           {props =>
             props.match ? (
               <></>
             ) : (
               <NavBar
-                userId={this.state.userId}
+                loggedInUser={this.state.loggedInUser}
               />
             )
           }
         </Match>
         <Router>
-          <Home path="/" userId={this.state.userId} />
-          <RequestFeed path="/requests" userId={this.state.userId} />
-          <Deck path="/deck" userId={this.state.userId} />
-          <Incoming path="/incoming" userId={this.state.userId} />
+          <Home path="/" loggedInUser={this.state.loggedInUser} />
+          <RequestFeed path="/requests" loggedInUser={this.state.loggedInUser} />
+          <Deck path="/deck" loggedInUser={this.state.loggedInUser} />
+          <Incoming path="/incoming" loggedInUser={this.state.loggedInUser} />
           <Login
             path="/login"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
-            userId={this.state.userId}
+            loggedInUser={this.state.loggedInUser}
           />
           <Profile 
             path="/profile/:profileId"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
-            userId={this.state.userId}
+            loggedInUser={this.state.loggedInUser}
           />
           <MyRequests path="/profile/:profileId/my_requests" />
           <TradeHistory path="/profile/:profileId/trade_history" />

@@ -83,10 +83,8 @@ router.post("/logout", (req, res) => { auth.logout(req, res, spotifyApi) });
 
 router.get("/whoami", (req, res) => {
   // console.log(req)
-  if (!req.user) {
-    // not logged in
-    return res.send({});
-  }
+  // not logged in
+  if (!req.user) return res.send({});
 
   res.send(req.user);
 });
@@ -106,6 +104,10 @@ router.get("/getUserDeck", (req, res) => {
   User.findById(req.query.userid).then((user) => {
     res.send(user.deck);
   });
+})
+
+router.post("/api/updateUserDeck", (req, res) => {
+  res.send({})
 })
 
 // anything else falls to this "not found" case
