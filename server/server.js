@@ -18,6 +18,7 @@
 const validator = require("./validator");
 validator.checkSetup();
 
+require('dotenv').config();
 //import libraries needed for the webserver to work!
 const http = require("http");
 const express = require("express"); // backend framework for our node server.
@@ -29,13 +30,13 @@ const api = require("./api");
 const auth = require("./auth");
 
 // socket stuff
-const socketManager = require("./server-socket");
+const socket = require("./server-socket");
 
 // Server configuration below
-// TODO change connection URL after setting up your team database
-const mongoConnectionURL = "FILL ME IN";
+// Server configuration below
+const mongoConnectionURL = process.env.ATLAS_SRV;
 // TODO change database name to the name you chose
-const databaseName = "FILL ME IN";
+const databaseName = "musicards";
 
 // connect to mongodb
 mongoose
@@ -57,7 +58,7 @@ app.use(express.json());
 // set up a session, which will persist login data across requests
 app.use(
   session({
-    secret: "session-secret",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
   })
@@ -97,7 +98,7 @@ app.use((err, req, res, next) => {
 // hardcode port to 3000 for now
 const port = 3000;
 const server = http.Server(app);
-socketManager.init(server);
+socket.init(server);
 
 server.listen(port, () => {
   console.log(`Server running on port: ${port}`);

@@ -1,7 +1,15 @@
 import React, { Component } from "react";
-import { Router } from "@reach/router";
+import { navigate, Router, Match } from "@reach/router";
+import NavBar from "./modules/NavBar.js";
+import Home from "./pages/Home.js";
+import RequestFeed from "./pages/RequestFeed.js";
+import Deck from "./pages/Deck.js";
+import Incoming from "./pages/Incoming.js";
+import Login from "./pages/Login.js";
+import Profile from "./pages/Profile.js";
+import MyRequests from "./pages/MyRequests.js";
+import TradeHistory from "./pages/TradeHistory.js";
 import NotFound from "./pages/NotFound.js";
-import Skeleton from "./pages/Skeleton.js";
 
 import "../utilities.css";
 
@@ -17,7 +25,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: undefined,
+      loggedInUser: undefined,
     };
   }
 
@@ -25,35 +33,58 @@ class App extends Component {
     get("/api/whoami").then((user) => {
       if (user._id) {
         // they are registed in the database, and currently logged in.
-        this.setState({ userId: user._id });
+        this.setState({ loggedInUser: user });
       }
     });
   }
 
-  handleLogin = (res) => {
-    console.log(`Logged in as ${res.profileObj.name}`);
-    const userToken = res.tokenObj.id_token;
-    post("/api/login", { token: userToken }).then((user) => {
-      this.setState({ userId: user._id });
-      post("/api/initsocket", { socketid: socket.id });
-    });
-  };
+  handleLogin = () => {
+    get("/api/spotifyLogin").then((data) => {
+      console.log((data))
+      window.location.href = data.url
+    })
+  }
 
   handleLogout = () => {
-    this.setState({ userId: undefined });
-    post("/api/logout");
+    this.setState({ loggedInUser: undefined });
+    console.log("logging out")
+    post("/api/logout").then(() => navigate('/login'));
   };
 
   render() {
     return (
       <>
+        {console.log("Logged in?", this.state.loggedInUser)}
+        <Match path="/">
+          {props =>
+            props.match ? (
+              <></>
+            ) : (
+              <NavBar
+                loggedInUser={this.state.loggedInUser}
+              />
+            )
+          }
+        </Match>
         <Router>
-          <Skeleton
-            path="/"
+          <Home path="/" loggedInUser={this.state.loggedInUser} />
+          <RequestFeed path="/requests" loggedInUser={this.state.loggedInUser} />
+          <Deck path="/deck" loggedInUser={this.state.loggedInUser} />
+          <Incoming path="/incoming" loggedInUser={this.state.loggedInUser} />
+          <Login
+            path="/login"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
-            userId={this.state.userId}
+            loggedInUser={this.state.loggedInUser}
           />
+          <Profile 
+            path="/profile/:profileId"
+            handleLogin={this.handleLogin}
+            handleLogout={this.handleLogout}
+            loggedInUser={this.state.loggedInUser}
+          />
+          <MyRequests path="/profile/:profileId/my_requests" />
+          <TradeHistory path="/profile/:profileId/trade_history" />
           <NotFound default />
         </Router>
       </>
