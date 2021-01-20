@@ -131,7 +131,7 @@ router.get('/getTrackProcessed', (req, res) => {
     });
 })
 
-router.get("/getUserDeck", (req, res) => {
+router.get("/getMyDeck", (req, res) => {
   // do nothing if user not logged in
   if (req.user) {
     User.findById(req.user._id).then((user) => res.send(user.deck));
@@ -149,15 +149,17 @@ router.get("/getMyTopTracks", (req, res) => {
   });
 })
 
-router.post("/addToUserDeck", (req, res) => {
-  console.log("POST req to update deck received")
-  console.log(req.body.tracks)
-  User.findById(req.user._id).then((user) => {
-    console.log(user);
-    user.deck = user.deck.concat(req.body.tracks);
-    user.save();
-    res.send(user.deck);
-  });
+router.post("/addToMyDeck", (req, res) => {
+  if (req.user) {
+    console.log("POST req to update deck received")
+    console.log(req.body.tracks)
+    User.findById(req.user._id).then((user) => {
+      console.log(user);
+      user.deck = user.deck.concat(req.body.tracks);
+      user.save();
+      res.send(user.deck);
+    });
+  }
 })
 
 router.get("/getRequestFeed", (req, res) => {
