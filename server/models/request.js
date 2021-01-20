@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const RequestSchema = new mongoose.Schema({
   creator_id: String,
   creator_name: String,
-  offeredTrack: String,
+  offeredTrackId: String,
   offeredLabel: String,
   requestedLabel: String
 });

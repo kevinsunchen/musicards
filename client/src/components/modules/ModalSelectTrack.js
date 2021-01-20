@@ -38,9 +38,11 @@ class ModalSelectTrack extends Component {
   }
 
   onModalOkay = () => {
-    console.log("OK", this.state.selectedOption);
-    this.props.setSelectedTrack(this.state.selectedOption.value);
-    this.handleCloseModalClearDeck();
+    if (this.state.selectedOption) {
+      console.log("OK", this.state.selectedOption);
+      this.props.setSelectedTrack(this.state.selectedOption.value);
+      this.handleCloseModalClearDeck();
+    }
   }
 
   generateSelectionOptions = (deck) => {

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import SingleStory from "./SingleStory.js"
 
 import { get } from "../../utilities";
 
@@ -18,10 +19,14 @@ class RequestCard extends Component {
     super(props);
     this.state = {
       comments: [],
+      offeredTrack: undefined
     };
   }
 
   componentDidMount() {
+    get("/api/getTrackProcessed", { trackId : this.props.offeredTrackId }).then((trackInfo) => {
+      this.setState({ offeredTrack: trackInfo })
+    })
     get("/api/comment", { parent: this.props._id }).then((comments) => {
       this.setState({
         comments: comments,
@@ -38,6 +43,9 @@ class RequestCard extends Component {
   };
 
   render() {
+    if (!this.state.offeredTrack) {
+      return <div> Loading... </div>
+    }
     return (
       <div className="Card-container">
         <SingleStory
@@ -45,13 +53,11 @@ class RequestCard extends Component {
           creator_name={this.props.creator_name}
           creator_id={this.props.creator_id}
           content={this.props.content}
+          offeredLabel={this.props.offeredLabel}
+          requestedLabel={this.props.requestedLabel}
+          offeredTrack={this.state.offeredTrack}
         />
-        <CommentsBlock
-          story={this.props}
-          comments={this.state.comments}
-          addNewComment={this.addNewComment}
-          userId={this.props.userId}
-        />
+        
       </div>
     );
   }

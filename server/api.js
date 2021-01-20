@@ -35,6 +35,19 @@ const spotifyApi = new SpotifyWebApi({
   redirectUri: process.env.CALLBACK_URI,
 });
 
+spotifyApi.clientCredentialsGrant().then(
+  function(data) {
+    console.log('The access token expires in ' + data.body['expires_in']);
+    console.log('The access token is ' + data.body['access_token']);
+
+    // Save the access token so that it's used in future calls
+    spotifyApi.setAccessToken(data.body['access_token']);
+  },
+  function(err) {
+    console.log('Something went wrong when retrieving an access token', err);
+  }
+);
+
 router.get("/user", (req, res) => {
   User.findById(req.query.userid).then((user) => {
     res.send(user);
@@ -100,17 +113,6 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-router.get('/getTrack', (req, res) => {
-  console.log(req.query.trackId)
-  spotifyApi.getTrack(req.query.trackId)
-    .then(function (data) {
-      console.log('Response', data.body);
-      res.send(data.body)
-    }, function (err) {
-      console.log('Something went wrong!', err);
-    });
-})
-
 processTrack = (trackInfo) => {
   return trackInfoProcessed = {
     _id: trackInfo.id,
@@ -122,6 +124,17 @@ processTrack = (trackInfo) => {
     preview_url: trackInfo.preview_url
   };
 }
+
+router.get('/getTrack', (req, res) => {
+  console.log(req.query.trackId)
+  spotifyApi.getTrack(req.query.trackId)
+    .then(function (data) {
+      console.log('Response', data.body);
+      res.send(data.body)
+    }, function (err) {
+      console.log('Something went wrong!', err);
+    });
+})
 
 router.get('/getTrackProcessed', (req, res) => {
   spotifyApi.getTrack(req.query.trackId)
@@ -155,6 +168,16 @@ router.get("/getMyDeckProcessed", (req, res) => {
   }
 })
 
+router.post("/addToMyDeck", auth.ensureLoggedIn, (req, res) => {
+  console.log("POST req to update deck received")
+  console.log(req.body.tracks)
+  User.findById(req.user._id).then((user) => {
+    console.log(user);
+    user.deck = user.deck.concat(req.body.tracks);
+    user.save();
+    res.send(user.deck);
+  });
+})
 
 router.get("/getMyTopTracks", (req, res) => {
   console.log("GET req to get top", req.query.limit, "tracks received");
@@ -167,21 +190,21 @@ router.get("/getMyTopTracks", (req, res) => {
   });
 })
 
-router.post("/addToMyDeck", (req, res) => {
-  if (req.user) {
-    console.log("POST req to update deck received")
-    console.log(req.body.tracks)
-    User.findById(req.user._id).then((user) => {
-      console.log(user);
-      user.deck = user.deck.concat(req.body.tracks);
-      user.save();
-      res.send(user.deck);
-    });
-  }
-})
-
 router.get("/getRequestFeed", (req, res) => {
   Request.find({}).then((stories) => res.send(stories));
+})
+
+router.post("/postToRequestFeed", auth.ensureLoggedIn, (req, res) => {
+  console.log(req.body, req.user);
+  const newRequest = new Request({
+    creator_id: req.user._id,
+    creator_name: req.user.name,
+    offeredTrackId: req.body.offeredTrackId,
+    offeredLabel: req.body.offeredLabel,
+    requestedLabel: req.body.requestedLabel
+  });
+
+  newRequest.save().then((request) => res.send(request));
 })
 
 // anything else falls to this "not found" case

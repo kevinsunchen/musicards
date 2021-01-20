@@ -40,13 +40,16 @@ class RequestFeed extends Component {
     let requestsList = null;
     const hasRequests = this.state.requests.length !== 0;
     if (hasRequests) {
+      console.log(this.state.requests)
       requestsList = this.state.requests.map((requestObj) => (
         <RequestCard
           key={`Card_${requestObj._id}`}
           _id={requestObj._id}
           creator_name={requestObj.creator_name}
           creator_id={requestObj.creator_id}
-          content={requestObj.content}
+          offeredLabel={requestObj.offeredLabel}
+          requestedLabel={requestObj.requestedLabel}
+          offeredTrackId={requestObj.offeredTrackId}
           userId={this.props.loggedInUser}
         />
       ));

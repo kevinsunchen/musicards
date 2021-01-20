@@ -40,16 +40,20 @@ class NewRequestInput extends Component {
   // called when the user hits "Submit" for a new request
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.onSubmit && this.props.onSubmit(this.state.offeredLabel, this.state.requestedLabel, this.state.offeredTrack);
-    this.setState({
-      offeredLabel: "",
-      requestedLabel: "",
-      offeredTrack: undefined
-    });
+    if (this.state.offeredLabel && this.state.requestedLabel && this.state.offeredTrack) {
+      this.props.onSubmit && this.props.onSubmit(this.state.offeredLabel, this.state.requestedLabel, this.state.offeredTrack._id);
+      this.setState({
+        offeredLabel: "",
+        requestedLabel: "",
+        offeredTrack: undefined
+      });
+    } else {
+      console.log("Incomplete fields!", this.state.offeredLabel, this.state.requestedLabel, this.state.offeredTrack)
+    }
   };
 
   setSelectedTrack = (track) => {
-    this.setState({ offeredTrack: track })
+    this.setState({ offeredTrack: track });
   }
 
   render() {
@@ -68,8 +72,8 @@ class NewRequestInput extends Component {
               <input
                 type="text"
                 placeholder={this.props.defaultText}
-                value={this.state.value}
-                onChange={this.handleChangeOffered}
+                value={this.state.requestedLabel}
+                onChange={this.handleChangeRequested}
                 className="NewPostInput-input"
               />
               song 
@@ -79,8 +83,8 @@ class NewRequestInput extends Component {
               <input
                 type="text"
                 placeholder={this.props.defaultText}
-                value={this.state.value}
-                onChange={this.handleChangeRequested}
+                value={this.state.offeredLabel}
+                onChange={this.handleChangeOffered}
                 className="NewPostInput-input"
               />
               song
@@ -131,16 +135,16 @@ class NewRequestInput extends Component {
  * @param {string} defaultText is the placeholder text
  */
 class NewRequest extends Component {
-  addRequest = (offeredLabel, requestedLabel, offeredTrack) => {
-    console.log(offeredLabel, requestedLabel, offeredTrack)
+  addRequest = (offeredLabel, requestedLabel, offeredTrackId) => {
+    console.log(offeredLabel, requestedLabel, offeredTrackId)
     const body = {
       offeredLabel: offeredLabel,
       requestedLabel: requestedLabel,
-      offeredTrack: offeredTrack
+      offeredTrackId: offeredTrackId
     };
-    post("/api/story", body).then((story) => {
+    post("/api/postToRequestFeed", body).then((story) => {
       // display this story on the screen
-      this.props.addNewStory(story);
+      this.props.addNewRequest(story);
     });
   };
 
