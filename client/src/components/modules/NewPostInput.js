@@ -110,7 +110,7 @@ class NewRequestInput extends Component {
               value="Submit"
               onClick={() => this.setState({ showModal: true })}
               >
-              Choose song
+              Add song
             </button>
 
             <button
