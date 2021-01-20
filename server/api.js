@@ -129,7 +129,7 @@ router.get('/getTrack', (req, res) => {
   console.log(req.query.trackId)
   spotifyApi.getTrack(req.query.trackId)
     .then(function (data) {
-      console.log('Response', data.body);
+      // console.log('Response', data.body);
       res.send(data.body)
     }, function (err) {
       console.log('Something went wrong!', err);
@@ -140,7 +140,7 @@ router.get('/getTrackProcessed', (req, res) => {
   spotifyApi.getTrack(req.query.trackId)
     .then(function (data) {
       const trackInfo = data.body
-      console.log('Response', trackInfo);
+      // console.log('Response', trackInfo);
       res.send(processTrack(trackInfo))
     }, function (err) {
       console.log('Something went wrong!', err);

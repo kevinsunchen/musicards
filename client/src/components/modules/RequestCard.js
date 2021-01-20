@@ -27,11 +27,14 @@ class RequestCard extends Component {
     get("/api/getTrackProcessed", { trackId : this.props.offeredTrackId }).then((trackInfo) => {
       this.setState({ offeredTrack: trackInfo })
     })
+    /**
+     
     get("/api/comment", { parent: this.props._id }).then((comments) => {
       this.setState({
         comments: comments,
       });
     });
+    */
   }
 
   // this gets called when the user pushes "Submit", so their
