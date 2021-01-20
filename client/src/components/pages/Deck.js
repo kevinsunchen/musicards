@@ -27,7 +27,6 @@ class Deck extends Component {
   populateEmptyDeck = () => {
     console.log("User's deck is empty, so populate it with their top 13 listened to tracks on Spotify.")
     get("/api/getMyTopTracks", { limit: 13 }).then((tracks) => {
-      //this.setState({ deck: tracks });
       var body = {tracks: tracks};
       console.log(body)
       post("/api/addToMyDeck", body).then((deck) => {
