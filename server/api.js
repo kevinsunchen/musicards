@@ -29,24 +29,30 @@ scopes = ['user-read-private', 'user-read-email', 'playlist-modify-public', 'pla
 
 // TODO: create an account at https://developer.spotify.com/dashboard/ 
 // fill in your spotify developer information in .env
+console.log("Starting server")
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_API_ID,
   clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
   redirectUri: process.env.CALLBACK_URI,
 });
 
-spotifyApi.clientCredentialsGrant().then(
-  function(data) {
-    console.log('The access token expires in ' + data.body['expires_in']);
-    console.log('The access token is ' + data.body['access_token']);
+const getClientCredentials = () => {
+  console.log("Getting new client credentials...")
+  spotifyApi.clientCredentialsGrant().then(
+    function(data) {
+      console.log('The access token expires in ' + data.body['expires_in']);
+      console.log('The access token is ' + data.body['access_token']);
+  
+      // Save the access token so that it's used in future calls
+      spotifyApi.setAccessToken(data.body['access_token']);
+    },
+    function(err) {
+      console.log('Something went wrong when retrieving an access token', err);
+    }
+  );
+}
 
-    // Save the access token so that it's used in future calls
-    spotifyApi.setAccessToken(data.body['access_token']);
-  },
-  function(err) {
-    console.log('Something went wrong when retrieving an access token', err);
-  }
-);
+getClientCredentials();
 
 router.get("/user", (req, res) => {
   User.findById(req.query.userid).then((user) => {
@@ -113,7 +119,7 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-processTrack = (trackInfo) => {
+const processTrack = (trackInfo) => {
   return trackInfoProcessed = {
     _id: trackInfo.id,
     name: trackInfo.name,
@@ -127,24 +133,32 @@ processTrack = (trackInfo) => {
 
 router.get('/getTrack', (req, res) => {
   console.log(req.query.trackId)
-  spotifyApi.getTrack(req.query.trackId)
-    .then(function (data) {
-      // console.log('Response', data.body);
-      res.send(data.body)
-    }, function (err) {
-      console.log('Something went wrong!', err);
-    });
+  try {
+    spotifyApi.getTrack(req.query.trackId)
+      .then(function (data) {
+        // console.log('Response', data.body);
+        res.send(data.body)
+      }, function (err) {
+        console.log('Something went wrong!', err);
+      });
+  } catch {
+    console.log("5035053053")
+  }
 })
 
 router.get('/getTrackProcessed', (req, res) => {
-  spotifyApi.getTrack(req.query.trackId)
-    .then(function (data) {
-      const trackInfo = data.body
-      // console.log('Response', trackInfo);
-      res.send(processTrack(trackInfo))
-    }, function (err) {
-      console.log('Something went wrong!', err);
-    });
+  try {
+    spotifyApi.getTrack(req.query.trackId)
+      .then(function (data) {
+        const trackInfo = data.body
+        // console.log('Response', trackInfo);
+        res.send(processTrack(trackInfo))
+      }, function (err) {
+        console.log('Something went wrong!', err);
+      });
+  } catch {
+    console.log("5035053053 aa")
+  }
 })
 
 router.get("/getMyDeck", (req, res) => {
