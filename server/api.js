@@ -161,7 +161,6 @@ router.post("/addToUserDeck", (req, res) => {
 })
 
 router.get("/getRequestFeed", (req, res) => {
-  console.log(req.query)
   Request.find({}).then((stories) => res.send(stories));
 })
 

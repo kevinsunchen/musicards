@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import RequestCard from "../modules/RequestCard.js";
+import { NewRequest } from "../modules/NewPostInput.js";
 
 import "../../utilities.css";
 import "./Skeleton.css";
@@ -29,7 +30,7 @@ class RequestFeed extends Component {
 
   // this gets called when the user pushes "Submit", so their
   // post gets added to the screen right away
-  addNewStory = (requestObj) => {
+  addNewRequest = (requestObj) => {
     this.setState({
       requests: [requestObj].concat(this.state.requests),
     });
@@ -56,7 +57,7 @@ class RequestFeed extends Component {
       <>
         <h1>REQUESTS FEED</h1>
         <h2>The page displaying the public requests feed. Includes links to a users' own pending requests, as well as their trade history.</h2>
-        {this.props.loggedInUser && <NewStory addNewStory={this.addNewStory} />}
+        {this.props.loggedInUser && <NewRequest addNewRequest={this.addNewRequest} />}
         {requestsList}
       </>
     );
