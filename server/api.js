@@ -111,21 +111,24 @@ router.get('/getTrack', (req, res) => {
     });
 })
 
+processTrack = (trackInfo) => {
+  return trackInfoProcessed = {
+    _id: trackInfo.id,
+    name: trackInfo.name,
+    artists: trackInfo.artists.map((artistInfo) => artistInfo.name),
+    album: trackInfo.album.name,
+    images: trackInfo.album.images,
+    url: trackInfo.external_urls.spotify,
+    preview_url: trackInfo.preview_url
+  };
+}
+
 router.get('/getTrackProcessed', (req, res) => {
   spotifyApi.getTrack(req.query.trackId)
     .then(function (data) {
       const trackInfo = data.body
       console.log('Response', trackInfo);
-      const trackInfoProcessed = {
-        _id: trackInfo.id,
-        name: trackInfo.name,
-        artists: trackInfo.artists.map((artistInfo) => artistInfo.name),
-        album: trackInfo.album.name,
-        images: trackInfo.album.images,
-        url: trackInfo.external_urls.spotify,
-        preview_url: trackInfo.preview_url
-      };
-      res.send(trackInfoProcessed)
+      res.send(processTrack(trackInfo))
     }, function (err) {
       console.log('Something went wrong!', err);
     });
@@ -137,6 +140,21 @@ router.get("/getMyDeck", (req, res) => {
     User.findById(req.user._id).then((user) => res.send(user.deck));
   }
 })
+
+router.get("/getMyDeckProcessed", (req, res) => {
+  // do nothing if user not logged in
+  if (req.user) {
+    User.findById(req.user._id).then((user) => {
+      const deckPromises = user.deck.map((trackId) => spotifyApi.getTrack(trackId));
+
+      Promise.all(deckPromises).then((allResults) => {
+        const deckProcessed = allResults.map((data) => processTrack(data.body));
+        res.send(deckProcessed);
+      });
+    });
+  }
+})
+
 
 router.get("/getMyTopTracks", (req, res) => {
   console.log("GET req to get top", req.query.limit, "tracks received");

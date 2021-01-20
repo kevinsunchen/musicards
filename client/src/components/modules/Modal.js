@@ -5,18 +5,14 @@ import PropTypes from "prop-types";
  * Story is a component that renders creator and content of a story
  *
  * Proptypes
- * @param {string} _id of the story
- * @param {string} creator_name
- * @param {string} creator_id
- * @param {string} content of the story
+ * @param {string} title of the modal
+ * @param {string} show, a boolean to control whether or not the modal should currently be shown
+ * @param {string} children, the body content of the modal
+ * @param {string} handleClose, a function that handles closing the modal (setting this.prop.show to false in the parent component)
  */
 class Modal extends Component {
   constructor(props) {
     super(props);
-  }
-
-  componentDidMount() {
-
   }
 
   componentDidUpdate(prevProps) {
@@ -34,8 +30,13 @@ class Modal extends Component {
       return (
         <>
         <div>
+          {this.props.title}
+        </div>
+
+        <div>
           {this.props.children}
         </div>
+
         <div>
           <button onClick={this.props.handleClose}>
             Close
@@ -48,7 +49,7 @@ class Modal extends Component {
 }
 
 Modal.propTypes = {
-  onClose: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired
 };
 

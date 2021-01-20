@@ -24,8 +24,8 @@ class ModalSelectTrack extends Component {
   }
 
   getUserDeck = () => {
-    get("/api/getMyDeck").then((deck) => {
-      console.log("Deck received from server")
+    get("/api/getMyDeckProcessed").then((deck) => {
+      console.log("Deck received from server", deck)
       this.setState({ deck: deck })
     })
   }
@@ -34,6 +34,7 @@ class ModalSelectTrack extends Component {
     return (
       <>
         <Modal
+          title="Choose a song to trade!"
           open={this.props.open}
           onOpen={this.getUserDeck}
           handleClose={this.props.handleClose}
