@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SingleStory from "./SingleStory.js"
+import SingleRequest from "./SingleRequest.js"
 
 import { get } from "../../utilities";
 
@@ -48,7 +48,7 @@ class RequestCard extends Component {
     }
     return (
       <div className="Card-container">
-        <SingleStory
+        <SingleRequest
           _id={this.props._id}
           creator_name={this.props.creator_name}
           creator_id={this.props.creator_id}

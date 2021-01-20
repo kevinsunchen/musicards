@@ -10,7 +10,7 @@ import { Link } from "@reach/router";
  * @param {string} creator_id
  * @param {string} content of the story
  */
-class SingleStory extends Component {
+class SingleRequest extends Component {
   constructor(props) {
     super(props);
   }
@@ -41,4 +41,4 @@ class SingleStory extends Component {
   }
 }
 
-export default SingleStory;
+export default SingleRequest;
