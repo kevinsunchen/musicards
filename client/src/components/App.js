@@ -54,7 +54,7 @@ class App extends Component {
   render() {
     return (
       <>
-        {console.log("Logged in?", this.state.loggedInUser)}
+        {console.log("Currently logged-in user:", this.state.loggedInUser)}
         <Match path="/">
           {props =>
             props.match ? (

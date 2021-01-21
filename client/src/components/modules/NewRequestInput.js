@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ModalSelectTrack from "./ModalSelectTrack.js";
 
-import "./NewPostInput.css";
+import "./NewRequestInput.css";
 import { post } from "../../utilities";
 
 /**

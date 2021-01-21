@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import RequestCard from "../modules/RequestCard.js";
-import { NewRequest } from "../modules/NewPostInput.js";
+import { NewRequest } from "../modules/NewRequestInput.js";
 
 import "../../utilities.css";
 import "./Skeleton.css";

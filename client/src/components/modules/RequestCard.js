@@ -44,9 +44,13 @@ class RequestCard extends Component {
     });
   };
 
+  handleTradeSubmit = (event) => {
+    console.log("Attempt to trade initiated")
+  }
+
   render() {
     return (
-      <div className="Card-container">
+      <div className="Card-container u-flex">
         <SingleRequest
           _id={this.props._id}
           creator_name={this.props.creator_name}
@@ -56,7 +60,11 @@ class RequestCard extends Component {
           requestedLabel={this.props.requestedLabel}
           offeredTrack={this.state.offeredTrack}
         />
-        
+        <button
+          onClick={this.handleTradeSubmit}
+        >
+          Trade!
+        </button>
       </div>
     );
   }
