@@ -36,10 +36,11 @@ const spotifyApi = new SpotifyWebApi({
   redirectUri: process.env.CALLBACK_URI,
 });
 
-const getClientCredentials = () => {
+const getClientCredentials = async () => {
   console.log("Getting new client credentials...")
-  spotifyApi.clientCredentialsGrant().then(
+  await spotifyApi.clientCredentialsGrant().then(
     function(data) {
+      console.log("Client credentials received");
       console.log('The access token expires in ' + data.body['expires_in']);
       console.log('The access token is ' + data.body['access_token']);
   
@@ -52,7 +53,23 @@ const getClientCredentials = () => {
   );
 }
 
-getClientCredentials();
+const runWithClientCredentials = async (apiFunc, apiInput, processResponseFunc) => {
+  let data = null;
+  try {
+    console.log("Attempting to run API function", apiFunc, "with input", apiInput);
+    data = await apiFunc(apiInput);
+    console.log("API function ran successfully.")
+  } catch(err) {
+    console.log("Something went wrong!");
+    if (err.statusCode === 401) {
+      console.log("401 Unauthorized Error. Attempting to remedy by requesting new client credentials");
+      await getClientCredentials();
+      data = await apiFunc(apiInput);
+    }
+    else { return err; }
+  }
+  return processResponseFunc(data);
+}
 
 router.get("/user", (req, res) => {
   User.findById(req.query.userid).then((user) => {
@@ -146,20 +163,28 @@ router.get('/getTrack', (req, res) => {
   }
 })
 
+router.get('/getTrackProcessed', async (req, res) => {
+  const getTrackApiWrapper = async (inp) => (await spotifyApi.getTrack(inp));
+  const inputToApiWrapper = req.query.trackId;
+  const processResponseFunc = (data) => (processTrack(data.body));
+  const result = await runWithClientCredentials(getTrackApiWrapper, inputToApiWrapper, processResponseFunc);
+
+  res.send(result)
+});
+
+/**
 router.get('/getTrackProcessed', (req, res) => {
-  try {
-    spotifyApi.getTrack(req.query.trackId)
-      .then(function (data) {
-        const trackInfo = data.body
-        // console.log('Response', trackInfo);
-        res.send(processTrack(trackInfo))
-      }, function (err) {
-        console.log('Something went wrong!', err);
-      });
-  } catch {
-    console.log("5035053053 aa")
-  }
+  spotifyApi.getTrack(req.query.trackId)
+    .then((data) => {
+      const trackInfo = data.body
+      // console.log('Response', trackInfo);
+      res.send(processTrack(trackInfo))
+    }).catch((err) => {
+      console.log("503 time")
+      console.log('Something went wrong!', err);
+    });
 })
+ */
 
 router.get("/getMyDeck", (req, res) => {
   // do nothing if user not logged in
@@ -168,29 +193,26 @@ router.get("/getMyDeck", (req, res) => {
   }
 })
 
-router.get("/getMyDeckProcessed", (req, res) => {
+router.get("/getMyDeckProcessed", async (req, res) => {
   // do nothing if user not logged in
   if (req.user) {
-    User.findById(req.user._id).then((user) => {
-      const deckPromises = user.deck.map((trackId) => spotifyApi.getTrack(trackId));
+    let user = await User.findById(req.user._id);
+    const deckPromises = user.deck.map((trackId) => spotifyApi.getTrack(trackId));
 
-      Promise.all(deckPromises).then((allResults) => {
-        const deckProcessed = allResults.map((data) => processTrack(data.body));
-        res.send(deckProcessed);
-      });
-    });
+    let allResults = await Promise.all(deckPromises)
+    const deckProcessed = allResults.map((data) => processTrack(data.body));
+    res.send(deckProcessed);
   }
 })
 
-router.post("/addToMyDeck", auth.ensureLoggedIn, (req, res) => {
+router.post("/addToMyDeck", auth.ensureLoggedIn, async (req, res) => {
   console.log("POST req to update deck received")
   console.log(req.body.tracks)
-  User.findById(req.user._id).then((user) => {
-    console.log(user);
-    user.deck = user.deck.concat(req.body.tracks);
-    user.save();
-    res.send(user.deck);
-  });
+  let user = await User.findById(req.user._id)
+  console.log(user);
+  user.deck = user.deck.concat(req.body.tracks);
+  user.save();
+  res.send(user.deck);
 })
 
 router.get("/getMyTopTracks", (req, res) => {

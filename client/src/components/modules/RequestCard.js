@@ -28,7 +28,6 @@ class RequestCard extends Component {
       this.setState({ offeredTrack: trackInfo })
     })
     /**
-     
     get("/api/comment", { parent: this.props._id }).then((comments) => {
       this.setState({
         comments: comments,
@@ -46,9 +45,6 @@ class RequestCard extends Component {
   };
 
   render() {
-    if (!this.state.offeredTrack) {
-      return <div> Loading... </div>
-    }
     return (
       <div className="Card-container">
         <SingleRequest

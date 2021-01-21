@@ -18,23 +18,28 @@ class SingleRequest extends Component {
   processTrackArtists = (artistsList) => {
     const n = artistsList.length;
     if (n === 1) {
-      return artistsList[0]
+      return artistsList[0];
     } else if (n === 2) {
-      return artistsList[0] + " and " + artistsList[1] 
+      return artistsList[0] + " and " + artistsList[1];
     } else {
-      return artistsList.slice(0, n-1).join(", ") + ", and " + artistsList[n-1]
+      return artistsList.slice(0, n-1).join(", ") + ", and " + artistsList[n-1];
     }
   }
 
   render() {
-    return (
+    let offeredTrackText = null;
+    offeredTrackText = (this.props.offeredTrack)
+      ? ( `Offering "${this.props.offeredTrack.name}" by ${this.processTrackArtists(this.props.offeredTrack.artists)}.`)
+      : ( "Loading..." )
+
+      return (
       <div className="Card-story">
         <Link to={`/profile/${this.props.creator_id}`} className="u-link u-bold">
           {this.props.creator_name}
         </Link>
         <div className="Card-storyContent">
           <p>Looking for a {this.props.offeredLabel} song, will trade for a {this.props.requestedLabel} song!</p>
-          <p>Offering "{this.props.offeredTrack.name}" by {this.processTrackArtists(this.props.offeredTrack.artists)}.</p>
+          <p>{offeredTrackText}</p>
         </div>
       </div>
     );
