@@ -18,7 +18,7 @@ class Deck extends Component {
     document.title = "My Deck";
     // remember -- api calls go here!
     console.log("Mounting", this.props.loggedInUser);
-    get("/api/getUserDeck").then((deck) => {
+    get("/api/getMyDeck").then((deck) => {
       this.setState({ deck: deck })
       console.log(this.state.deck)
     })
@@ -27,10 +27,9 @@ class Deck extends Component {
   populateEmptyDeck = () => {
     console.log("User's deck is empty, so populate it with their top 13 listened to tracks on Spotify.")
     get("/api/getMyTopTracks", { limit: 13 }).then((tracks) => {
-      //this.setState({ deck: tracks });
       var body = {tracks: tracks};
       console.log(body)
-      post("/api/addToUserDeck", body).then((deck) => {
+      post("/api/addToMyDeck", body).then((deck) => {
         this.setState({ deck: deck });
       });
     });

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import RequestCard from "../modules/RequestCard.js";
+import { NewRequest } from "../modules/NewPostInput.js";
 
 import "../../utilities.css";
 import "./Skeleton.css";
@@ -17,6 +19,7 @@ class RequestFeed extends Component {
   // when it shows up on screen
   componentDidMount() {
     document.title = "Requests Feed";
+    console.log(this.props.loggedInUser);
     get("/api/getRequestFeed").then((requestObjs) => {
       let reversedRequestObjs = requestObjs.reverse();
       reversedRequestObjs.map((requestObj) => {
@@ -27,17 +30,38 @@ class RequestFeed extends Component {
 
   // this gets called when the user pushes "Submit", so their
   // post gets added to the screen right away
-  addNewStory = (storyObj) => {
+  addNewRequest = (requestObj) => {
     this.setState({
-      stories: [storyObj].concat(this.state.stories),
+      requests: [requestObj].concat(this.state.requests),
     });
   };
 
   render() {
+    let requestsList = null;
+    const hasRequests = this.state.requests.length !== 0;
+    if (hasRequests) {
+      console.log(this.state.requests)
+      requestsList = this.state.requests.map((requestObj) => (
+        <RequestCard
+          key={`Card_${requestObj._id}`}
+          _id={requestObj._id}
+          creator_name={requestObj.creator_name}
+          creator_id={requestObj.creator_id}
+          offeredLabel={requestObj.offeredLabel}
+          requestedLabel={requestObj.requestedLabel}
+          offeredTrackId={requestObj.offeredTrackId}
+          userId={this.props.loggedInUser}
+        />
+      ));
+    } else {
+      requestsList = <div>No requests!</div>;
+    }
     return (
       <>
         <h1>REQUESTS FEED</h1>
         <h2>The page displaying the public requests feed. Includes links to a users' own pending requests, as well as their trade history.</h2>
+        {this.props.loggedInUser && <NewRequest addNewRequest={this.addNewRequest} />}
+        {requestsList}
       </>
     );
   }

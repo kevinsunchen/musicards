@@ -11,6 +11,7 @@ const express = require("express");
 
 // import models so we can interact with the database
 const User = require("./models/user");
+const Request = require("./models/request");
 
 // import authentication library
 const auth = require("./auth");
@@ -28,11 +29,47 @@ scopes = ['user-read-private', 'user-read-email', 'playlist-modify-public', 'pla
 
 // TODO: create an account at https://developer.spotify.com/dashboard/ 
 // fill in your spotify developer information in .env
+console.log("Starting server")
 const spotifyApi = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_API_ID,
   clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
   redirectUri: process.env.CALLBACK_URI,
 });
+
+const getClientCredentials = async () => {
+  console.log("Getting new client credentials...")
+  await spotifyApi.clientCredentialsGrant().then(
+    function(data) {
+      console.log("Client credentials received");
+      console.log('The access token expires in ' + data.body['expires_in']);
+      console.log('The access token is ' + data.body['access_token']);
+  
+      // Save the access token so that it's used in future calls
+      spotifyApi.setAccessToken(data.body['access_token']);
+    },
+    function(err) {
+      console.log('Something went wrong when retrieving an access token', err);
+    }
+  );
+}
+
+const runWithClientCredentials = async (apiFunc, apiInput, processResponseFunc) => {
+  let data = null;
+  try {
+    console.log("Attempting to run API function", apiFunc, "with input", apiInput);
+    data = await apiFunc(apiInput);
+    console.log("API function ran successfully.")
+  } catch(err) {
+    console.log("Something went wrong!");
+    if (err.statusCode === 401) {
+      console.log("401 Unauthorized Error. Attempting to remedy by requesting new client credentials");
+      await getClientCredentials();
+      data = await apiFunc(apiInput);
+    }
+    else { return err; }
+  }
+  return processResponseFunc(data);
+}
 
 router.get("/user", (req, res) => {
   User.findById(req.query.userid).then((user) => {
@@ -99,44 +136,83 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
+const processTrack = (trackInfo) => {
+  return trackInfoProcessed = {
+    _id: trackInfo.id,
+    name: trackInfo.name,
+    artists: trackInfo.artists.map((artistInfo) => artistInfo.name),
+    album: trackInfo.album.name,
+    images: trackInfo.album.images,
+    url: trackInfo.external_urls.spotify,
+    preview_url: trackInfo.preview_url
+  };
+}
+
 router.get('/getTrack', (req, res) => {
   console.log(req.query.trackId)
-  spotifyApi.getTrack(req.query.trackId)
-    .then(function (data) {
-      console.log('Response', data.body);
-      res.send(data.body)
-    }, function (err) {
-      console.log('Something went wrong!', err);
-    });
+  try {
+    spotifyApi.getTrack(req.query.trackId)
+      .then(function (data) {
+        // console.log('Response', data.body);
+        res.send(data.body)
+      }, function (err) {
+        console.log('Something went wrong!', err);
+      });
+  } catch {
+    console.log("5035053053")
+  }
 })
 
+router.get('/getTrackProcessed', async (req, res) => {
+  const getTrackApiWrapper = async (inp) => (await spotifyApi.getTrack(inp));
+  const inputToApiWrapper = req.query.trackId;
+  const processResponseFunc = (data) => (processTrack(data.body));
+  const result = await runWithClientCredentials(getTrackApiWrapper, inputToApiWrapper, processResponseFunc);
+
+  res.send(result)
+});
+
+/**
 router.get('/getTrackProcessed', (req, res) => {
   spotifyApi.getTrack(req.query.trackId)
-    .then(function (data) {
+    .then((data) => {
       const trackInfo = data.body
-      console.log('Response', trackInfo);
-      const trackInfoProcessed = {
-        _id: trackInfo.id,
-        name: trackInfo.name,
-        artists: trackInfo.artists.map((artistInfo) => artistInfo.name),
-        album: trackInfo.album.name,
-        images: trackInfo.album.images,
-        url: trackInfo.external_urls.spotify,
-        preview_url: trackInfo.preview_url
-      };
-      res.send(trackInfoProcessed)
-    }, function (err) {
+      // console.log('Response', trackInfo);
+      res.send(processTrack(trackInfo))
+    }).catch((err) => {
+      console.log("503 time")
       console.log('Something went wrong!', err);
     });
 })
+ */
 
-router.get("/getUserDeck", (req, res) => {
+router.get("/getMyDeck", (req, res) => {
   // do nothing if user not logged in
   if (req.user) {
-    User.findById(req.user._id).then((user) => {
-      res.send(user.deck);
-    });
+    User.findById(req.user._id).then((user) => res.send(user.deck));
   }
+})
+
+router.get("/getMyDeckProcessed", async (req, res) => {
+  // do nothing if user not logged in
+  if (req.user) {
+    let user = await User.findById(req.user._id);
+    const deckPromises = user.deck.map((trackId) => spotifyApi.getTrack(trackId));
+
+    let allResults = await Promise.all(deckPromises)
+    const deckProcessed = allResults.map((data) => processTrack(data.body));
+    res.send(deckProcessed);
+  }
+})
+
+router.post("/addToMyDeck", auth.ensureLoggedIn, async (req, res) => {
+  console.log("POST req to update deck received")
+  console.log(req.body.tracks)
+  let user = await User.findById(req.user._id)
+  console.log(user);
+  user.deck = user.deck.concat(req.body.tracks);
+  user.save();
+  res.send(user.deck);
 })
 
 router.get("/getMyTopTracks", (req, res) => {
@@ -150,15 +226,21 @@ router.get("/getMyTopTracks", (req, res) => {
   });
 })
 
-router.post("/addToUserDeck", (req, res) => {
-  console.log("POST req to update deck received")
-  console.log(req.body.tracks)
-  User.findById(req.user._id).then((user) => {
-    console.log(user);
-    user.deck = user.deck.concat(req.body.tracks);
-    user.save();
-    res.send(user.deck);
+router.get("/getRequestFeed", (req, res) => {
+  Request.find({}).then((stories) => res.send(stories));
+})
+
+router.post("/postToRequestFeed", auth.ensureLoggedIn, (req, res) => {
+  console.log(req.body, req.user);
+  const newRequest = new Request({
+    creator_id: req.user._id,
+    creator_name: req.user.name,
+    offeredTrackId: req.body.offeredTrackId,
+    offeredLabel: req.body.offeredLabel,
+    requestedLabel: req.body.requestedLabel
   });
+
+  newRequest.save().then((request) => res.send(request));
 })
 
 // anything else falls to this "not found" case
