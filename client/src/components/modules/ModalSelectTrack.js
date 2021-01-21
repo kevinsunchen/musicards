@@ -8,10 +8,9 @@ import { get } from "../../utilities";
  * Story is a component that renders creator and content of a story
  *
  * Proptypes
- * @param {string} _id of the story
- * @param {string} creator_name
- * @param {string} creator_id
- * @param {string} content of the story
+ * @param {string} isOpen
+ * @param {string} handleClose
+ * @param {string} handleSelect
  */
 class ModalSelectTrack extends Component {
   constructor(props) {
@@ -39,8 +38,8 @@ class ModalSelectTrack extends Component {
 
   onModalOkay = () => {
     if (this.state.selectedOption) {
-      console.log("OK", this.state.selectedOption);
-      this.props.setSelectedTrack(this.state.selectedOption.value);
+      console.log("Track selected:", this.state.selectedOption);
+      this.props.handleSelect(this.state.selectedOption.value);
       this.handleCloseModalClearDeck();
     }
   }
@@ -58,8 +57,8 @@ class ModalSelectTrack extends Component {
     return (
       <>
         <Modal
-          title="choose a song!"
-          open={this.props.open}
+          title="Choose a song!"
+          isOpen={this.props.isOpen}
           onOpen={this.getUserDeck}
           handleClose={this.handleCloseModalClearDeck}
           onOkay={this.onModalOkay}

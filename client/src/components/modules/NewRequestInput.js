@@ -52,17 +52,13 @@ class NewRequestInput extends Component {
     }
   };
 
-  setSelectedTrack = (track) => {
-    this.setState({ offeredTrack: track });
-  }
-
   render() {
     return (
       <>
         <ModalSelectTrack
-          open={this.state.showModal}
+          isOpen={this.state.showModal}
           handleClose={() => this.setState({ showModal: false })}
-          setSelectedTrack={this.setSelectedTrack}
+          handleSelect={(track) => this.setState({ offeredTrack: track })}
         />
 
         <div className="u-flex">

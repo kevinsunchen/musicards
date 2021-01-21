@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import SingleRequest from "./SingleRequest.js"
+import ModalSelectTrack from "./ModalSelectTrack.js"
 
-import { get } from "../../utilities";
+import { get, post } from "../../utilities";
 
 import "./Card.css";
 
@@ -19,7 +20,9 @@ class RequestCard extends Component {
     super(props);
     this.state = {
       comments: [],
-      offeredTrack: undefined
+      offeredTrack: undefined,
+      showModal: false,
+      trackToTrade: undefined
     };
   }
 
@@ -44,28 +47,45 @@ class RequestCard extends Component {
     });
   };
 
-  handleTradeSubmit = (event) => {
-    console.log("Attempt to trade initiated")
+  executeTrade = () => {
+    console.log("Attempt to trade initiated");
+    post("/api/performTrade").then(() => {
+
+    }).catch(() => {
+      
+    }).finally(() => {
+      this.setState({ trackToTrade: undefined });
+    });
   }
 
   render() {
+    if (this.state.trackToTrade) {
+      console.log("Track to trade:", this.state.trackToTrade);
+    }
     return (
-      <div className="Card-container u-flex">
-        <SingleRequest
-          _id={this.props._id}
-          creator_name={this.props.creator_name}
-          creator_id={this.props.creator_id}
-          content={this.props.content}
-          offeredLabel={this.props.offeredLabel}
-          requestedLabel={this.props.requestedLabel}
-          offeredTrack={this.state.offeredTrack}
+      <>
+        <ModalSelectTrack
+          isOpen={this.state.showModal}
+          handleClose={() => this.setState({ showModal: false })}
+          handleSelect={(track) => this.setState({ trackToTrade: track })}
         />
-        <button
-          onClick={this.handleTradeSubmit}
-        >
-          Trade!
-        </button>
-      </div>
+        <div className="Card-container">
+          <SingleRequest
+            _id={this.props._id}
+            creator_name={this.props.creator_name}
+            creator_id={this.props.creator_id}
+            content={this.props.content}
+            offeredLabel={this.props.offeredLabel}
+            requestedLabel={this.props.requestedLabel}
+            offeredTrack={this.state.offeredTrack}
+            />
+          <button
+            onClick={() => this.setState({ showModal: true })}
+            >
+            Trade!
+          </button>
+        </div>
+      </>
     );
   }
 }
