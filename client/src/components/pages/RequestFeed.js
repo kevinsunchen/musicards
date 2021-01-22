@@ -38,8 +38,7 @@ class RequestFeed extends Component {
 
   render() {
     let requestsList = null;
-    const hasRequests = this.state.requests.length !== 0;
-    if (hasRequests) {
+    if (this.state.requests.length !== 0) {
       // console.log(this.state.requests)
       requestsList = this.state.requests.map((requestObj) => (
         <RequestCard

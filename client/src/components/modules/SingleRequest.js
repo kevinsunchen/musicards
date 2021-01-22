@@ -28,8 +28,8 @@ class SingleRequest extends Component {
 
   render() {
     let offeredTrackText = null;
-    offeredTrackText = (this.props.offeredTrack)
-      ? ( `Offering "${this.props.offeredTrack.name}" by ${this.processTrackArtists(this.props.offeredTrack.artists)}.`)
+    offeredTrackText = (this.props.offeredTrackInfo)
+      ? ( `Offering "${this.props.offeredTrackInfo.name}" by ${this.processTrackArtists(this.props.offeredTrackInfo.artists)}.`)
       : ( "Loading..." )
 
       return (

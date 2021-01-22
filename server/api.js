@@ -12,6 +12,7 @@ const express = require("express");
 // import models so we can interact with the database
 const User = require("./models/user");
 const Request = require("./models/request");
+const Trade = require("./models/trade");
 
 // import authentication library
 const auth = require("./auth");
@@ -220,7 +221,7 @@ router.get("/getMyDeckProcessed", async (req, res) => {
 router.post("/addToMyDeck", auth.ensureLoggedIn, async (req, res) => {
   console.log("POST req to update deck received")
   console.log(req.body.tracks)
-  let user = await User.findById(req.user._id)
+  let user = await User.findById(req.user._id);
   console.log(user);
   user.deck = user.deck.concat(req.body.tracks);
   user.save();
@@ -253,6 +254,32 @@ router.post("/postToRequestFeed", auth.ensureLoggedIn, (req, res) => {
   });
 
   newRequest.save().then((request) => res.send(request));
+})
+
+router.post("/performTrade", auth.ensureLoggedIn, async (req, res) => {
+  const user = req.user;
+  const tradeInfo = req.body; 
+  const targetRequest = await Request.findById(tradeInfo.requestId);
+  console.log(tradeInfo, user, targetRequest);
+  if (!targetRequest) {
+    res.status(400).send({ msg: "The trade could not be performed as the request has already been claimed!" });
+  }
+  else if ((tradeInfo.requesterId === req.user._id) || (tradeInfo.requesterTrackId === tradeInfo.fulfillerTrackId)) {
+    res.status(400).send({ msg: "Something is wrong with this trade!" });
+  } else {
+    console.log("Here")
+    const newTrade = new Trade({
+      requesterName: String,
+      requesterId: String,
+      requesterLabel: String,
+      requesterTrackId: String,
+      fulfillerName: String,
+      fulfillerId: String,
+      fulfillerLabel: String,
+      fulfillerTrackId: String
+    }) 
+    res.send("AAA")
+  }
 })
 
 // anything else falls to this "not found" case
