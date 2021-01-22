@@ -57,21 +57,27 @@ class App extends Component {
       <>
         {console.log("Logged in?", this.state.loggedInUser)}
         <div className = "wrapper"> 
+
+
             <Match
-              className="navbar"
               path="/">
               {props =>
                 props.match ? (
                   <></>
-                ) : (
-                  <NavBar
+                  ) : (
+                    <div className="navbar">
+
+                    <NavBar
                     loggedInUser={this.state.loggedInUser}
-                  />
-                )
-              }
+                    />
+                    </div>
+                    )
+                  }
             </Match>
+
+          <div className="maincontent"
+          >
           <Router
-            className="maincontent"
           >
             <Home path="/" loggedInUser={this.state.loggedInUser} />
             <RequestFeed path="/requests" loggedInUser={this.state.loggedInUser} />
@@ -82,17 +88,18 @@ class App extends Component {
               handleLogin={this.handleLogin}
               handleLogout={this.handleLogout}
               loggedInUser={this.state.loggedInUser}
-            />
+              />
             <Profile 
               path="/profile/:profileId"
               handleLogin={this.handleLogin}
               handleLogout={this.handleLogout}
               loggedInUser={this.state.loggedInUser}
-            />
+              />
             <MyRequests path="/profile/:profileId/my_requests" />
             <TradeHistory path="/profile/:profileId/trade_history" />
             <NotFound default />
           </Router>            
+              </div>
         </div>
         
       </>
