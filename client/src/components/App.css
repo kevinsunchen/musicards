@@ -1,17 +1,21 @@
 .wrapper{
-    /*display: flex;
-    position: relative;
+    display: flex;
+    /* position: relative;
 
-    align-items: stretch;*/
+    */
+    align-items: stretch;
     text-align: center;
 }
 
 .wrapper .navbar {
     width: 150px;
-    height: 100%
+    height: 100%;
+    flex-grow: 1;
 }
 
 .wrapper .maincontent {
-    margin-left: 150px;
+    /* margin-left: 150px;
+    */
+    flex-grow: 1
 }
 

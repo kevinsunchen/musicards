@@ -57,8 +57,9 @@ class App extends Component {
       <>
         {console.log("Logged in?", this.state.loggedInUser)}
         <div className = "wrapper"> 
-          <div className = "navbar">
-            <Match path="/">
+            <Match
+              className="navbar"
+              path="/">
               {props =>
                 props.match ? (
                   <></>
@@ -69,9 +70,9 @@ class App extends Component {
                 )
               }
             </Match>
-          </div>
-          <div className = "maincontent">
-          <Router>
+          <Router
+            className="maincontent"
+          >
             <Home path="/" loggedInUser={this.state.loggedInUser} />
             <RequestFeed path="/requests" loggedInUser={this.state.loggedInUser} />
             <Deck path="/deck" loggedInUser={this.state.loggedInUser} />
@@ -91,9 +92,7 @@ class App extends Component {
             <MyRequests path="/profile/:profileId/my_requests" />
             <TradeHistory path="/profile/:profileId/trade_history" />
             <NotFound default />
-          </Router>  
-          </div>
-          
+          </Router>            
         </div>
         
       </>
