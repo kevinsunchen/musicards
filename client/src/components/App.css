@@ -1,0 +1,17 @@
+.wrapper{
+    /*display: flex;
+    position: relative;
+
+    align-items: stretch;*/
+    text-align: center;
+}
+
+.wrapper .navbar {
+    width: 150px;
+    height: 100%
+}
+
+.wrapper .maincontent {
+    margin-left: 150px;
+}
+

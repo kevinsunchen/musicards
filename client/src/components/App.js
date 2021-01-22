@@ -16,6 +16,7 @@ import "../utilities.css";
 import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
+import "./App.css";
 
 /**
  * Define the "App" component as a class.
@@ -55,38 +56,46 @@ class App extends Component {
     return (
       <>
         {console.log("Logged in?", this.state.loggedInUser)}
-        <Match path="/">
-          {props =>
-            props.match ? (
-              <></>
-            ) : (
-              <NavBar
-                loggedInUser={this.state.loggedInUser}
-              />
-            )
-          }
-        </Match>
-        <Router>
-          <Home path="/" loggedInUser={this.state.loggedInUser} />
-          <RequestFeed path="/requests" loggedInUser={this.state.loggedInUser} />
-          <Deck path="/deck" loggedInUser={this.state.loggedInUser} />
-          <Incoming path="/incoming" loggedInUser={this.state.loggedInUser} />
-          <Login
-            path="/login"
-            handleLogin={this.handleLogin}
-            handleLogout={this.handleLogout}
-            loggedInUser={this.state.loggedInUser}
-          />
-          <Profile 
-            path="/profile/:profileId"
-            handleLogin={this.handleLogin}
-            handleLogout={this.handleLogout}
-            loggedInUser={this.state.loggedInUser}
-          />
-          <MyRequests path="/profile/:profileId/my_requests" />
-          <TradeHistory path="/profile/:profileId/trade_history" />
-          <NotFound default />
-        </Router>
+        <div className = "wrapper"> 
+          <div className = "navbar">
+            <Match path="/">
+              {props =>
+                props.match ? (
+                  <></>
+                ) : (
+                  <NavBar
+                    loggedInUser={this.state.loggedInUser}
+                  />
+                )
+              }
+            </Match>
+          </div>
+          <div className = "maincontent">
+          <Router>
+            <Home path="/" loggedInUser={this.state.loggedInUser} />
+            <RequestFeed path="/requests" loggedInUser={this.state.loggedInUser} />
+            <Deck path="/deck" loggedInUser={this.state.loggedInUser} />
+            <Incoming path="/incoming" loggedInUser={this.state.loggedInUser} />
+            <Login
+              path="/login"
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+              loggedInUser={this.state.loggedInUser}
+            />
+            <Profile 
+              path="/profile/:profileId"
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+              loggedInUser={this.state.loggedInUser}
+            />
+            <MyRequests path="/profile/:profileId/my_requests" />
+            <TradeHistory path="/profile/:profileId/trade_history" />
+            <NotFound default />
+          </Router>  
+          </div>
+          
+        </div>
+        
       </>
     );
   }
