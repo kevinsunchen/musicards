@@ -50,7 +50,7 @@ class RequestFeed extends Component {
           offeredLabel={requestObj.offeredLabel}
           requestedLabel={requestObj.requestedLabel}
           offeredTrackId={requestObj.offeredTrackId}
-          userId={this.props.loggedInUser}
+          loggedInUser={this.props.loggedInUser}
         />
       ));
     } else {

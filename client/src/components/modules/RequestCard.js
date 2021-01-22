@@ -62,13 +62,20 @@ class RequestCard extends Component {
     if (this.state.trackToTrade) {
       console.log("Track to trade:", this.state.trackToTrade);
     }
+
+    if (this.props.loggedInUser) {
+      
+    }
+
     return (
       <>
         <ModalSelectTrack
           isOpen={this.state.showModal}
           handleClose={() => this.setState({ showModal: false })}
           handleSelect={(track) => this.setState({ trackToTrade: track })}
-        />
+        >
+          Choose a song from your deck to trade!
+        </ModalSelectTrack>
         <div className="Card-container">
           <SingleRequest
             _id={this.props._id}
@@ -78,12 +85,15 @@ class RequestCard extends Component {
             offeredLabel={this.props.offeredLabel}
             requestedLabel={this.props.requestedLabel}
             offeredTrack={this.state.offeredTrack}
-            />
-          <button
-            onClick={() => this.setState({ showModal: true })}
+          />
+          
+          {this.props.loggedInUser && (
+            <button
+              onClick={() => this.setState({ showModal: true })}
             >
-            Trade!
-          </button>
+              Trade!
+            </button>
+          )}
         </div>
       </>
     );

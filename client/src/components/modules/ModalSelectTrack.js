@@ -11,6 +11,7 @@ import { get } from "../../utilities";
  * @param {string} isOpen
  * @param {string} handleClose
  * @param {string} handleSelect
+ * @param {string} children
  */
 class ModalSelectTrack extends Component {
   constructor(props) {
@@ -57,16 +58,16 @@ class ModalSelectTrack extends Component {
     return (
       <>
         <Modal
-          title="Choose a song!"
           isOpen={this.props.isOpen}
           onOpen={this.getUserDeck}
           handleClose={this.handleCloseModalClearDeck}
           onOkay={this.onModalOkay}
           okayButtonText="Select"
         >
+          {this.props.children}
           {this.state.deck ? (
             <>
-              <Select 
+              <Select
                 value={this.state.selectedTrack}
                 onChange={this.handleSelectionChange}
                 options={this.generateSelectionOptions(this.state.deck)}              

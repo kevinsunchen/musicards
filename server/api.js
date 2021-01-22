@@ -41,8 +41,8 @@ const getClientCredentials = async () => {
   await spotifyApi.clientCredentialsGrant().then(
     function(data) {
       console.log("Client credentials received");
-      console.log('The access token expires in ' + data.body['expires_in']);
-      console.log('The access token is ' + data.body['access_token']);
+      // console.log('The access token expires in ' + data.body['expires_in']);
+      // console.log('The access token is ' + data.body['access_token']);
   
       // Save the access token so that it's used in future calls
       spotifyApi.setAccessToken(data.body['access_token']);
@@ -56,11 +56,11 @@ const getClientCredentials = async () => {
 const runWithClientCredentials = async (apiFunc, apiInput, processResponseFunc) => {
   let data = null;
   try {
-    console.log("Attempting to run API function", apiFunc, "with input", apiInput);
+    // console.log("Attempting to run API function", apiFunc, "with input", apiInput);
     data = await apiFunc(apiInput);
-    console.log("API function ran successfully.")
+    // console.log("API function ran successfully.")
   } catch(err) {
-    console.log("Something went wrong!");
+    //console.log("Something went wrong!");
     if (err.statusCode === 401) {
       console.log("401 Unauthorized Error. Attempting to remedy by requesting new client credentials");
       await getClientCredentials();
@@ -71,6 +71,16 @@ const runWithClientCredentials = async (apiFunc, apiInput, processResponseFunc) 
   return processResponseFunc(data);
 }
 
+const getLoggedInSpotifyApi = (req) => {
+  const loggedInSpotifyApi = new SpotifyWebApi({
+    clientId: process.env.SPOTIFY_API_ID,
+    clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+    redirectUri: process.env.CALLBACK_URI,
+  });
+  loggedInSpotifyApi.setAccessToken(req.user.accessToken);
+  return loggedInSpotifyApi;
+}
+
 router.get("/user", (req, res) => {
   User.findById(req.query.userid).then((user) => {
     res.send(user);
@@ -78,26 +88,25 @@ router.get("/user", (req, res) => {
 });
 
 router.get('/spotifyLogin', (req, res) => {
-  auth.spotifyLogin(req, res, spotifyApi)
+  auth.spotifyLogin(req, res, spotifyApi);
 })
 router.get('/callback', async (req, res) => {
-  auth.callback(req, res, spotifyApi)
+  auth.callback(req, res, spotifyApi);
 });
 
 router.get('/playlists', async (req, res) => {
   try {
-    const result = await spotifyApi.getUserPlaylists();
-    console.log(result.body);
-    console.log(req.session.user)
-    console.log(req.user)
-    res.status(200).send(result.body);
+    const loggedInSpotifyApi = getLoggedInSpotifyApi(req);
+    const result = await loggedInSpotifyApi.getUserPlaylists();
+    res.send(result);
   } catch (err) {
     res.status(400).send(err)
   }
 });
 
 router.get('/getMe', (req, res) => {
-  spotifyApi.getMe()
+  const loggedInSpotifyApi = getLoggedInSpotifyApi(req);
+  loggedInSpotifyApi.getMe()
     .then(function (data) {
       console.log('Some information about the authenticated user', data.body);
       res.send(data)
@@ -107,7 +116,8 @@ router.get('/getMe', (req, res) => {
 })
 
 router.get('/getUser', (req, res) => {
-  spotifyApi.getUser(req.query.spotifyId)
+  const loggedInSpotifyApi = getLoggedInSpotifyApi(req);
+  loggedInSpotifyApi.getUser(req.query.spotifyId)
     .then(function (data) {
       console.log('Some information about this authenticated user', data.body);
       res.send(data)
@@ -164,7 +174,7 @@ router.get('/getTrack', (req, res) => {
 })
 
 router.get('/getTrackProcessed', async (req, res) => {
-  const getTrackApiWrapper = async (inp) => (await spotifyApi.getTrack(inp));
+  const getTrackApiWrapper = async (inp) => await spotifyApi.getTrack(inp);
   const inputToApiWrapper = req.query.trackId;
   const processResponseFunc = (data) => (processTrack(data.body));
   const result = await runWithClientCredentials(getTrackApiWrapper, inputToApiWrapper, processResponseFunc);
@@ -197,7 +207,9 @@ router.get("/getMyDeckProcessed", async (req, res) => {
   // do nothing if user not logged in
   if (req.user) {
     let user = await User.findById(req.user._id);
-    const deckPromises = user.deck.map((trackId) => spotifyApi.getTrack(trackId));
+    const deckPromises = user.deck.map((trackId) => {
+      return getLoggedInSpotifyApi(req).getTrack(trackId);
+    });
 
     let allResults = await Promise.all(deckPromises)
     const deckProcessed = allResults.map((data) => processTrack(data.body));

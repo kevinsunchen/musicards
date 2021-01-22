@@ -3,6 +3,7 @@ import ModalSelectTrack from "./ModalSelectTrack.js";
 
 import "./NewRequestInput.css";
 import { post } from "../../utilities";
+import Modal from "./Modal.js";
 
 /**
  * New Post is a parent component for all input components
@@ -59,7 +60,9 @@ class NewRequestInput extends Component {
           isOpen={this.state.showModal}
           handleClose={() => this.setState({ showModal: false })}
           handleSelect={(track) => this.setState({ offeredTrack: track })}
-        />
+        >
+          Choose a song from your deck!
+        </ModalSelectTrack>
 
         <div className="u-flex">
           <div className="">
