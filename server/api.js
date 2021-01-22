@@ -72,14 +72,46 @@ const runWithClientCredentials = async (apiFunc, apiInput, processResponseFunc) 
   return processResponseFunc(data);
 }
 
-const getLoggedInSpotifyApi = (req) => {
+const refreshAccessToken = async (user) => {
+  try {
+    const data = await spotifyApi.refreshAccessToken();
+    console.log('The access token has been refreshed!');
+    // Save the access token so that it's used in future calls
+    const accessToken = data.body['access_token']
+    spotifyApi.setAccessToken(accessToken);
+    existingUser = await User.findOne({ spotifyId: user.spotifyId });
+    existingUser.accessToken = accessToken;
+    return await existingUser.save();
+  } catch (err) {
+    console.log('Could not refresh access token', err);
+  }
+}
+
+const getLoggedInSpotifyApi = (accessToken) => {
   const loggedInSpotifyApi = new SpotifyWebApi({
     clientId: process.env.SPOTIFY_API_ID,
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
     redirectUri: process.env.CALLBACK_URI,
   });
-  loggedInSpotifyApi.setAccessToken(req.user.accessToken);
+  loggedInSpotifyApi.setAccessToken(accessToken);
   return loggedInSpotifyApi;
+}
+
+const runWithLoggedInSpotifyApi = async (req, res, funcWrapper, retriesLeft) => {
+  console.log(retriesLeft);
+  if (retriesLeft < 0) {
+    console.log("Retry limit exceeded");
+    throw new Error(418);
+  }
+  const loggedInSpotifyApi = getLoggedInSpotifyApi(req.user.accessToken);
+  try {
+    return await funcWrapper(loggedInSpotifyApi);
+  } catch (err) {
+    console.log(err);
+    req.user = await refreshAccessToken(req.user);
+    return await runWithLoggedInSpotifyApi(req, res, funcWrapper, retriesLeft-1);
+    // res.status(401).send(err);
+  }
 }
 
 router.get("/user", (req, res) => {
@@ -97,7 +129,7 @@ router.get('/callback', async (req, res) => {
 
 router.get('/playlists', async (req, res) => {
   try {
-    const loggedInSpotifyApi = getLoggedInSpotifyApi(req);
+    const loggedInSpotifyApi = getLoggedInSpotifyApi(req.user.accessToken);
     const result = await loggedInSpotifyApi.getUserPlaylists();
     res.send(result);
   } catch (err) {
@@ -106,7 +138,7 @@ router.get('/playlists', async (req, res) => {
 });
 
 router.get('/getMe', (req, res) => {
-  const loggedInSpotifyApi = getLoggedInSpotifyApi(req);
+  const loggedInSpotifyApi = getLoggedInSpotifyApi(req.user.accessToken);
   loggedInSpotifyApi.getMe()
     .then(function (data) {
       console.log('Some information about the authenticated user', data.body);
@@ -117,7 +149,7 @@ router.get('/getMe', (req, res) => {
 })
 
 router.get('/getUser', (req, res) => {
-  const loggedInSpotifyApi = getLoggedInSpotifyApi(req);
+  const loggedInSpotifyApi = getLoggedInSpotifyApi(req.user.accessToken);
   loggedInSpotifyApi.getUser(req.query.spotifyId)
     .then(function (data) {
       console.log('Some information about this authenticated user', data.body);
@@ -209,7 +241,7 @@ router.get("/getMyDeckProcessed", async (req, res) => {
   if (req.user) {
     let user = await User.findById(req.user._id);
     const deckPromises = user.deck.map((trackId) => {
-      return getLoggedInSpotifyApi(req).getTrack(trackId);
+      return runWithLoggedInSpotifyApi(req, res, (loggedInSpotifyApi) => loggedInSpotifyApi.getTrack(trackId), 10);
     });
 
     let allResults = await Promise.all(deckPromises)
@@ -258,27 +290,34 @@ router.post("/postToRequestFeed", auth.ensureLoggedIn, (req, res) => {
 
 router.post("/performTrade", auth.ensureLoggedIn, async (req, res) => {
   const user = req.user;
-  const tradeInfo = req.body; 
-  const targetRequest = await Request.findById(tradeInfo.requestId);
-  console.log(tradeInfo, user, targetRequest);
-  if (!targetRequest) {
-    res.status(400).send({ msg: "The trade could not be performed as the request has already been claimed!" });
-  }
-  else if ((tradeInfo.requesterId === req.user._id) || (tradeInfo.requesterTrackId === tradeInfo.fulfillerTrackId)) {
-    res.status(400).send({ msg: "Something is wrong with this trade!" });
-  } else {
-    console.log("Here")
-    const newTrade = new Trade({
-      requesterName: String,
-      requesterId: String,
-      requesterLabel: String,
-      requesterTrackId: String,
-      fulfillerName: String,
-      fulfillerId: String,
-      fulfillerLabel: String,
-      fulfillerTrackId: String
-    }) 
-    res.send("AAA")
+  const tradeInfo = req.body;
+  try {
+    const targetRequest = await Request.findById(tradeInfo.requestId);
+    console.log(tradeInfo, user, targetRequest);
+    if (!targetRequest) 
+      res.status(400).send({ msg: "The trade could not be performed as the request has already been claimed!" });
+    else if ((tradeInfo.requesterId === req.user._id) || (tradeInfo.requesterTrackId === tradeInfo.fulfillerTrackId))
+      res.status(400).send({ msg: "Something is wrong with this trade!" });
+    else {
+      console.log("Here");
+      const newTrade = new Trade({
+        requesterName: tradeInfo.requesterName,
+        requesterId: tradeInfo.requesterId,
+        requesterLabel: tradeInfo.requesterLabel,
+        requesterTrackId: tradeInfo.requesterTrackId,
+        fulfillerName: user.name,
+        fulfillerId: user._id,
+        fulfillerLabel: tradeInfo.fulfillerLabel,
+        fulfillerTrackId: tradeInfo.fulfillerTrackId
+      });
+      console.log(newTrade);
+      const trade = await newTrade.save();
+      // await Request.findByIdAndDelete(tradeInfo.requestId);
+      res.send(trade);
+    }
+  } catch (err) {
+    console.log('Something went wrong!', err);
+    res.status(500).send(err);
   }
 })
 

@@ -40,8 +40,8 @@ class App extends Component {
 
   handleLogin = () => {
     get("/api/spotifyLogin").then((data) => {
-      console.log((data))
-      window.location.href = data.url
+      console.log((data));
+      window.location.href = data.url;
     })
   }
 

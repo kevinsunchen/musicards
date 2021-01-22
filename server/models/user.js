@@ -5,7 +5,7 @@ const UserSchema = new mongoose.Schema({
   spotifyId: String,
   accessToken: String,
   deck: [String],
-  history: [String]
+  incoming: [String]
 });
 
 // compile model from schema

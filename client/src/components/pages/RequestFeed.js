@@ -11,7 +11,7 @@ class RequestFeed extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      requests: [],
+      requests: undefined,
     };
   }
 
@@ -20,12 +20,22 @@ class RequestFeed extends Component {
   componentDidMount() {
     document.title = "Requests Feed";
     console.log(this.props.loggedInUser);
+    this.getRequestFeed();
+  }
+  
+  getRequestFeed = () => {
     get("/api/getRequestFeed").then((requestObjs) => {
+      this.setState({ requests: [] })
       let reversedRequestObjs = requestObjs.reverse();
       reversedRequestObjs.map((requestObj) => {
         this.setState({ requests: this.state.requests.concat([requestObj]) });
       });
     });
+  }
+
+  refreshFeed = () => {
+    this.setState({ requests: undefined });
+    this.getRequestFeed();
   }
 
   // this gets called when the user pushes "Submit", so their
@@ -38,11 +48,16 @@ class RequestFeed extends Component {
 
   render() {
     let requestsList = null;
-    if (this.state.requests.length !== 0) {
+    console.log(this.state.requests)
+    if (!this.state.requests) {
+      requestsList = "Loading..."
+    } else if (this.state.requests.length === 0) {
+      requestsList = <div>No requests!</div>;
+    } else {
       // console.log(this.state.requests)
       requestsList = this.state.requests.map((requestObj) => (
         <RequestCard
-          key={`Card_${requestObj._id}`}
+          key={`RequestCard_${requestObj._id}`}
           _id={requestObj._id}
           creator_name={requestObj.creator_name}
           creator_id={requestObj.creator_id}
@@ -50,15 +65,15 @@ class RequestFeed extends Component {
           requestedLabel={requestObj.requestedLabel}
           offeredTrackId={requestObj.offeredTrackId}
           loggedInUser={this.props.loggedInUser}
+          triggerFeedRefresh={this.refreshFeed}
         />
       ));
-    } else {
-      requestsList = <div>No requests!</div>;
     }
     return (
       <>
         <h1>REQUESTS FEED</h1>
         <h2>The page displaying the public requests feed. Includes links to a users' own pending requests, as well as their trade history.</h2>
+        <button onClick={this.refreshFeed}>Refresh feed</button>
         {this.props.loggedInUser && <NewRequest addNewRequest={this.addNewRequest} />}
         {requestsList}
       </>

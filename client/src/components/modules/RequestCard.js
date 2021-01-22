@@ -63,12 +63,14 @@ class RequestCard extends Component {
       fulfillerTrackId: this.state.trackToTrade._id,
       fulfillerLabel: this.props.requestedLabel
     }
-    post("/api/performTrade", body).then(() => {
+    post("/api/performTrade", body).then((trade) => {
       console.log("Traded")
+      console.log(trade);
     }).catch((err) => {
       console.log(err);
     }).finally(() => {
       this.setState({ trackToTrade: undefined });
+      this.props.triggerFeedRefresh();
     });
   }
 
