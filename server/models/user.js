@@ -5,7 +5,10 @@ const UserSchema = new mongoose.Schema({
   spotifyId: String,
   accessToken: String,
   deck: [String],
-  incoming: [String]
+  incoming: [{
+    tradeId: String,
+    incomingTrackId: String
+  }]
 });
 
 // compile model from schema

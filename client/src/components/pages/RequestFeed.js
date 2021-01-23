@@ -30,6 +30,7 @@ class RequestFeed extends Component {
       reversedRequestObjs.map((requestObj) => {
         this.setState({ requests: this.state.requests.concat([requestObj]) });
       });
+      console.log(this.state.requests)
     });
   }
 
@@ -48,7 +49,6 @@ class RequestFeed extends Component {
 
   render() {
     let requestsList = null;
-    console.log(this.state.requests)
     if (!this.state.requests) {
       requestsList = "Loading..."
     } else if (this.state.requests.length === 0) {

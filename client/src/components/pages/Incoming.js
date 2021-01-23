@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import { get } from "../../utilities";
 import "../../utilities.css";
 import "./Skeleton.css";
 
@@ -9,11 +10,21 @@ class Incoming extends Component {
   constructor(props) {
     super(props);
     // Initialize Default State
-    this.state = {};
+    this.state = {
+      incoming: undefined
+    };
   }
 
   componentDidMount() {
     // remember -- api calls go here!
+    get("/api/getUserIncomingFeed").then((incomingObjs) => {
+      this.setState({ incoming: [] });
+      let reversedIncomingObjs = incomingObjs.reverse();
+      reversedIncomingObjs.map((incomingObj) => {
+        this.setState({ incoming: this.state.incoming.concat([incomingObj]) });
+      });
+      console.log(this.state.incoming);
+    });
   }
 
   render() {

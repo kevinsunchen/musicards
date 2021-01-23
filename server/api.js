@@ -255,20 +255,22 @@ router.post("/addToMyDeck", auth.ensureLoggedIn, async (req, res) => {
   console.log(req.body.tracks)
   let user = await User.findById(req.user._id);
   console.log(user);
-  user.deck = user.deck.concat(req.body.tracks);
+  user.deck = [...new Set(user.deck.concat(req.body.tracks))];
   user.save();
   res.send(user.deck);
 })
 
-router.get("/getMyTopTracks", (req, res) => {
+router.get("/getMyTopTracks", async (req, res) => {
   console.log("GET req to get top", req.query.limit, "tracks received");
-  spotifyApi.getMyTopTracks({ limit: req.query.limit })
-  .then(function(data) {
-    let topTracks = data.body.items;
-    res.send(topTracks.map((track) => {return track.id}));
-  }, function(err) {
-    console.log('Something went wrong!', err);
-  });
+  if (req.user) {
+    try {
+      const data = await runWithLoggedInSpotifyApi(req, res, (loggedInSpotifyApi) => loggedInSpotifyApi.getMyTopTracks({ limit: req.query.limit }), 10);
+      const topTracks = data.body.items;
+      res.send(topTracks.map((track) => {return track.id}));
+    } catch (err) {
+      console.log('Something went wrong!', err);
+    }
+  }
 })
 
 router.get("/getRequestFeed", (req, res) => {
@@ -310,15 +312,36 @@ router.post("/performTrade", auth.ensureLoggedIn, async (req, res) => {
         fulfillerLabel: tradeInfo.fulfillerLabel,
         fulfillerTrackId: tradeInfo.fulfillerTrackId
       });
-      console.log(newTrade);
       const trade = await newTrade.save();
+      console.log("Trade:", trade);
+      
+      let requester = await User.findById(trade.requesterId);
+      let fulfiller = await User.findById(trade.fulfillerId);
+      
+      console.log("R:", requester, "F:", fulfiller);
+      
+      requester.deck = requester.deck.filter((track) => track !== trade.requesterTrackId);
+      fulfiller.deck = fulfiller.deck.filter((track) => track !== trade.fulfillerTrackId);
+      
+      requester.incoming.push({ tradeId: trade._id, incomingTrackId: trade.fulfillerTrackId });
+      fulfiller.incoming.push({ tradeId: trade._id, incomingTrackId: trade.requesterTrackId });
+      
+      await requester.save();
+      await fulfiller.save();
+      console.log("R:", requester, "F:", fulfiller);
+      
       // await Request.findByIdAndDelete(tradeInfo.requestId);
+
       res.send(trade);
     }
   } catch (err) {
     console.log('Something went wrong!', err);
     res.status(500).send(err);
   }
+})
+
+router.get("/getUserIncomingFeed", (req, res) => {
+  req.user.incoming
 })
 
 // anything else falls to this "not found" case
