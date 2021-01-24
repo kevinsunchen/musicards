@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import IncomingCard from "../modules/IncomingCard.js";
 
 import { get } from "../../utilities";
 import "../../utilities.css";
@@ -23,15 +24,46 @@ class Incoming extends Component {
       reversedIncomingObjs.map((incomingObj) => {
         this.setState({ incoming: this.state.incoming.concat([incomingObj]) });
       });
-      console.log(this.state.incoming);
+      console.log("Incoming:", this.state.incoming);
     });
+  }
+  
+  refreshFeed = () => {
+    this.setState({ incoming: undefined });
+    this.getRequestFeed();
   }
 
   render() {
+    let incomingList = null;
+    if (!this.props.loggedInUser) {
+      incomingList = "Log in to see your incoming Musicards!";
+    } else if (!this.state.incoming) {
+      incomingList = "Loading...";
+    } else if (this.state.incoming.length === 0) {
+      incomingList = "No incoming Musicards!";
+    } else {
+      // console.log(this.state.requests)
+      incomingList = this.state.incoming.map((incomingObj) => (
+        <IncomingCard
+          key={`IncomingCard_${incomingObj.tradeInfo._id}`}
+          _id={incomingObj.tradeInfo._id}
+          selfName={incomingObj.tradeInfo.selfName}
+          selfId={incomingObj.tradeInfo.selfId}
+          selfLabel={incomingObj.tradeInfo.selfLabel}
+          tradedTrackInfo={incomingObj.tradedTrackInfo}
+          traderName={incomingObj.tradeInfo.traderName}
+          traderId={incomingObj.tradeInfo.traderId}
+          traderLabel={incomingObj.tradeInfo.traderLabel}
+          incomingTrackInfo={incomingObj.incomingTrackInfo}
+          triggerFeedRefresh={this.refreshFeed}
+        />
+      ));
+    }
     return (
       <>
         <h1>INCOMING</h1>
         <h2>Page where the user can view their incoming cards from trades.</h2>
+        {incomingList}
       </>
     );
   }

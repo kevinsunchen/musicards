@@ -7,8 +7,10 @@ const UserSchema = new mongoose.Schema({
   deck: [String],
   incoming: [{
     tradeId: String,
-    incomingTrackId: String
-  }]
+    incomingTrackId: String,
+    tradedTrackId: String
+  }],
+  points: Number
 });
 
 // compile model from schema

@@ -206,12 +206,16 @@ router.get('/getTrack', (req, res) => {
   }
 })
 
-router.get('/getTrackProcessed', async (req, res) => {
+const getTrackProcessed = async (trackId) => {
   const getTrackApiWrapper = async (inp) => await spotifyApi.getTrack(inp);
-  const inputToApiWrapper = req.query.trackId;
+  const inputToApiWrapper = trackId;
   const processResponseFunc = (data) => (processTrack(data.body));
   const result = await runWithClientCredentials(getTrackApiWrapper, inputToApiWrapper, processResponseFunc);
+  return result;
+}
 
+router.get('/getTrackProcessed', async (req, res) => {
+  const result = await getTrackProcessed(req.query.trackId);
   res.send(result)
 });
 
@@ -291,14 +295,14 @@ router.post("/postToRequestFeed", auth.ensureLoggedIn, (req, res) => {
 })
 
 router.post("/performTrade", auth.ensureLoggedIn, async (req, res) => {
-  const user = req.user;
+  const user = await User.findById(req.user._id);
   const tradeInfo = req.body;
   try {
     const targetRequest = await Request.findById(tradeInfo.requestId);
     console.log(tradeInfo, user, targetRequest);
     if (!targetRequest) 
       res.status(400).send({ msg: "The trade could not be performed as the request has already been claimed!" });
-    else if ((tradeInfo.requesterId === req.user._id) || (tradeInfo.requesterTrackId === tradeInfo.fulfillerTrackId))
+    else if ((tradeInfo.requesterId === user._id) || (tradeInfo.requesterTrackId === tradeInfo.fulfillerTrackId))
       res.status(400).send({ msg: "Something is wrong with this trade!" });
     else {
       console.log("Here");
@@ -316,15 +320,15 @@ router.post("/performTrade", auth.ensureLoggedIn, async (req, res) => {
       console.log("Trade:", trade);
       
       let requester = await User.findById(trade.requesterId);
-      let fulfiller = await User.findById(trade.fulfillerId);
+      let fulfiller = user;
       
       console.log("R:", requester, "F:", fulfiller);
       
       requester.deck = requester.deck.filter((track) => track !== trade.requesterTrackId);
       fulfiller.deck = fulfiller.deck.filter((track) => track !== trade.fulfillerTrackId);
       
-      requester.incoming.push({ tradeId: trade._id, incomingTrackId: trade.fulfillerTrackId });
-      fulfiller.incoming.push({ tradeId: trade._id, incomingTrackId: trade.requesterTrackId });
+      requester.incoming.push({ tradeId: trade._id, incomingTrackId: trade.fulfillerTrackId, tradedTrackId: trade.requesterTrackId });
+      fulfiller.incoming.push({ tradeId: trade._id, incomingTrackId: trade.requesterTrackId, tradedTrackId: trade.fulfillerTrackId });
       
       await requester.save();
       await fulfiller.save();
@@ -340,8 +344,41 @@ router.post("/performTrade", auth.ensureLoggedIn, async (req, res) => {
   }
 })
 
-router.get("/getUserIncomingFeed", (req, res) => {
-  req.user.incoming
+router.get("/getUserIncomingFeed", async (req, res) => {
+  const user = await User.findById(req.user._id);
+  console.log("User:", user);
+  if (req.user) {
+    let incoming = user.incoming;
+    console.log(incoming);
+    let incomingInfo = incoming.map(async (incomingObj) => {
+      const tradeInfo = await Trade.findById(incomingObj.tradeId);
+      const incomingTrackInfo = await getTrackProcessed(incomingObj.incomingTrackId);
+      const tradedTrackInfo = await getTrackProcessed(incomingObj.tradedTrackId);
+      // console.log(tradeInfo, trackInfo);
+      const wasRequester = (user._id === tradeInfo.requesterId); 
+      const tradeInfoProcessed = {
+        _id: tradeInfo._id,
+        wasRequester: wasRequester,
+        selfName: wasRequester ? tradeInfo.requesterName : tradeInfo.fulfillerName,
+        selfId: wasRequester ? tradeInfo.requesterId : tradeInfo.fulfillerId,
+        selfLabel: wasRequester ? tradeInfo.requesterLabel : tradeInfo.fulfillerLabel,
+        selfTrackId: wasRequester ? tradeInfo.requesterTrackId : tradeInfo.fulfillerTrackId,
+        traderName: wasRequester ? tradeInfo.fulfillerName : tradeInfo.requesterName,
+        traderId: wasRequester ? tradeInfo.fulfillerId : tradeInfo.requesterId,
+        traderLabel: wasRequester ? tradeInfo.fulfillerLabel : tradeInfo.requesterLabel,
+        traderTrackId: wasRequester ? tradeInfo.fulfillerTrackId : tradeInfo.requesterTrackId
+      }
+
+      return {
+        tradeInfo: tradeInfoProcessed,
+        incomingTrackInfo: incomingTrackInfo,
+        tradedTrackInfo: tradedTrackInfo
+      }
+    });
+    const allResults = await Promise.all(incomingInfo);
+    console.log("All", allResults);
+    res.send(allResults);
+  }
 })
 
 // anything else falls to this "not found" case

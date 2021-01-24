@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SingleRequest from "./SingleRequest.js"
+import SingleIncoming from "./SingleIncoming.js"
 import ModalSelectTrack from "./ModalSelectTrack.js"
 
 import { get, post } from "../../utilities";
@@ -11,30 +11,28 @@ import "./Card.css";
  *
  * Proptypes
  * @param {string} key ={`Card_${requestObj._id}`}
- * @param {string} _id ={requestObj._id}
- * @param {string} creator_name ={requestObj.creator_name}
- * @param {string} creator_id ={requestObj.creator_id}
- * @param {string} offeredLabel ={requestObj.offeredLabel}
- * @param {string} requestedLabel ={requestObj.requestedLabel}
- * @param {string} offeredTrackId ={requestObj.offeredTrackId}
- * @param {Object} loggedInUser ={this.props.loggedInUser}
+ * @param {string} _id ={incomingObj.tradeInfo._id}
+ * @param {string} selfName ={incomingObj.tradeInfo.selfName}
+ * @param {string} selfId ={incomingObj.tradeInfo.selfId}
+ * @param {string} selfLabel ={incomingObj.tradeInfo.selfLabel}
+ * @param {Object} tradedTrackInfo ={incomingObj.tradeInfo.selfTrackId}
+ * @param {string} traderName ={incomingObj.tradeInfo.traderName}
+ * @param {string} traderId ={incomingObj.tradeInfo.traderId}
+ * @param {string} traderLabel ={incomingObj.tradeInfo.traderLabel}
+ * @param {Object} incomingTrackInfo ={incomingObj.tradeInfo.traderTrackId}
+ * @param {Function} triggerFeedRefresh ={this.refreshFeed}
  */
 class IncomingCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      comments: [],
-      offeredTrackInfo: undefined,
       showModal: false,
       trackToTrade: undefined
     };
   }
 
   componentDidMount() {
-    console.log(this.props)
-    get("/api/getTrackProcessed", { trackId : this.props.offeredTrackId }).then((trackInfo) => {
-      this.setState({ offeredTrackInfo: trackInfo });
-    })
+    console.log("Props", this.props);
   }
 
   executeTrade = () => {
@@ -58,37 +56,33 @@ class IncomingCard extends Component {
       this.props.triggerFeedRefresh();
     });
   }
-
+  
   render() {
     let tradeOrConfirmButton = null;
-    if (this.props.loggedInUser) {
-      if (this.state.trackToTrade) {
-        console.log("Track to trade:", this.state.trackToTrade);
-        tradeOrConfirmButton = (
-          <>
-          <button
-            onClick={() => {this.setState({ trackToTrade: undefined })}}
-          >
-            Cancel
-          </button>
-          <button
-            onClick={this.executeTrade}
-          >
-            Confirm
-          </button>
-          </>
-        );
-      } else {
-        tradeOrConfirmButton = (
-          <button
-            onClick={() => this.setState({ showModal: true })}
-          >
-            Trade!
-          </button>
-        );
-      }
+    if (this.state.trackToTrade) {
+      console.log("Track to trade:", this.state.trackToTrade);
+      tradeOrConfirmButton = (
+        <>
+        <button
+          onClick={() => {this.setState({ trackToTrade: undefined })}}
+        >
+          Cancel
+        </button>
+        <button
+          onClick={this.executeTrade}
+        >
+          Confirm
+        </button>
+        </>
+      );
     } else {
-      tradeOrConfirmButton = "Log in to trade!"
+      tradeOrConfirmButton = (
+        <button
+          onClick={() => this.setState({ showModal: true })}
+        >
+          Trade!
+        </button>
+      );
     }
     return (
       <>
@@ -101,14 +95,15 @@ class IncomingCard extends Component {
         </ModalSelectTrack>
 
         <div className="Card-container">
-          <SingleRequest
-            _id={this.props._id}
-            creator_name={this.props.creator_name}
-            creator_id={this.props.creator_id}
-            content={this.props.content}
-            offeredLabel={this.props.offeredLabel}
-            requestedLabel={this.props.requestedLabel}
-            offeredTrackInfo={this.state.offeredTrackInfo}
+          <SingleIncoming
+            selfName={this.props.selfName}
+            selfId={this.props.selfId}
+            selfLabel={this.props.selfLabel}
+            tradedTrackInfo={this.props.tradedTrackInfo}
+            traderName={this.props.traderName}
+            traderId={this.props.traderId}
+            traderLabel={this.props.traderLabel}
+            incomingTrackInfo={this.props.incomingTrackInfo}
           />
 
           {this.state.trackToTrade && (

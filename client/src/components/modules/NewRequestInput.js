@@ -148,7 +148,7 @@ class NewRequest extends Component {
   };
 
   render() {
-    return <NewRequestInput defaultText="New Request" onSubmit={this.addRequest} />;
+    return <NewRequestInput defaultText="" onSubmit={this.addRequest} />;
   }
 }
 
