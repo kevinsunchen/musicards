@@ -324,17 +324,20 @@ router.post("/performTrade", auth.ensureLoggedIn, async (req, res) => {
       
       console.log("R:", requester, "F:", fulfiller);
       
-      requester.deck = requester.deck.filter((track) => track !== trade.requesterTrackId);
-      fulfiller.deck = fulfiller.deck.filter((track) => track !== trade.fulfillerTrackId);
+      // requester.deck = requester.deck.filter((track) => track !== trade.requesterTrackId);
+      // fulfiller.deck = fulfiller.deck.filter((track) => track !== trade.fulfillerTrackId);
+      fulfiller.deck.push(trade.requesterTrackId);
+      fulfiller.deck = [...new Set(fulfiller.deck)];
+
       
       requester.incoming.push({ tradeId: trade._id, incomingTrackId: trade.fulfillerTrackId, tradedTrackId: trade.requesterTrackId });
-      fulfiller.incoming.push({ tradeId: trade._id, incomingTrackId: trade.requesterTrackId, tradedTrackId: trade.fulfillerTrackId });
-      
+      // fulfiller.incoming.push({ tradeId: trade._id, incomingTrackId: trade.requesterTrackId, tradedTrackId: trade.fulfillerTrackId });
+
       await requester.save();
       await fulfiller.save();
       console.log("R:", requester, "F:", fulfiller);
       
-      // await Request.findByIdAndDelete(tradeInfo.requestId);
+      await Request.findByIdAndDelete(tradeInfo.requestId);
 
       res.send(trade);
     }
@@ -355,18 +358,16 @@ router.get("/getUserIncomingFeed", async (req, res) => {
       const incomingTrackInfo = await getTrackProcessed(incomingObj.incomingTrackId);
       const tradedTrackInfo = await getTrackProcessed(incomingObj.tradedTrackId);
       // console.log(tradeInfo, trackInfo);
-      const wasRequester = (user._id === tradeInfo.requesterId); 
       const tradeInfoProcessed = {
         _id: tradeInfo._id,
-        wasRequester: wasRequester,
-        selfName: wasRequester ? tradeInfo.requesterName : tradeInfo.fulfillerName,
-        selfId: wasRequester ? tradeInfo.requesterId : tradeInfo.fulfillerId,
-        selfLabel: wasRequester ? tradeInfo.requesterLabel : tradeInfo.fulfillerLabel,
-        selfTrackId: wasRequester ? tradeInfo.requesterTrackId : tradeInfo.fulfillerTrackId,
-        traderName: wasRequester ? tradeInfo.fulfillerName : tradeInfo.requesterName,
-        traderId: wasRequester ? tradeInfo.fulfillerId : tradeInfo.requesterId,
-        traderLabel: wasRequester ? tradeInfo.fulfillerLabel : tradeInfo.requesterLabel,
-        traderTrackId: wasRequester ? tradeInfo.fulfillerTrackId : tradeInfo.requesterTrackId
+        selfName: tradeInfo.requesterName,
+        selfId: tradeInfo.requesterId,
+        selfLabel: tradeInfo.requesterLabel,
+        selfTrackId: tradeInfo.requesterTrackId,
+        traderName: tradeInfo.fulfillerName,
+        traderId: tradeInfo.fulfillerId,
+        traderLabel: tradeInfo.fulfillerLabel,
+        traderTrackId: tradeInfo.fulfillerTrackId
       }
 
       return {

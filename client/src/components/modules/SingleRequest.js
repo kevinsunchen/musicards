@@ -38,7 +38,7 @@ class SingleRequest extends Component {
           {this.props.creator_name}
         </Link>
         <div className="Card-storyContent">
-          <p>Looking for a {this.props.offeredLabel} song, will trade for a {this.props.requestedLabel} song!</p>
+          <p>Looking for a {this.props.requestedLabel} song, will trade for a {this.props.offeredLabel} song!</p>
           <p>{offeredTrackText}</p>
         </div>
       </div>

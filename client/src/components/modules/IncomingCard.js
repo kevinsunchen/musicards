@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import SingleIncoming from "./SingleIncoming.js"
 import ModalSelectTrack from "./ModalSelectTrack.js"
+import { RadioButtonGroup } from 'react-rainbow-components';
 
 import { get, post } from "../../utilities";
 
-import "./Card.css";
+import "./IncomingCard.css";
 
 /**
  * Card is a component for displaying content like stories
@@ -27,6 +28,7 @@ class IncomingCard extends Component {
     super(props);
     this.state = {
       showModal: false,
+      rating: '3',
       trackToTrade: undefined
     };
   }
@@ -58,32 +60,6 @@ class IncomingCard extends Component {
   }
   
   render() {
-    let tradeOrConfirmButton = null;
-    if (this.state.trackToTrade) {
-      console.log("Track to trade:", this.state.trackToTrade);
-      tradeOrConfirmButton = (
-        <>
-        <button
-          onClick={() => {this.setState({ trackToTrade: undefined })}}
-        >
-          Cancel
-        </button>
-        <button
-          onClick={this.executeTrade}
-        >
-          Confirm
-        </button>
-        </>
-      );
-    } else {
-      tradeOrConfirmButton = (
-        <button
-          onClick={() => this.setState({ showModal: true })}
-        >
-          Trade!
-        </button>
-      );
-    }
     return (
       <>
         <ModalSelectTrack
@@ -94,7 +70,7 @@ class IncomingCard extends Component {
           Choose a song from your deck to trade!
         </ModalSelectTrack>
 
-        <div className="Card-container">
+        <div className="IncomingCard-container">
           <SingleIncoming
             selfName={this.props.selfName}
             selfId={this.props.selfId}
@@ -105,14 +81,40 @@ class IncomingCard extends Component {
             traderLabel={this.props.traderLabel}
             incomingTrackInfo={this.props.incomingTrackInfo}
           />
+          <div>
 
-          {this.state.trackToTrade && (
-            <div>
-              Currently chosen song: {this.state.trackToTrade.name}
-            </div>
-          )} 
-          {tradeOrConfirmButton}
-        </div>
+            <button
+              onClick={() => {this.setState({ trackToTrade: undefined })}}
+              className=""
+            >
+              Decline
+            </button>
+            <button
+              onClick={this.executeTrade}
+              className=""
+            >
+              Add to deck
+            </button>
+          </div>
+          <div className="IncomingCard-commentSection u-flex u-flex-justifyCenter">
+            <RadioButtonGroup
+              options={[
+                {value: '5', label: "Love"},
+                {value: '4', label: "Like"},
+                {value: '3', label: "Neutral"},
+                {value: '2', label: "Dislike"},
+                {value: '1', label: "Hate"},
+              ]}
+              value={this.state.rating}
+              size="small"
+              style={{color: "#ffffff"}}
+              onChange={(event) => this.setState({ rating: event.target.value })}
+              required={true}
+              label="Rate the song you got!"
+              className=""
+            />
+          </div>
+              </div>
       </>
     );
   }

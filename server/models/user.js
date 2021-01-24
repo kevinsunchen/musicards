@@ -4,13 +4,13 @@ const UserSchema = new mongoose.Schema({
   name: String,
   spotifyId: String,
   accessToken: String,
+  points: Number,
   deck: [String],
   incoming: [{
     tradeId: String,
     incomingTrackId: String,
     tradedTrackId: String
   }],
-  points: Number
 });
 
 // compile model from schema

@@ -7,7 +7,7 @@ import "./Skeleton.css";
 
 //TODO: REPLACE WITH YOUR OWN CLIENT_ID
 
-class Incoming extends Component {
+class IncomingFeed extends Component {
   constructor(props) {
     super(props);
     // Initialize Default State
@@ -69,4 +69,4 @@ class Incoming extends Component {
   }
 }
 
-export default Incoming;
+export default IncomingFeed;

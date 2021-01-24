@@ -4,7 +4,7 @@ import NavBar from "./modules/NavBar.js";
 import Home from "./pages/Home.js";
 import RequestFeed from "./pages/RequestFeed.js";
 import Deck from "./pages/Deck.js";
-import Incoming from "./pages/Incoming.js";
+import IncomingFeed from "./pages/IncomingFeed.js";
 import Login from "./pages/Login.js";
 import Profile from "./pages/Profile.js";
 import MyRequests from "./pages/MyRequests.js";
@@ -69,8 +69,8 @@ class App extends Component {
         <Router>
           <Home path="/" loggedInUser={this.state.loggedInUser} />
           <RequestFeed path="/requests" loggedInUser={this.state.loggedInUser} />
+          <IncomingFeed path="/incoming" loggedInUser={this.state.loggedInUser} />
           <Deck path="/deck" loggedInUser={this.state.loggedInUser} />
-          <Incoming path="/incoming" loggedInUser={this.state.loggedInUser} />
           <Login
             path="/login"
             handleLogin={this.handleLogin}

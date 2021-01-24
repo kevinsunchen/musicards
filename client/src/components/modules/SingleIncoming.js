@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
 
+import "./IncomingCard.css";
+
 /**
  * Story is a component that renders creator and content of a story
  *
@@ -28,18 +30,18 @@ class SingleIncoming extends Component {
 
   render() {
     const requestInfoText = <p>
-      You requested a {this.props.selfLabel} song for a {this.props.traderLabel} song, offering "{this.props.tradedTrackInfo.name}" by {this.processTrackArtists(this.props.tradedTrackInfo.artists)}.
+      You requested a {this.props.selfLabel} song in exchange for a {this.props.traderLabel} song, offering "{this.props.tradedTrackInfo.name}" by {this.processTrackArtists(this.props.tradedTrackInfo.artists)}.
     </p>
 
-    const traderTrackText = <p>
-      In response, <Link to={`/profile/${this.props.creator_id}`} className="u-link u-bold">
+    const traderTrackText = <div>
+      In response, <Link to={`/profile/${this.props.traderId}`} className="u-link u-bold">
         {this.props.traderName}
       </Link> sent you "{this.props.incomingTrackInfo.name}" by {this.processTrackArtists(this.props.incomingTrackInfo.artists)}!
-    </p>
+    </div>
 
     return (
-    <div className="Card-story">
-      <div className="Card-storyContent">
+    <div className="IncomingCard-story">
+      <div className="IncomingCard-storyContent">
         {requestInfoText}
         {traderTrackText}
       </div>
