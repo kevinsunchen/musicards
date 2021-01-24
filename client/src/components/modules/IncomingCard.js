@@ -28,35 +28,53 @@ class IncomingCard extends Component {
     super(props);
     this.state = {
       showModal: false,
-      rating: '3',
+      rating: undefined,
       trackToTrade: undefined
     };
   }
 
   componentDidMount() {
+
     console.log("Props", this.props);
   }
 
-  executeTrade = () => {
-    console.log("Attempt to trade initiated");
-    const body = {
-      requestId: this.props._id,
-      requesterName: this.props.creator_name,
-      requesterId: this.props.creator_id,
-      requesterTrackId: this.props.offeredTrackId,
-      requesterLabel: this.props.offeredLabel,
-      fulfillerTrackId: this.state.trackToTrade._id,
-      fulfillerLabel: this.props.requestedLabel
+  declineIncoming = () => {
+    if (!this.state.rating) {
+      window.alert("Please rate the song you received before declining!");
+    } else {
+      const body = {
+        tradeId: this.props._id,
+      }
+      post("/api/declineIncoming", body).then(() => {
+        this.props.triggerFeedRefresh();
+      }).catch((err) => { console.log(err) });
     }
-    post("/api/performTrade", body).then((trade) => {
-      console.log("Traded")
-      console.log(trade);
-    }).catch((err) => {
-      console.log(err);
-    }).finally(() => {
-      this.setState({ trackToTrade: undefined });
-      this.props.triggerFeedRefresh();
-    });
+  }
+
+  addIncomingToDeck = () => {
+    console.log("Attempt to trade initiated");
+    if (!this.state.rating) {
+      window.alert("Please rate the song you received before adding it to your deck!");
+    } else {
+      const body = {
+        requestId: this.props._id,
+        requesterName: this.props.creator_name,
+        requesterId: this.props.creator_id,
+        requesterTrackId: this.props.offeredTrackId,
+        requesterLabel: this.props.offeredLabel,
+        fulfillerTrackId: this.state.trackToTrade._id,
+        fulfillerLabel: this.props.requestedLabel
+      }
+      post("/api/addIncomingToDeck", body).then((trade) => {
+        console.log("Traded")
+        console.log(trade);
+      }).catch((err) => {
+        console.log(err);
+      }).finally(() => {
+        this.setState({ trackToTrade: undefined });
+        this.props.triggerFeedRefresh();
+      });
+    }
   }
   
   render() {
@@ -71,30 +89,27 @@ class IncomingCard extends Component {
         </ModalSelectTrack>
 
         <div className="IncomingCard-container">
-          <SingleIncoming
-            selfName={this.props.selfName}
-            selfId={this.props.selfId}
-            selfLabel={this.props.selfLabel}
-            tradedTrackInfo={this.props.tradedTrackInfo}
-            traderName={this.props.traderName}
-            traderId={this.props.traderId}
-            traderLabel={this.props.traderLabel}
-            incomingTrackInfo={this.props.incomingTrackInfo}
-          />
-          <div>
-
-            <button
-              onClick={() => {this.setState({ trackToTrade: undefined })}}
-              className=""
-            >
-              Decline
-            </button>
-            <button
-              onClick={this.executeTrade}
-              className=""
-            >
-              Add to deck
-            </button>
+          <div className="u-flex">
+            <SingleIncoming
+              selfName={this.props.selfName}
+              selfId={this.props.selfId}
+              selfLabel={this.props.selfLabel}
+              tradedTrackInfo={this.props.tradedTrackInfo}
+              traderName={this.props.traderName}
+              traderId={this.props.traderId}
+              traderLabel={this.props.traderLabel}
+              incomingTrackInfo={this.props.incomingTrackInfo}
+              />
+            <div className="">
+              <button
+                onClick={this.declineIncoming}
+                className=""
+              > Decline </button>
+              <button
+                onClick={this.addIncomingToDeck}
+                className=""
+              > Add to deck </button>
+            </div>
           </div>
           <div className="IncomingCard-commentSection u-flex u-flex-justifyCenter">
             <RadioButtonGroup
@@ -107,14 +122,13 @@ class IncomingCard extends Component {
               ]}
               value={this.state.rating}
               size="small"
-              style={{color: "#ffffff"}}
               onChange={(event) => this.setState({ rating: event.target.value })}
               required={true}
               label="Rate the song you got!"
               className=""
             />
           </div>
-              </div>
+        </div>
       </>
     );
   }

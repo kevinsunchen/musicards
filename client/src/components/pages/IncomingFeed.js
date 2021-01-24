@@ -18,6 +18,10 @@ class IncomingFeed extends Component {
 
   componentDidMount() {
     // remember -- api calls go here!
+    this.getIncomingFeed();
+  }
+  
+  getIncomingFeed = () => {
     get("/api/getUserIncomingFeed").then((incomingObjs) => {
       this.setState({ incoming: [] });
       let reversedIncomingObjs = incomingObjs.reverse();
@@ -30,7 +34,7 @@ class IncomingFeed extends Component {
   
   refreshFeed = () => {
     this.setState({ incoming: undefined });
-    this.getRequestFeed();
+    this.getIncomingFeed();
   }
 
   render() {
@@ -63,6 +67,7 @@ class IncomingFeed extends Component {
       <>
         <h1>INCOMING</h1>
         <h2>Page where the user can view their incoming cards from trades.</h2>
+        <button onClick={this.refreshFeed}>Refresh feed</button>
         {incomingList}
       </>
     );

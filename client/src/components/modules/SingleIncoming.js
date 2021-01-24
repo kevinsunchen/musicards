@@ -33,11 +33,11 @@ class SingleIncoming extends Component {
       You requested a {this.props.selfLabel} song in exchange for a {this.props.traderLabel} song, offering "{this.props.tradedTrackInfo.name}" by {this.processTrackArtists(this.props.tradedTrackInfo.artists)}.
     </p>
 
-    const traderTrackText = <div>
+    const traderTrackText = <p>
       In response, <Link to={`/profile/${this.props.traderId}`} className="u-link u-bold">
         {this.props.traderName}
       </Link> sent you "{this.props.incomingTrackInfo.name}" by {this.processTrackArtists(this.props.incomingTrackInfo.artists)}!
-    </div>
+    </p>
 
     return (
     <div className="IncomingCard-story">
