@@ -8,6 +8,7 @@ import "../../utilities.css";
 import { get } from "../../utilities";
 
 class RequestFeed extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -18,22 +19,31 @@ class RequestFeed extends Component {
   // called when the "Feed" component "mounts", i.e.
   // when it shows up on screen
   componentDidMount() {
+    this._isMounted = true;
     document.title = "Requests Feed";
     console.log(this.props.loggedInUser);
     this.getRequestFeed();
     
+
     socket.on("getRequestFeed", (requestObjs) => {
       this.populateRequestsList(requestObjs)
     });
+
+  }
+  
+  componentWillUnmoun() {
+    this._isMounted = false;
   }
   
   populateRequestsList = (requestObjs) => {
-    this.setState({ requests: [] })
-    let reversedRequestObjs = requestObjs.reverse();
-    reversedRequestObjs.map((requestObj) => {
-      this.setState({ requests: this.state.requests.concat([requestObj]) });
-    });
-    console.log(this.state.requests)
+    if (this._isMounted) {
+      this.setState({ requests: [] })
+      let reversedRequestObjs = requestObjs.reverse();
+      reversedRequestObjs.map((requestObj) => {
+        this.setState({ requests: this.state.requests.concat([requestObj]) });
+      });
+      console.log(this.state.requests);
+    }
   }
 
   getRequestFeed = () => {

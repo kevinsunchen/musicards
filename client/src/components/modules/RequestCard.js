@@ -80,7 +80,15 @@ class RequestCard extends Component {
       });
     }
   }
-    
+  
+  onTradeButtonClick = () => {
+    if (this.props.loggedInUser._id === this.props.requesterId) {
+      window.alert("Can't trade with yourself!");
+    } else {
+      this.setState({ showModal: true });
+    }
+  }
+
   render() {
     let tradeOrConfirmButton = null;
     if (this.props.loggedInUser) {
@@ -103,7 +111,7 @@ class RequestCard extends Component {
       } else {
         tradeOrConfirmButton = (
           <button
-            onClick={() => this.setState({ showModal: true })}
+            onClick={this.onTradeButtonClick}
           >
             Trade!
           </button>
