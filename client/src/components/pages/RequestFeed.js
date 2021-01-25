@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import RequestCard from "../modules/RequestCard.js";
 import { NewRequest } from "../modules/NewRequestInput.js";
+import { socket } from "../../client-socket.js";
 
 import "../../utilities.css";
 
@@ -20,16 +21,24 @@ class RequestFeed extends Component {
     document.title = "Requests Feed";
     console.log(this.props.loggedInUser);
     this.getRequestFeed();
+    
+    socket.on("getRequestFeed", (requestObjs) => {
+      this.populateRequestsList(requestObjs)
+    });
   }
   
+  populateRequestsList = (requestObjs) => {
+    this.setState({ requests: [] })
+    let reversedRequestObjs = requestObjs.reverse();
+    reversedRequestObjs.map((requestObj) => {
+      this.setState({ requests: this.state.requests.concat([requestObj]) });
+    });
+    console.log(this.state.requests)
+  }
+
   getRequestFeed = () => {
     get("/api/getRequestFeed").then((requestObjs) => {
-      this.setState({ requests: [] })
-      let reversedRequestObjs = requestObjs.reverse();
-      reversedRequestObjs.map((requestObj) => {
-        this.setState({ requests: this.state.requests.concat([requestObj]) });
-      });
-      console.log(this.state.requests)
+      this.populateRequestsList(requestObjs);
     });
   }
 
