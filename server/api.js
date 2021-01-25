@@ -281,6 +281,14 @@ router.get("/getRequestFeed", (req, res) => {
   Request.find({}).then((stories) => res.send(stories));
 })
 
+socketSendRequestFeed = () => {
+  Request.find({}).then((stories) => {
+    socket.getIo().emit("getRequestFeed", stories);
+  });
+}
+
+setInterval(socketSendRequestFeed, 5*1000)
+
 router.post("/postToRequestFeed", auth.ensureLoggedIn, (req, res) => {
   console.log(req.body, req.user);
   const newRequest = new Request({

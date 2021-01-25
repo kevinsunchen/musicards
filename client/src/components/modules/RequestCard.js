@@ -20,6 +20,7 @@ import "./Card.css";
  * @param {Object} loggedInUser ={this.props.loggedInUser}
  */
 class RequestCard extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -32,8 +33,11 @@ class RequestCard extends Component {
 
   componentDidMount() {
     console.log(this.props)
+    this._isMounted = true;
     get("/api/getTrackProcessed", { trackId : this.props.offeredTrackId }).then((trackInfo) => {
-      this.setState({ offeredTrackInfo: trackInfo })
+      if (this._isMounted) {
+        this.setState({ offeredTrackInfo: trackInfo });
+      }
     })
     /**
     get("/api/comment", { parent: this.props._id }).then((comments) => {
@@ -44,6 +48,10 @@ class RequestCard extends Component {
     */
   }
 
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+  
   // this gets called when the user pushes "Submit", so their
   // post gets added to the screen right away
   addNewComment = (commentObj) => {
@@ -80,7 +88,15 @@ class RequestCard extends Component {
       });
     }
   }
-    
+  
+  onTradeButtonClick = () => {
+    if (this.props.loggedInUser._id === this.props.requesterId) {
+      window.alert("Can't trade with yourself!");
+    } else {
+      this.setState({ showModal: true });
+    }
+  }
+
   render() {
     let tradeOrConfirmButton = null;
     if (this.props.loggedInUser) {
@@ -103,7 +119,7 @@ class RequestCard extends Component {
       } else {
         tradeOrConfirmButton = (
           <button
-            onClick={() => this.setState({ showModal: true })}
+            onClick={this.onTradeButtonClick}
           >
             Trade!
           </button>

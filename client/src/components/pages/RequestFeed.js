@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import RequestCard from "../modules/RequestCard.js";
 import { NewRequest } from "../modules/NewRequestInput.js";
+import { socket } from "../../client-socket.js";
 
 import "../../utilities.css";
 
 import { get } from "../../utilities";
 
 class RequestFeed extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -17,19 +19,36 @@ class RequestFeed extends Component {
   // called when the "Feed" component "mounts", i.e.
   // when it shows up on screen
   componentDidMount() {
+    this._isMounted = true;
     document.title = "Requests Feed";
     console.log(this.props.loggedInUser);
     this.getRequestFeed();
+
+    socket.on("getRequestFeed", (requestObjs) => {
+      this.populateRequestsList(requestObjs)
+    });
+
   }
   
-  getRequestFeed = () => {
-    get("/api/getRequestFeed").then((requestObjs) => {
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+  
+  populateRequestsList = (requestObjs) => {
+    if (this._isMounted) {
+      console.log(this._isMounted);
       this.setState({ requests: [] })
       let reversedRequestObjs = requestObjs.reverse();
       reversedRequestObjs.map((requestObj) => {
         this.setState({ requests: this.state.requests.concat([requestObj]) });
       });
-      console.log(this.state.requests)
+      console.log(this.state.requests);
+    }
+  }
+
+  getRequestFeed = () => {
+    get("/api/getRequestFeed").then((requestObjs) => {
+      this.populateRequestsList(requestObjs);
     });
   }
 
