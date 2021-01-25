@@ -15,13 +15,15 @@ class NavBar extends Component {
   render() {
     return (
       <nav className="NavBar-container">
-        <div className="NavBar-title u-inlineBlock">musicards!</div>
-        <div className="NavBar-linkContainer u-inlineBlock">
+        <div className="NavBar-title">musicards!</div>
+        <div className="NavBar-linkContainer">
           <Link to="/" className="NavBar-link">
             Home
           </Link>
-          {this.props.loggedInUser ? (
-            <Link to={`/profile/${this.props.loggedInUser._id}`} className="NavBar-link">
+        </div>
+        <div className="NavBar-linkContainer">
+          {this.props.userId ? (
+            <Link to={`/profile/${this.props.userId}`} className="NavBar-link">
               Profile
             </Link>
           ) : (

@@ -16,6 +16,7 @@ import "../utilities.css";
 import { socket } from "../client-socket.js";
 
 import { get, post } from "../utilities";
+import "./App.css";
 
 /**
  * Define the "App" component as a class.
