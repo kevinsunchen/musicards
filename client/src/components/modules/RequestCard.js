@@ -53,12 +53,12 @@ class RequestCard extends Component {
   };
 
   executeTrade = () => {
-    if (this.state.trackToTrade._id === this.props.offeredTrackId) {
+    if (this.props.loggedInUser._id === this.props.requesterId) {
+      window.alert("Can't trade with yourself!")
+    } else if (this.state.trackToTrade._id === this.props.offeredTrackId) {
       window.alert("The selected track can't be the same as the requested track!")
-    } else if (this.props.loggedInUser._id === this.props.requesterId) {
-
-    } else {
-
+    }
+    else {
       console.log("Attempt to trade initiated");
       const body = {
         requestId: this.props._id,

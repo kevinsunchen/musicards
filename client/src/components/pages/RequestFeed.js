@@ -58,8 +58,8 @@ class RequestFeed extends Component {
         <RequestCard
           key={`RequestCard_${requestObj._id}`}
           _id={requestObj._id}
-          requesterName={requestObj.creator_name}
-          requesterId={requestObj.creator_id}
+          requesterName={requestObj.requesterName}
+          requesterId={requestObj.requesterId}
           offeredLabel={requestObj.offeredLabel}
           requestedLabel={requestObj.requestedLabel}
           offeredTrackId={requestObj.offeredTrackId}
