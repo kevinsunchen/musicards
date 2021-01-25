@@ -11,7 +11,9 @@ import MyRequests from "./pages/MyRequests.js";
 import TradeHistory from "./pages/TradeHistory.js";
 import NotFound from "./pages/NotFound.js";
 
+
 import "../utilities.css";
+import "./App.css";
 
 import { socket } from "../client-socket.js";
 
@@ -101,6 +103,7 @@ class App extends Component {
           </Router>            
               </div>
         </div>
+        
         
       </>
     );
