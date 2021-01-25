@@ -56,14 +56,22 @@ class Home extends Component {
           
           <div className = "iconGroup"> 
             <Link to="/incoming">
+<<<<<<< HEAD
               <img src = {box} width = "500px"/> <br />
+=======
+              <img src = {deck} width = "400px"/> <br />
+>>>>>>> 2df6214 (css start for home page)
               incoming <br />
             </Link>
           </div>
 
           <div className = "iconGroup"> 
             <Link to="/deck">
+<<<<<<< HEAD
               <img src = {deck} width = "450px" /> <br />
+=======
+              <img src = {deck} width = "400px" /> <br />
+>>>>>>> 2df6214 (css start for home page)
               deck <br />
             </Link>
           </div>
