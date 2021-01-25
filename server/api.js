@@ -348,37 +348,39 @@ router.post("/performTrade", auth.ensureLoggedIn, async (req, res) => {
 })
 
 router.get("/getUserIncomingFeed", async (req, res) => {
-  const user = await User.findById(req.user._id);
-  console.log("User:", user);
   if (req.user) {
-    let incoming = user.incoming;
-    console.log(incoming);
-    let incomingInfo = incoming.map(async (incomingObj) => {
-      const tradeInfo = await Trade.findById(incomingObj.tradeId);
-      const incomingTrackInfo = await getTrackProcessed(incomingObj.incomingTrackId);
-      const tradedTrackInfo = await getTrackProcessed(incomingObj.tradedTrackId);
-      // console.log(tradeInfo, trackInfo);
-      const tradeInfoProcessed = {
-        _id: tradeInfo._id,
-        selfName: tradeInfo.requesterName,
-        selfId: tradeInfo.requesterId,
-        selfLabel: tradeInfo.requesterLabel,
-        selfTrackId: tradeInfo.requesterTrackId,
-        traderName: tradeInfo.fulfillerName,
-        traderId: tradeInfo.fulfillerId,
-        traderLabel: tradeInfo.fulfillerLabel,
-        traderTrackId: tradeInfo.fulfillerTrackId
-      }
-
-      return {
-        tradeInfo: tradeInfoProcessed,
-        incomingTrackInfo: incomingTrackInfo,
-        tradedTrackInfo: tradedTrackInfo
-      }
-    });
-    const allResults = await Promise.all(incomingInfo);
-    console.log("All", allResults);
-    res.send(allResults);
+    const user = await User.findById(req.user._id);
+    console.log("User:", user);
+    if (req.user) {
+      let incoming = user.incoming;
+      console.log(incoming);
+      let incomingInfo = incoming.map(async (incomingObj) => {
+        const tradeInfo = await Trade.findById(incomingObj.tradeId);
+        const incomingTrackInfo = await getTrackProcessed(incomingObj.incomingTrackId);
+        const tradedTrackInfo = await getTrackProcessed(incomingObj.tradedTrackId);
+        // console.log(tradeInfo, trackInfo);
+        const tradeInfoProcessed = {
+          _id: tradeInfo._id,
+          selfName: tradeInfo.requesterName,
+          selfId: tradeInfo.requesterId,
+          selfLabel: tradeInfo.requesterLabel,
+          selfTrackId: tradeInfo.requesterTrackId,
+          traderName: tradeInfo.fulfillerName,
+          traderId: tradeInfo.fulfillerId,
+          traderLabel: tradeInfo.fulfillerLabel,
+          traderTrackId: tradeInfo.fulfillerTrackId
+        }
+        
+        return {
+          tradeInfo: tradeInfoProcessed,
+          incomingTrackInfo: incomingTrackInfo,
+          tradedTrackInfo: tradedTrackInfo
+        }
+      });
+      const allResults = await Promise.all(incomingInfo);
+      console.log("All", allResults);
+      res.send(allResults);
+    }
   }
 })
 

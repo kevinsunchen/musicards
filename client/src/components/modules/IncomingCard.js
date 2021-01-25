@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import SingleIncoming from "./SingleIncoming.js"
 import ModalSelectTrack from "./ModalSelectTrack.js"
-import { RadioButtonGroup } from 'react-rainbow-components';
 
 import { get, post } from "../../utilities";
 
 import "./IncomingCard.css";
+
+const ratingOptions = [
+  {value: '5', label: "Love"},
+  {value: '4', label: "Like"},
+  {value: '3', label: "Neutral"},
+  {value: '2', label: "Dislike"},
+  {value: '1', label: "Hate"},
+]
 
 /**
  * Card is a component for displaying content like stories
@@ -34,7 +41,6 @@ class IncomingCard extends Component {
   }
 
   componentDidMount() {
-
     console.log("Props", this.props);
   }
 
@@ -77,6 +83,7 @@ class IncomingCard extends Component {
     }
   }
   
+  
   render() {
     return (
       <>
@@ -112,22 +119,32 @@ class IncomingCard extends Component {
             </div>
           </div>
           <div className="IncomingCard-commentSection u-flex u-flex-justifyCenter">
-            <RadioButtonGroup
-              options={[
-                {value: '5', label: "Love"},
-                {value: '4', label: "Like"},
-                {value: '3', label: "Neutral"},
-                {value: '2', label: "Dislike"},
-                {value: '1', label: "Hate"},
-              ]}
-              value={this.state.rating}
-              size="small"
-              onChange={(event) => this.setState({ rating: event.target.value })}
-              required={true}
-              label="Rate the song you got!"
-              className=""
-            />
+            
+
+            
           </div>
+          <div className="space-x-2 flex text-sm font-medium">
+        <label>
+          <input className="w-9 h-9 flex items-center justify-center rounded-full bg-purple-700 text-white" name="size" type="radio" value="xs" checked />
+          XS
+        </label>
+        <label>
+          <input className="w-9 h-9 flex items-center justify-center rounded-full border-2 border-gray-200" name="size" type="radio" value="s" />
+          S
+        </label>
+        <label>
+          <input className="w-9 h-9 flex items-center justify-center rounded-full border-2 border-gray-200" name="size" type="radio" value="m" />
+          M
+        </label>
+        <label>
+          <input className="w-9 h-9 flex items-center justify-center rounded-full border-2 border-gray-200" name="size" type="radio" value="l" />
+          L
+        </label>
+        <label>
+          <input className="w-9 h-9 flex items-center justify-center rounded-full border-2 border-gray-200" name="size" type="radio" value="xl" />
+          XL
+        </label>
+      </div>
         </div>
       </>
     );
