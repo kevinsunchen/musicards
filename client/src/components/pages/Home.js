@@ -7,7 +7,7 @@ import "./Home.css";
 import envelope from "../../public/envelope.svg";
 import deck from "../../public/deck.svg";
 import idcard from "../../public/idcard.svg";
-import box from "../../public/box.svg";
+import box from "../../public/giftbox.svg";
 
 class Home extends Component {
   constructor(props) {
@@ -56,7 +56,7 @@ class Home extends Component {
           
           <div className = "iconGroup"> 
             <Link to="/incoming">
-              <img src = {box} width = "500px"/> <br />
+              <img src = {box} width = "450px"/> <br />
               incoming <br />
             </Link>
           </div>

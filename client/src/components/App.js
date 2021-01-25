@@ -57,56 +57,6 @@ class App extends Component {
   render() {
     return (
       <>
-<<<<<<< HEAD
-        {console.log("Logged in?", this.state.loggedInUser)}
-        <div className = "wrapper"> 
-
-
-            <Match
-              path="/">
-              {props =>
-                props.match ? (
-                  <></>
-                  ) : (
-                    <div className="navbar">
-
-                    <NavBar
-                    loggedInUser={this.state.loggedInUser}
-                    />
-                    </div>
-                    )
-                  }
-            </Match>
-
-          <div className="maincontent"
-          >
-          <Router
-          >
-            <Home path="/" loggedInUser={this.state.loggedInUser} />
-            <RequestFeed path="/requests" loggedInUser={this.state.loggedInUser} />
-            <Deck path="/deck" loggedInUser={this.state.loggedInUser} />
-            <Incoming path="/incoming" loggedInUser={this.state.loggedInUser} />
-            <Login
-              path="/login"
-              handleLogin={this.handleLogin}
-              handleLogout={this.handleLogout}
-              loggedInUser={this.state.loggedInUser}
-              />
-            <Profile 
-              path="/profile/:profileId"
-              handleLogin={this.handleLogin}
-              handleLogout={this.handleLogout}
-              loggedInUser={this.state.loggedInUser}
-              />
-            <MyRequests path="/profile/:profileId/my_requests" />
-            <TradeHistory path="/profile/:profileId/trade_history" />
-            <NotFound default />
-          </Router>            
-              </div>
-        </div>
-        
-        
-=======
         {console.log("Currently logged-in user:", this.state.loggedInUser)}
         <Match path="/">
           {props =>
@@ -140,7 +90,6 @@ class App extends Component {
           <TradeHistory path="/profile/:profileId/trade_history" />
           <NotFound default />
         </Router>
->>>>>>> 8f447802d39a7d5ad83f127531be50a64587dd75
       </>
     );
   }
