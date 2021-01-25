@@ -4,10 +4,10 @@ import React, { Component } from "react";
 import "../../utilities.css";
 import "./Skeleton.css";
 import "./Home.css";
-import envelope from "../../public/envelope.png";
-import deck from "../../public/deck.png";
-import idcard from "../../public/idcard.png";
-
+import envelope from "../../public/envelope.svg";
+import deck from "../../public/deck.svg";
+import idcard from "../../public/idcard.svg";
+import box from "../../public/box.svg";
 
 class Home extends Component {
   constructor(props) {
@@ -56,14 +56,14 @@ class Home extends Component {
           
           <div className = "iconGroup"> 
             <Link to="/incoming">
-              <img src = {deck} width = "400px"/> <br />
+              <img src = {box} width = "500px"/> <br />
               incoming <br />
             </Link>
           </div>
 
           <div className = "iconGroup"> 
             <Link to="/deck">
-              <img src = {deck} width = "400px" /> <br />
+              <img src = {deck} width = "450px" /> <br />
               deck <br />
             </Link>
           </div>
