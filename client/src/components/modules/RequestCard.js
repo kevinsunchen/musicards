@@ -65,9 +65,9 @@ class RequestCard extends Component {
         requesterName: this.props.requesterName,
         requesterId: this.props.requesterId,
         requesterTrackId: this.props.offeredTrackId,
-        requesterLabel: this.props.offeredLabel,
+        requesterLabel: this.props.requestedLabel,
         fulfillerTrackId: this.state.trackToTrade._id,
-        fulfillerLabel: this.props.requestedLabel
+        fulfillerLabel: this.props.offeredLabel
       }
       post("/api/performTrade", body).then((trade) => {
         console.log("Traded")
