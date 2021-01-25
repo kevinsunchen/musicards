@@ -3,19 +3,19 @@
     /* position: relative;
 
     */
+    justify-content: flex-start;
     align-items: stretch;
     text-align: center;
 }
 
-.wrapper .navbar {
-    width: 150px;
+.navbar {
     height: 100%;
-    flex-grow: 1;
+    flex: 1;
 }
 
-.wrapper .maincontent {
+.maincontent {
     /* margin-left: 150px;
     */
-    flex-grow: 1
+    flex: 3
 }
 
