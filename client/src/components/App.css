@@ -1,3 +1,9 @@
+* {
+    background-color: var(--blue);
+    text-align: center;
+    
+}
+
 .wrapper{
     display: flex;
     /* position: relative;
