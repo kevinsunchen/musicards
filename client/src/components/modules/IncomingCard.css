@@ -1,33 +1,33 @@
-.Card-container {
+.IncomingCard-container {
   border: var(--darkgrey) 1px solid;
   border-radius: var(--xs);
   margin-top: var(--m);
 }
 
-.Card-container:first-of-type {
+.IncomingCard-container:first-of-type {
   margin-top: var(--l);
 }
 
-.Card-story,
-.Card-commentSection {
+.IncomingCard-story {
   padding: var(--m) var(--l);
 }
 
-.Card-storyUser {
+.IncomingCard-storyUser {
   font-size: 20px;
   font-weight: 600;
 }
 
-.Card-storyContent {
+.IncomingCard-storyContent {
   font-size: 20px;
   margin: var(--s) 0 0;
 }
 
-.Card-commentSection {
+.IncomingCard-commentSection {
   background-color: var(--grey);
   border-top: 1px solid var(--darkgrey);
+  padding: var(--s) 0;
 }
 
-.Card-commentBody {
+.IncomingCard-commentBody {
   margin: 0 0 var(--s);
 }

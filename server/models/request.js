@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 //define a story schema for the database
 const RequestSchema = new mongoose.Schema({
-  creator_id: String,
-  creator_name: String,
+  requesterId: String,
+  requesterName: String,
   offeredTrackId: String,
   offeredLabel: String,
   requestedLabel: String

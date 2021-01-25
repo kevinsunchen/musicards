@@ -4,26 +4,26 @@
   margin-top: var(--m);
 }
 
-.Card-story,
-.Card-commentSection {
+.Musicard-story,
+.Musicard-commentSection {
   padding: var(--m) var(--l);
 }
 
-.Card-storyUser {
+.Musicard-storyUser {
   font-size: 20px;
   font-weight: 600;
 }
 
-.Card-storyContent {
+.Musicard-storyContent {
   font-size: 40px;
   margin: var(--s) 0 0;
 }
 
-.Card-commentSection {
+.Musicard-commentSection {
   background-color: var(--grey);
   border-top: 1px solid var(--darkgrey);
 }
 
-.Card-commentBody {
+.Musicard-commentBody {
   margin: 0 0 var(--s);
 }

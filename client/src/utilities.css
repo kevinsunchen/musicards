@@ -78,6 +78,10 @@ form {
   position: relative;
 }
 
+.u-circular {
+  border-radius: 50%;
+}
+
 .u-pointer {
   cursor: pointer;
 }
