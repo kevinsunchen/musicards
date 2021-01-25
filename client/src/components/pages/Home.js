@@ -30,7 +30,7 @@ class Home extends Component {
         <div className = "container"> 
           <div className = "iconGroup"> 
             <Link to="/requests">
-              requests <br />
+              requests
               <img src = {envelope} width = "500px" class = "icon"/> <br />
             </Link>
           </div>
