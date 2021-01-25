@@ -287,7 +287,7 @@ socketSendRequestFeed = () => {
   });
 }
 
-setInterval(socketSendRequestFeed, 30*1000)
+setInterval(socketSendRequestFeed, 5*1000)
 
 router.post("/postToRequestFeed", auth.ensureLoggedIn, (req, res) => {
   console.log(req.body, req.user);

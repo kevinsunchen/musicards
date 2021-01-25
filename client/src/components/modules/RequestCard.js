@@ -20,6 +20,7 @@ import "./Card.css";
  * @param {Object} loggedInUser ={this.props.loggedInUser}
  */
 class RequestCard extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -32,8 +33,11 @@ class RequestCard extends Component {
 
   componentDidMount() {
     console.log(this.props)
+    this._isMounted = true;
     get("/api/getTrackProcessed", { trackId : this.props.offeredTrackId }).then((trackInfo) => {
-      this.setState({ offeredTrackInfo: trackInfo })
+      if (this._isMounted) {
+        this.setState({ offeredTrackInfo: trackInfo });
+      }
     })
     /**
     get("/api/comment", { parent: this.props._id }).then((comments) => {
@@ -44,6 +48,10 @@ class RequestCard extends Component {
     */
   }
 
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+  
   // this gets called when the user pushes "Submit", so their
   // post gets added to the screen right away
   addNewComment = (commentObj) => {

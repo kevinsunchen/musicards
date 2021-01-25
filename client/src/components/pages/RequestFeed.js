@@ -23,7 +23,6 @@ class RequestFeed extends Component {
     document.title = "Requests Feed";
     console.log(this.props.loggedInUser);
     this.getRequestFeed();
-    
 
     socket.on("getRequestFeed", (requestObjs) => {
       this.populateRequestsList(requestObjs)
@@ -31,12 +30,13 @@ class RequestFeed extends Component {
 
   }
   
-  componentWillUnmoun() {
+  componentWillUnmount() {
     this._isMounted = false;
   }
   
   populateRequestsList = (requestObjs) => {
     if (this._isMounted) {
+      console.log(this._isMounted);
       this.setState({ requests: [] })
       let reversedRequestObjs = requestObjs.reverse();
       reversedRequestObjs.map((requestObj) => {
