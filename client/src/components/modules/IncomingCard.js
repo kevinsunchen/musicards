@@ -1,19 +1,10 @@
 import React, { Component } from "react";
 import SingleIncoming from "./SingleIncoming.js"
-import ModalSelectTrack from "./ModalSelectTrack.js"
 import SingleIncomingRate from "./SingleIncomingRate.js";
 
 import { get, post } from "../../utilities";
 
 import "./IncomingCard.css";
-
-const ratingOptions = [
-  {value: '5', label: "Love"},
-  {value: '4', label: "Like"},
-  {value: '3', label: "Neutral"},
-  {value: '2', label: "Dislike"},
-  {value: '1', label: "Hate"},
-]
 
 /**
  * Card is a component for displaying content like stories
@@ -82,14 +73,6 @@ class IncomingCard extends Component {
   render() {
     return (
       <>
-        <ModalSelectTrack
-          isOpen={this.state.showModal}
-          handleClose={() => this.setState({ showModal: false })}
-          handleSelect={(track) => this.setState({ trackToTrade: track })}
-        >
-          Choose a song from your deck to trade!
-        </ModalSelectTrack>
-
         <div className="IncomingCard-container">
           <div className="u-flex">
             <SingleIncoming
