@@ -1,19 +1,23 @@
 const User = require("./models/user");
 const socket = require("./server-socket");
-
 require('dotenv').config();
 
 // gets user from DB, or makes a new account if it doesn't exist yet
-function getOrCreateUser(user) {
+function getOrCreateUser(user, accessToken) {
   // the "sub" field means "subject", which is a unique identifier for each user
   console.log("user's id is " + user.id)
   return User.findOne({ spotifyId: user.id }).then((existingUser) => {
-    if (existingUser) return existingUser;
+    if (existingUser) {
+      existingUser.accessToken = accessToken;
+      return existingUser.save();
+    }
 
     const newUser = new User({
       name: user.display_name,
       spotifyId: user.id,
+      accessToken: accessToken,
     });
+
     return newUser.save();
   });
 }
@@ -29,18 +33,17 @@ const callback = async (req, res, spotifyApi) => {
   console.log(code)
   try {
     const data = await spotifyApi.authorizationCodeGrant(code)
-    const { access_token, refresh_token } = data.body;
-    spotifyApi.setAccessToken(access_token);
-    spotifyApi.setRefreshToken(refresh_token);
+    const { access_token: accessToken, refresh_token: refreshToken } = data.body;
+    spotifyApi.setAccessToken(accessToken);
+    spotifyApi.setRefreshToken(refreshToken);
     spotifyApi.getMe()
       .then((user) => {
         console.log('Some information about the authenticated user', user.body);
-        return getOrCreateUser(user.body)
+        return getOrCreateUser(user.body, accessToken)
       }, (err) => {
         console.log('Something went wrong!', err);
       }).then((user) => {
         req.session.user = user;
-        console.log(process.env.REDIRECT_URI)
         res.redirect(process.env.REDIRECT_URI);
       }).catch((err) => {
         console.log(`Failed to log in: ${err}`);
@@ -68,6 +71,7 @@ function ensureLoggedIn(req, res, next) {
   if (!req.user) {
     return res.status(401).send({ err: "not logged in" });
   }
+
   next();
 }
 

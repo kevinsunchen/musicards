@@ -6,9 +6,9 @@ import PropTypes from "prop-types";
  *
  * Proptypes
  * @param {string} title of the modal
- * @param {string} show, a boolean to control whether or not the modal should currently be shown
+ * @param {string} isOpen, a boolean to control whether or not the modal should currently be shown
  * @param {string} children, the body content of the modal
- * @param {function} handleClose, a function that handles closing the modal (setting this.prop.show to false in the parent component)
+ * @param {function} handleClose, a function that handles closing the modal (setting this.prop.isOpen to false in the parent component)
  * @param {function} onOpen, an optional prop holding a function to execute upon opening the modal
  * @param {function} onOkay, an optional prop that, if defined, adds an OK button to the modal; the prop holds a function to run upon clicking OK 
  * @param {string} okayButtonText, an optional prop that, if defined, changes the text of the OK button on the modal
@@ -19,13 +19,13 @@ class Modal extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!prevProps.open && this.props.open) {
+    if (!prevProps.isOpen && this.props.isOpen) {
       this.props.onOpen();
     }
   }
 
   render() {
-    if (!this.props.open) {
+    if (!this.props.isOpen) {
       return null;
     }
     else {
@@ -63,7 +63,7 @@ class Modal extends Component {
 
 Modal.propTypes = {
   handleClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired
+  isOpen: PropTypes.bool.isRequired
 };
 
 export default Modal;

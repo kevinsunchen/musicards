@@ -3,7 +3,6 @@ import { get, post } from "../../utilities";
 import Musicard from "../modules/Musicard.js";
 
 import "../../utilities.css";
-import "./Skeleton.css";
 
 class Deck extends Component {
   constructor(props) {
