@@ -2,7 +2,6 @@ import { Link } from "@reach/router";
 import React, { Component } from "react";
 
 import "../../utilities.css";
-import "./Skeleton.css";
 
 class Home extends Component {
   constructor(props) {

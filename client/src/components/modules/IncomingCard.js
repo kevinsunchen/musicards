@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SingleIncoming from "./SingleIncoming.js"
 import ModalSelectTrack from "./ModalSelectTrack.js"
+import SingleIncomingRate from "./SingleIncomingRate.js";
 
 import { get, post } from "../../utilities";
 
@@ -36,7 +37,6 @@ class IncomingCard extends Component {
     this.state = {
       showModal: false,
       rating: undefined,
-      trackToTrade: undefined
     };
   }
 
@@ -49,9 +49,10 @@ class IncomingCard extends Component {
       window.alert("Please rate the song you received before declining!");
     } else {
       const body = {
-        tradeId: this.props._id,
+        rating: this.state.rating,
+        tradeId: this.props.tradeId
       }
-      post("/api/declineIncoming", body).then(() => {
+      post("/api/declineIncoming", body).then((response) => {
         this.props.triggerFeedRefresh();
       }).catch((err) => { console.log(err) });
     }
@@ -63,22 +64,16 @@ class IncomingCard extends Component {
       window.alert("Please rate the song you received before adding it to your deck!");
     } else {
       const body = {
-        requestId: this.props._id,
-        requesterName: this.props.creator_name,
-        requesterId: this.props.creator_id,
-        requesterTrackId: this.props.offeredTrackId,
-        requesterLabel: this.props.offeredLabel,
-        fulfillerTrackId: this.state.trackToTrade._id,
-        fulfillerLabel: this.props.requestedLabel
+        rating: this.state.rating,
+        tradeId: this.props.tradeId,
+        incomingTrackId: this.props.incomingTrackInfo._id
       }
-      post("/api/addIncomingToDeck", body).then((trade) => {
+      post("/api/addIncomingToDeck", body).then((response) => {
         console.log("Traded")
-        console.log(trade);
+        console.log(response);
+        this.props.triggerFeedRefresh();
       }).catch((err) => {
         console.log(err);
-      }).finally(() => {
-        this.setState({ trackToTrade: undefined });
-        this.props.triggerFeedRefresh();
       });
     }
   }
@@ -119,32 +114,11 @@ class IncomingCard extends Component {
             </div>
           </div>
           <div className="IncomingCard-commentSection u-flex u-flex-justifyCenter">
-            
-
-            
+            <SingleIncomingRate
+              rating={this.state.rating}
+              setRating={(num) => {this.setState({ rating: num })}}
+            />
           </div>
-          <div className="space-x-2 flex text-sm font-medium">
-        <label>
-          <input className="w-9 h-9 flex items-center justify-center rounded-full bg-purple-700 text-white" name="size" type="radio" value="xs" checked />
-          XS
-        </label>
-        <label>
-          <input className="w-9 h-9 flex items-center justify-center rounded-full border-2 border-gray-200" name="size" type="radio" value="s" />
-          S
-        </label>
-        <label>
-          <input className="w-9 h-9 flex items-center justify-center rounded-full border-2 border-gray-200" name="size" type="radio" value="m" />
-          M
-        </label>
-        <label>
-          <input className="w-9 h-9 flex items-center justify-center rounded-full border-2 border-gray-200" name="size" type="radio" value="l" />
-          L
-        </label>
-        <label>
-          <input className="w-9 h-9 flex items-center justify-center rounded-full border-2 border-gray-200" name="size" type="radio" value="xl" />
-          XL
-        </label>
-      </div>
         </div>
       </>
     );

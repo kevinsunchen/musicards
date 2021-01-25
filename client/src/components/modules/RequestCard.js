@@ -12,8 +12,8 @@ import "./Card.css";
  * Proptypes
  * @param {string} key ={`Card_${requestObj._id}`}
  * @param {string} _id ={requestObj._id}
- * @param {string} creator_name ={requestObj.creator_name}
- * @param {string} creator_id ={requestObj.creator_id}
+ * @param {string} requesterName ={requestObj.creator_name}
+ * @param {string} requesterId ={requestObj.creator_id}
  * @param {string} offeredLabel ={requestObj.offeredLabel}
  * @param {string} requestedLabel ={requestObj.requestedLabel}
  * @param {string} offeredTrackId ={requestObj.offeredTrackId}
@@ -53,27 +53,34 @@ class RequestCard extends Component {
   };
 
   executeTrade = () => {
-    console.log("Attempt to trade initiated");
-    const body = {
-      requestId: this.props._id,
-      requesterName: this.props.creator_name,
-      requesterId: this.props.creator_id,
-      requesterTrackId: this.props.offeredTrackId,
-      requesterLabel: this.props.offeredLabel,
-      fulfillerTrackId: this.state.trackToTrade._id,
-      fulfillerLabel: this.props.requestedLabel
-    }
-    post("/api/performTrade", body).then((trade) => {
-      console.log("Traded")
-      console.log(trade);
-    }).catch((err) => {
-      console.log(err);
-    }).finally(() => {
-      this.setState({ trackToTrade: undefined });
-      this.props.triggerFeedRefresh();
-    });
-  }
+    if (this.state.trackToTrade._id === this.props.offeredTrackId) {
+      window.alert("The selected track can't be the same as the requested track!")
+    } else if (this.props.loggedInUser._id === this.props.requesterId) {
 
+    } else {
+
+      console.log("Attempt to trade initiated");
+      const body = {
+        requestId: this.props._id,
+        requesterName: this.props.requesterName,
+        requesterId: this.props.requesterId,
+        requesterTrackId: this.props.offeredTrackId,
+        requesterLabel: this.props.offeredLabel,
+        fulfillerTrackId: this.state.trackToTrade._id,
+        fulfillerLabel: this.props.requestedLabel
+      }
+      post("/api/performTrade", body).then((trade) => {
+        console.log("Traded")
+        console.log(trade);
+      }).catch((err) => {
+        console.log(err);
+      }).finally(() => {
+        this.setState({ trackToTrade: undefined });
+        this.props.triggerFeedRefresh();
+      });
+    }
+  }
+    
   render() {
     let tradeOrConfirmButton = null;
     if (this.props.loggedInUser) {
@@ -118,8 +125,8 @@ class RequestCard extends Component {
         <div className="Card-container">
           <SingleRequest
             _id={this.props._id}
-            creator_name={this.props.creator_name}
-            creator_id={this.props.creator_id}
+            requesterName={this.props.requesterName}
+            requesterId={this.props.requesterId}
             content={this.props.content}
             offeredLabel={this.props.offeredLabel}
             requestedLabel={this.props.requestedLabel}

@@ -6,8 +6,8 @@ import { Link } from "@reach/router";
  *
  * Proptypes
  * @param {string} _id of the story
- * @param {string} creator_name
- * @param {string} creator_id
+ * @param {string} requesterName
+ * @param {string} requesterId
  * @param {string} content of the story
  */
 class SingleRequest extends Component {
@@ -34,8 +34,8 @@ class SingleRequest extends Component {
 
       return (
       <div className="Card-story">
-        <Link to={`/profile/${this.props.creator_id}`} className="u-link u-bold">
-          {this.props.creator_name}
+        <Link to={`/profile/${this.props.requesterId}`} className="u-link u-bold">
+          {this.props.requesterName}
         </Link>
         <div className="Card-storyContent">
           <p>Looking for a {this.props.requestedLabel} song, will trade for a {this.props.offeredLabel} song!</p>

@@ -3,7 +3,6 @@ import IncomingCard from "../modules/IncomingCard.js";
 
 import { get } from "../../utilities";
 import "../../utilities.css";
-import "./Skeleton.css";
 
 //TODO: REPLACE WITH YOUR OWN CLIENT_ID
 
@@ -49,8 +48,8 @@ class IncomingFeed extends Component {
       // console.log(this.state.requests)
       incomingList = this.state.incoming.map((incomingObj) => (
         <IncomingCard
-          key={`IncomingCard_${incomingObj.tradeInfo._id}`}
-          _id={incomingObj.tradeInfo._id}
+          key={`IncomingCard_${incomingObj.tradeInfo.tradeId}`}
+          tradeId={incomingObj.tradeInfo.tradeId}
           selfName={incomingObj.tradeInfo.selfName}
           selfId={incomingObj.tradeInfo.selfId}
           selfLabel={incomingObj.tradeInfo.selfLabel}

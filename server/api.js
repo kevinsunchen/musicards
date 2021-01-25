@@ -284,8 +284,8 @@ router.get("/getRequestFeed", (req, res) => {
 router.post("/postToRequestFeed", auth.ensureLoggedIn, (req, res) => {
   console.log(req.body, req.user);
   const newRequest = new Request({
-    creator_id: req.user._id,
-    creator_name: req.user.name,
+    requesterId: req.user._id,
+    requesterName: req.user.name,
     offeredTrackId: req.body.offeredTrackId,
     offeredLabel: req.body.offeredLabel,
     requestedLabel: req.body.requestedLabel
@@ -328,7 +328,6 @@ router.post("/performTrade", auth.ensureLoggedIn, async (req, res) => {
       // fulfiller.deck = fulfiller.deck.filter((track) => track !== trade.fulfillerTrackId);
       fulfiller.deck.push(trade.requesterTrackId);
       fulfiller.deck = [...new Set(fulfiller.deck)];
-
       
       requester.incoming.push({ tradeId: trade._id, incomingTrackId: trade.fulfillerTrackId, tradedTrackId: trade.requesterTrackId });
       // fulfiller.incoming.push({ tradeId: trade._id, incomingTrackId: trade.requesterTrackId, tradedTrackId: trade.fulfillerTrackId });
@@ -347,30 +346,31 @@ router.post("/performTrade", auth.ensureLoggedIn, async (req, res) => {
   }
 })
 
+getTradeProcessed = (tradeInfo) => {
+  // console.log(tradeInfo, trackInfo);
+  return {
+    tradeId: tradeInfo._id,
+    selfName: tradeInfo.requesterName,
+    selfId: tradeInfo.requesterId,
+    selfLabel: tradeInfo.requesterLabel,
+    selfTrackId: tradeInfo.requesterTrackId,
+    traderName: tradeInfo.fulfillerName,
+    traderId: tradeInfo.fulfillerId,
+    traderLabel: tradeInfo.fulfillerLabel,
+    traderTrackId: tradeInfo.fulfillerTrackId
+  }
+}
+
 router.get("/getUserIncomingFeed", async (req, res) => {
   if (req.user) {
     const user = await User.findById(req.user._id);
-    console.log("User:", user);
     if (req.user) {
       let incoming = user.incoming;
-      console.log(incoming);
       let incomingInfo = incoming.map(async (incomingObj) => {
         const tradeInfo = await Trade.findById(incomingObj.tradeId);
         const incomingTrackInfo = await getTrackProcessed(incomingObj.incomingTrackId);
         const tradedTrackInfo = await getTrackProcessed(incomingObj.tradedTrackId);
-        // console.log(tradeInfo, trackInfo);
-        const tradeInfoProcessed = {
-          _id: tradeInfo._id,
-          selfName: tradeInfo.requesterName,
-          selfId: tradeInfo.requesterId,
-          selfLabel: tradeInfo.requesterLabel,
-          selfTrackId: tradeInfo.requesterTrackId,
-          traderName: tradeInfo.fulfillerName,
-          traderId: tradeInfo.fulfillerId,
-          traderLabel: tradeInfo.fulfillerLabel,
-          traderTrackId: tradeInfo.fulfillerTrackId
-        }
-        
+        const tradeInfoProcessed = getTradeProcessed(tradeInfo);
         return {
           tradeInfo: tradeInfoProcessed,
           incomingTrackInfo: incomingTrackInfo,
@@ -382,6 +382,40 @@ router.get("/getUserIncomingFeed", async (req, res) => {
       res.send(allResults);
     }
   }
+})
+
+rateUser = async (trade, rating) => {
+  const tradeProcessed = getTradeProcessed(trade);
+  const ratingUser = await User.findById(tradeProcessed.traderId);
+
+  ratingUser.lifetimePoints = ratingUser.lifetimePoints + rating;
+  ratingUser.currentPoints = ratingUser.currentPoints + rating;
+  ratingUser.numRates++;
+  console.log("ratingUser", ratingUser);
+  return await ratingUser.save();
+}
+
+
+router.post("/declineIncoming", auth.ensureLoggedIn, async (req, res) => {
+  const user = await User.findById(req.user._id);
+  const trade = await Trade.findById(req.body.tradeId);
+  await rateUser(trade, req.body.rating);
+  
+  user.incoming = user.incoming.filter((incomingInfo) => incomingInfo.tradeId !== req.body.tradeId);
+  await user.save();
+  res.send({});
+})
+
+router.post("/addIncomingToDeck", auth.ensureLoggedIn, async (req, res) => {
+  const user = await User.findById(req.user._id);
+  const trade = await Trade.findById(req.body.tradeId);
+  await rateUser(trade, req.body.rating);
+
+  user.incoming = user.incoming.filter((incomingInfo) => incomingInfo.tradeId !== req.body.tradeId);
+  user.deck.push(req.body.incomingTrackId);
+  user.deck = [...new Set(user.deck)];
+  await user.save();
+  res.send({});
 })
 
 // anything else falls to this "not found" case

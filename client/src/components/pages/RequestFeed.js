@@ -3,7 +3,6 @@ import RequestCard from "../modules/RequestCard.js";
 import { NewRequest } from "../modules/NewRequestInput.js";
 
 import "../../utilities.css";
-import "./Skeleton.css";
 
 import { get } from "../../utilities";
 
@@ -59,8 +58,8 @@ class RequestFeed extends Component {
         <RequestCard
           key={`RequestCard_${requestObj._id}`}
           _id={requestObj._id}
-          creator_name={requestObj.creator_name}
-          creator_id={requestObj.creator_id}
+          requesterName={requestObj.creator_name}
+          requesterId={requestObj.creator_id}
           offeredLabel={requestObj.offeredLabel}
           requestedLabel={requestObj.requestedLabel}
           offeredTrackId={requestObj.offeredTrackId}
