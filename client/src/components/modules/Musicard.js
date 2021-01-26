@@ -24,13 +24,35 @@ class Musicard extends Component {
     })
   }
 
+  isElementOverflowing = (element) => {
+    let overflowX = element.offsetWidth < element.scrollWidth;
+    return overflowX;
+  }
+
   render() {
     if (!this.state.trackInfo) {
       return <div> Loading card... </div>
     }
     return (
       <div className="Musicard-container">
-        <div className="Musicard-album">{this.state.trackInfo.album}</div>
+        {//<p className="marquee">
+          //<span>
+          //  {this.state.trackInfo.album} 
+          //</span>
+        //</p>}
+
+        {isElementOverflowing(this.state.trackInfo.album) === true ? (
+          <p className="marquee">
+            <span>
+              {this.state.trackInfo.album} 
+            </span>
+          </p>
+        ) : (
+          <div className="Musicard-album">{this.state.trackInfo.album} </div>
+        )}
+
+        {//<div className="Musicard-album">{this.state.trackInfo.album}</div>
+        }
         <img className="Musicard-image" src={this.state.trackInfo.images[1].url} />
         <div className="Musicard-title">{this.state.trackInfo.name}</div>
         <div className="Musicard-artists">{this.state.trackInfo.artists.join(", ")}</div>

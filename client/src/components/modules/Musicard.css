@@ -7,7 +7,7 @@
   margin: var(--m);
   box-shadow: 3px 5px 10px#1e8fc7;
   align-items: center;
-  
+  padding: var(--l);
 }
 
 .Musicard-image {
@@ -18,26 +18,78 @@
 
 .Musicard-title {
   margin-top: var(--m);
-  font-size: 20px;
+  font-size: 30px;
   background-color: var(--white);
 }
 
 .Musicard-artists {
   margin-top: var(--m);
   background-color: var(--white);
-  margin-bottom: var(--l);
+  font-size: 24px;
   color: #999999;
 }
 
 .Musicard-album {
-  margin-top: var(--l);
   background-color: var(--white);
   color: #999999;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+
+  
 }
 
 .Musicard-play{
   background-color: var(--white);
-  width: 64px;
+  width: 56px;
   align-self: center;
+  margin: auto;
+  margin-top: var(--m);
+}
 
+.marquee {
+  width: 320px;
+  margin: 0 auto;
+  overflow: hidden;
+  box-sizing: border-box;
+  
+}
+
+.marquee span {
+  display: inline-block;
+  width: max-content;
+
+  /*padding-left: 100%;
+   show the marquee just outside the paragraph */
+  will-change: transform;
+  animation: marquee-reset;
+  animation-play-state: paused;   
+  
+}
+
+.marquee span:hover {
+  animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee-reset {
+  0% {transform: translate(-50%, 0);}  
+}
+
+@keyframes marquee {
+  0% {transform: translate(0%, 0);}    
+  50% {transform: translate(-100%, 0);}
+  50.001% {transform: translate(100%, 0);}
+  100% {transform: translate(0%, 0);}
+}
+/* Respect user preferences about animations */
+@media (prefers-reduced-motion: reduce) {
+  .marquee span {
+    animation-iteration-count: 1;
+    animation-duration: 0.01; 
+    /* instead of animation: none, so an animationend event is 
+     * still available, if previously attached.
+     */
+    width: auto;
+    padding-left: 0;
+  }
 }
