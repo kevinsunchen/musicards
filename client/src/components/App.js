@@ -11,13 +11,10 @@ import MyRequests from "./pages/MyRequests.js";
 import TradeHistory from "./pages/TradeHistory.js";
 import NotFound from "./pages/NotFound.js";
 
-
-import "../utilities.css";
-import "./App.css";
-
+import { get, post } from "../utilities";
 import { socket } from "../client-socket.js";
 
-import { get, post } from "../utilities";
+import "../utilities.css";
 import "./App.css";
 
 /**
@@ -56,7 +53,7 @@ class App extends Component {
 
   render() {
     return (
-      <>
+      <div className="App-container">
         {console.log("Currently logged-in user:", this.state.loggedInUser)}
         <Match path="/">
           {props =>
@@ -90,7 +87,7 @@ class App extends Component {
           <TradeHistory path="/profile/:profileId/trade_history" />
           <NotFound default />
         </Router>
-      </>
+      </div>
     );
   }
 }

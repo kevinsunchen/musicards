@@ -27,44 +27,45 @@ class Home extends Component {
     return (
       <>
         
-        <div className = "container"> 
-          <div className = "iconGroup"> 
-            <Link to="/requests">
-              requests <br />
-              <img src = {envelope} width = "500px" class = "icon"/> <br />
+        <div className="Home-container">
+          <div className="Home-requestGroup Home-topIcons">
+            <Link to="/requests" className="u-link u-bold">
+              <div className="Home-iconText">
+                requests
+              </div>
+              <img src = {envelope} width = "500px" className= "icon"/>
             </Link>
           </div>
 
-          <div className = "iconGroup"> 
-            {this.props.loggedInUser ? (
-              <Link to={`/profile/${this.props.loggedInUser._id}`}>
-                profile <br />
-                <img src = {idcard} width = "400px"  /> <br />
-              </Link>
-            ) : (
-              <Link to='/login'>
-                login <br />
-                <img src = {idcard} width = "400px" /> <br />
-              </Link>
-            )}
-            
+          <div className = "Home-profileGroup Home-topIcons"> 
+            <Link
+              to={(this.props.loggedInUser) ? (`/profile/${this.props.loggedInUser._id}`) : ('/login')}
+              className="u-link u-bold"
+            >
+              <div className="Home-iconText">
+                {(this.props.loggedInUser) ? "profile" : "login"}
+              </div>
+              <img src = {idcard} width = "450px"  />
+            </Link>
           </div>
 
-          <div className="break"></div>
-          <div className = "appname"> musicards! </div>
-          <div className="break"></div>
+          <div className="Home-logoText"> musicards! </div>
           
-          <div className = "iconGroup"> 
-            <Link to="/incoming">
-              <img src = {box} width = "450px"/> <br />
-              incoming <br />
+          <div className="Home-incomingGroup Home-bottomIcons"> 
+            <Link to="/incoming" className="u-link u-bold">
+              <img src = {box} width = "450px"/>
+              <div className="Home-iconText">
+                incoming
+              </div>
             </Link>
           </div>
 
-          <div className = "iconGroup"> 
-            <Link to="/deck">
-              <img src = {deck} width = "450px" /> <br />
-              deck <br />
+          <div className = "Home-deckGroup Home-bottomIcons"> 
+            <Link to="/deck" className="u-link u-bold">
+              <img src = {deck} width = "450px" />
+              <div className="Home-iconText">
+                deck
+              </div>
             </Link>
           </div>
 

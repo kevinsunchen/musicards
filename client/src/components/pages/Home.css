@@ -1,30 +1,51 @@
-* {
-    margin-left: 0;
+.Home-container {
+    min-height: 100vh;
+    display: grid;
+    text-align: center;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "requests   requests    profile  profile"
+        ".          logo        logo     .      "
+        "incoming   incoming    deck     deck   ";
 }
 
-.container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-top: 50px;
-    margin-bottom: var(--l);
-    align-items: baseline;
-
+.Home-requestGroup {
+    grid-area: requests;
 }
 
-.container .iconGroup {
-    font-size: 30px;
-    
+.Home-profileGroup {
+    grid-area: profile;
 }
 
-
-
-.container .break {
-    flex-basis: 100%;
-    width: 0;
+.Home-incomingGroup {
+    grid-area: incoming;
 }
 
-.container .appname{
+.Home-deckGroup {
+    grid-area: deck;
+}
+
+.Home-topIcons {
+    padding-top: 8vh;
+}
+
+.Home-bottomIcons {
+    padding-bottom: 8vh;
+}
+
+.Home-logoText {
+    grid-area: logo;
     font-size: 64px;
     color: #10669F;
+    background-color: none;
+    justify-self: center;
+    align-self: center;
+}    
+
+.Home-iconText {
+    font-size: 30px;
+    display: flex;
+    flex-direction: column;
+    color: var(--primary--dim);
 }
