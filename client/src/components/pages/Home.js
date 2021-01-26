@@ -4,10 +4,10 @@ import React, { Component } from "react";
 import "../../utilities.css";
 import "./Skeleton.css";
 import "./Home.css";
-import envelope from "../../public/envelope.svg";
+import requests from "../../public/envelope.svg";
 import deck from "../../public/deck.svg";
-import idcard from "../../public/idcard.svg";
-import box from "../../public/giftbox.svg";
+import profile from "../../public/idcard.svg";
+import incoming from "../../public/giftbox.svg";
 
 class Home extends Component {
   constructor(props) {
@@ -28,49 +28,54 @@ class Home extends Component {
       <>
         
         <div className="Home-container">
-          <div className="Home-requestGroup Home-topIcons Home-leftIcons">
-            <div>
+          <div className="Home-requestGroup Home-topGroup Home-leftGroup">
               <Link to="/requests" className="u-link u-bold">
-                <div className="Home-iconText">
-                  requests
+                <div className="Home-topWrapper">
+                  <div className="Home-iconTextTop">
+                    requests
+                  </div>
+                  <img src = {requests} className="Home-icon"/>
                 </div>
-                <img src = {envelope} className= "icon"/>
               </Link>
-            </div>
           </div>
 
-          <div className = "Home-profileGroup Home-topIcons Home-rightIcons"> 
+          <div className = "Home-profileGroup Home-topGroup Home-rightGroup"> 
             <Link
               to={(this.props.loggedInUser) ? (`/profile/${this.props.loggedInUser._id}`) : ('/login')}
               className="u-link u-bold"
             >
-              <div className="Home-iconText">
-                {(this.props.loggedInUser) ? "profile" : "login"}
+              <div className="Home-topWrapper">
+                <div className="Home-iconTextTop">
+                  {(this.props.loggedInUser) ? "profile" : "login"}
+                </div>
+                <img src = {profile} className="Home-icon"/>
               </div>
-              <img src = {idcard}/>
             </Link>
           </div>
 
           <div className="Home-logoText"> musicards! </div>
           
-          <div className="Home-incomingGroup Home-bottomIcons Home-leftIcons"> 
-            <Link to="/incoming" className="u-link u-bold">
-              <img src = {box}/>
-              <div className="Home-iconText">
-                incoming
+          <div className="Home-incomingGroup Home-bottomGroup Home-leftGroup"> 
+          <Link to="/deck" className="u-link u-bold">
+              <div className="Home-topWrapper">
+                <img src = {incoming} className="Home-icon"/>
+                <div className="Home-iconTextBottom">
+                  deck
+                </div>
               </div>
             </Link>
           </div>
 
-          <div className = "Home-deckGroup Home-bottomIcons Home-rightIcons"> 
+          <div className = "Home-deckGroup Home-bottomGroup Home-rightGroup"> 
             <Link to="/deck" className="u-link u-bold">
-              <img src = {deck}/>
-              <div className="Home-iconText">
-                deck
+              <div className="Home-topWrapper">
+                <img src = {deck} className="Home-icon"/>
+                <div className="Home-iconTextBottom">
+                  deck
+                </div>
               </div>
             </Link>
           </div>
-
           
         </div>
         
