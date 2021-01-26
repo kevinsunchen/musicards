@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import "./Modal.css";
 
 /**
  * Story is a component that renders creator and content of a story
@@ -30,32 +31,36 @@ class Modal extends Component {
     }
     else {
       return (
-        <>
-        <div>
-          {this.props.title}
-        </div>
+        <div className = "modal">
+          <div className = "modal-main">
+        
+            <div>
+              {this.props.title}
+            </div>
 
-        <div>
-          {this.props.children}
-        </div>
+            <div>
+              {this.props.children}
+            </div>
 
-        <div>
-          {this.props.onOkay && (
-            <button onClick={this.props.onOkay}>
-              {this.props.okayButtonText || (<>OK</>)}
-            </button>
-          )}
-          <button onClick={this.props.handleClose}>
-            {this.props.closeButtonText || (
-              this.props.onOkay ? (
-                <>Cancel</>
-              ) : (
-                <>Close</>
-              )
-            )}
-          </button>
+            <div>
+              {this.props.onOkay && (
+                <button onClick={this.props.onOkay}>
+                  {this.props.okayButtonText || (<>OK</>)}
+                </button>
+              )}
+              <button onClick={this.props.handleClose}>
+                {this.props.closeButtonText || (
+                  this.props.onOkay ? (
+                    <>Cancel</>
+                  ) : (
+                    <>Close</>
+                  )
+                )}
+              </button>
+            </div>
+          </div>
         </div>
-        </>
+        
       );
     }
   }
