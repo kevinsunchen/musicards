@@ -12,8 +12,10 @@ import "./Musicard.css";
 class Musicard extends Component {
   constructor(props) {
     super(props);
+    this.marqueeRef = React.createRef();
     this.state = {
-      trackInfo: undefined
+      trackInfo: undefined,
+      marquee: false
     };
   }
 
@@ -21,13 +23,18 @@ class Musicard extends Component {
     get("/api/getTrackProcessed", { trackId: this.props.trackId }).then((trackInfo) => {
       console.log(trackInfo);
       this.setState({trackInfo: trackInfo});
-    })
+      // console.log(this.isElementOverflowing(this.marqueeRef));
+      console.log(this.marqueeRef.current.clientWidth)
+      console.log(this.marqueeRef.current.scrollWidth)
+      if (this.marqueeRef.current.clientWidth < this.marqueeRef.current.scrollWidth) {
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        this.setState({ marquee: true });
+      }
+    });
   }
 
+  componentDidUpdate() {
 
-  isElementOverflowing = (element) => {
-    let overflowX = element.offsetWidth < element.scrollWidth;
-    return overflowX;
   }
 
   render() {
@@ -40,20 +47,11 @@ class Musicard extends Component {
           //<span>
           //  {this.state.trackInfo.album} 
           //</span>
-        //</p>}
-
-        {isElementOverflowing(this.state.trackInfo.album) === true ? (
-          <p className="marquee">
-            <span>
-              {this.state.trackInfo.album} 
-            </span>
-          </p>
-        ) : (
-          <div className="Musicard-album">{this.state.trackInfo.album} </div>
-        )}
-
-        {//<div className="Musicard-album">{this.state.trackInfo.album}</div>
-        }
+        //</p>
+      }
+        <div ref={this.marqueeRef} className={(this.state.marquee) ? ("marquee Musicard-album") : ("Musicard-album")}>
+          <span> {this.state.trackInfo.album} </span>
+        </div>
         <img className="Musicard-image" src={this.state.trackInfo.images[1].url} />
         <div className="Musicard-title">{this.state.trackInfo.name}</div>
         <div className="Musicard-artists">{this.state.trackInfo.artists.join(", ")}</div>
