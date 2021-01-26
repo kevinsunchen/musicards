@@ -1,29 +1,43 @@
 .Musicard-container {
   border: var(--darkgrey) 1px solid;
-  border-radius: var(--xs);
+  border-radius: var(--l);
+  background-color: var(--white);
+  width: 400px;
+  text-align: center;
+  margin: var(--m);
+  box-shadow: 3px 5px 10px#1e8fc7;
+  align-items: center;
+  
+}
+
+.Musicard-image {
   margin-top: var(--m);
+  background-color: var(--white);
+  border-radius: var(--l);
 }
 
-.Musicard-story,
-.Musicard-commentSection {
-  padding: var(--m) var(--l);
-}
-
-.Musicard-storyUser {
+.Musicard-title {
+  margin-top: var(--m);
   font-size: 20px;
-  font-weight: 600;
+  background-color: var(--white);
 }
 
-.Musicard-storyContent {
-  font-size: 40px;
-  margin: var(--s) 0 0;
+.Musicard-artists {
+  margin-top: var(--m);
+  background-color: var(--white);
+  margin-bottom: var(--l);
+  color: #999999;
 }
 
-.Musicard-commentSection {
-  background-color: var(--grey);
-  border-top: 1px solid var(--darkgrey);
+.Musicard-album {
+  margin-top: var(--l);
+  background-color: var(--white);
+  color: #999999;
 }
 
-.Musicard-commentBody {
-  margin: 0 0 var(--s);
+.Musicard-play{
+  background-color: var(--white);
+  width: 64px;
+  align-self: center;
+
 }

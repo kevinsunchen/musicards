@@ -3,6 +3,7 @@ import { get, post } from "../../utilities";
 import Musicard from "../modules/Musicard.js";
 
 import "../../utilities.css";
+import "./Deck.css"
 
 class Deck extends Component {
   constructor(props) {
@@ -53,7 +54,8 @@ class Deck extends Component {
     return (
       <>
         <p>{this.props.loggedInUser.name}'s deck:</p>
-        {deckCards}
+        <div className = "Deck-deckGroup"> {deckCards} </div>
+        
       </>
     )
   }

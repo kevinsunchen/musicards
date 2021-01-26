@@ -50,9 +50,9 @@ class Home extends Component {
             
           </div>
 
-          <div class="break"></div>
-          <div class = "appname"> musicards! </div>
-          <div class="break"></div>
+          <div className="break"></div>
+          <div className = "appname"> musicards! </div>
+          <div className="break"></div>
           
           <div className = "iconGroup"> 
             <Link to="/incoming">
