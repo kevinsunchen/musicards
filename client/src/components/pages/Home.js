@@ -28,16 +28,18 @@ class Home extends Component {
       <>
         
         <div className="Home-container">
-          <div className="Home-requestGroup Home-topIcons">
-            <Link to="/requests" className="u-link u-bold">
-              <div className="Home-iconText">
-                requests
-              </div>
-              <img src = {envelope} width = "500px" className= "icon"/>
-            </Link>
+          <div className="Home-requestGroup Home-topIcons Home-leftIcons">
+            <div>
+              <Link to="/requests" className="u-link u-bold">
+                <div className="Home-iconText">
+                  requests
+                </div>
+                <img src = {envelope} className= "icon"/>
+              </Link>
+            </div>
           </div>
 
-          <div className = "Home-profileGroup Home-topIcons"> 
+          <div className = "Home-profileGroup Home-topIcons Home-rightIcons"> 
             <Link
               to={(this.props.loggedInUser) ? (`/profile/${this.props.loggedInUser._id}`) : ('/login')}
               className="u-link u-bold"
@@ -45,24 +47,24 @@ class Home extends Component {
               <div className="Home-iconText">
                 {(this.props.loggedInUser) ? "profile" : "login"}
               </div>
-              <img src = {idcard} width = "450px"  />
+              <img src = {idcard}/>
             </Link>
           </div>
 
           <div className="Home-logoText"> musicards! </div>
           
-          <div className="Home-incomingGroup Home-bottomIcons"> 
+          <div className="Home-incomingGroup Home-bottomIcons Home-leftIcons"> 
             <Link to="/incoming" className="u-link u-bold">
-              <img src = {box} width = "450px"/>
+              <img src = {box}/>
               <div className="Home-iconText">
                 incoming
               </div>
             </Link>
           </div>
 
-          <div className = "Home-deckGroup Home-bottomIcons"> 
+          <div className = "Home-deckGroup Home-bottomIcons Home-rightIcons"> 
             <Link to="/deck" className="u-link u-bold">
-              <img src = {deck} width = "450px" />
+              <img src = {deck}/>
               <div className="Home-iconText">
                 deck
               </div>
