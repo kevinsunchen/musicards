@@ -5,7 +5,13 @@
     overflow: auto
 }
 
+.App-pageWrapper {
+    max-width: 960px;
+    padding: var(--m) var(--m);
+    margin: auto;
+}
+
 .App-outer {
-    background-color: var(--blue);
+    background-color: var(--blue--dim);
     height: 100%;
 }

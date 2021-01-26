@@ -4,7 +4,7 @@ import ModalSelectTrack from "./ModalSelectTrack.js"
 
 import { get, post } from "../../utilities";
 
-import "./Card.css";
+import "./RequestCard.css";
 
 /**
  * Card is a component for displaying content like stories
@@ -138,7 +138,7 @@ class RequestCard extends Component {
           Choose a song from your deck to trade!
         </ModalSelectTrack>
 
-        <div className="Card-container">
+        <div className="RequestCard-container">
           <SingleRequest
             _id={this.props._id}
             requesterName={this.props.requesterName}

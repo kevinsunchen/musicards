@@ -16,7 +16,7 @@ class Login extends Component {
 
   render() {
     return (
-      <>
+      <div className="u-pageWrap">
         <h1>LOGIN</h1>
         <h2>Page that displays when a user is not logged in and performs any action that requires being logged in.</h2>
         {this.props.loggedInUser ? (
@@ -24,7 +24,7 @@ class Login extends Component {
           ) : (
             <button onClick={this.props.handleLogin}>spotify login</button>
         )}
-      </>
+      </div>
     );
   }
 }

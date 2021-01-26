@@ -36,7 +36,7 @@ class Profile extends Component {
     }
     else {
       return (
-        <>
+        <div className="u-pageWrap">
           <h1>PROFILE</h1>
           <h2>Page where a user can view and update their profile information.</h2>
           <p>Viewing profile of user <strong>{this.state.viewingUser.name}</strong>, who has ID <strong>{this.state.viewingUser._id}</strong>.</p>
@@ -52,7 +52,7 @@ class Profile extends Component {
             </>
           ) : (<p>Not logged in.</p>)
           }
-        </>
+        </div>
       );
     }
   }

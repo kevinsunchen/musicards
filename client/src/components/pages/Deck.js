@@ -70,7 +70,7 @@ class Deck extends Component {
     }
     console.log(currUser)
     return (
-      <>
+      <div className="u-pageWrap">
         <h1>MY DECK</h1>
         <h2>Page where the user can view their deck.</h2>
         <p>Current user <strong>{currUser.name}</strong> with ID <strong>{currUser.uid}</strong> and Spotify username <strong>{currUser.spotifyId}</strong>.</p>
@@ -79,7 +79,7 @@ class Deck extends Component {
         ) : (
           this.renderDeckContent()
         )}
-      </>
+      </div>
     );
   }
 }

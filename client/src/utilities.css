@@ -26,6 +26,7 @@
   --grey: #f7f7f7;
   --white: #fff;
   --blue: #adf1fe;
+  --blue--dim: #6fcbdd;
   --bluemed: #88e3f3;
   --blueshadow: #1e8fc7;
   --bluebright: #00a2ff;
@@ -106,4 +107,10 @@ form {
 
 .u-link:hover {
   color: var(--primary--dim);
+}
+
+.u-pageWrap {
+  max-width: 960px;
+  padding: calc(2 * var(--xl) - 6px) var(--m);
+  margin: auto;
 }

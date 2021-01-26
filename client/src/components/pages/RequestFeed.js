@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import RequestCard from "../modules/RequestCard.js";
 import { NewRequest } from "../modules/NewRequestInput.js";
 import { socket } from "../../client-socket.js";
+import { get } from "../../utilities";
 
 import "../../utilities.css";
-
-import { get } from "../../utilities";
 
 class RequestFeed extends Component {
   _isMounted = false;
@@ -88,13 +87,13 @@ class RequestFeed extends Component {
       ));
     }
     return (
-      <>
+      <div className="u-pageWrap">
         <h1>REQUESTS FEED</h1>
         <h2>The page displaying the public requests feed. Includes links to a users' own pending requests, as well as their trade history.</h2>
         <button onClick={this.refreshFeed}>Refresh feed</button>
         {this.props.loggedInUser && <NewRequest addNewRequest={this.addNewRequest} />}
         {requestsList}
-      </>
+      </div>
     );
   }
 }
