@@ -14,6 +14,9 @@ import MusicPreview from "./MusicPreview";
 class SingleRequest extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      audioPlaying: false
+    }
   }
 
   processTrackArtists = (artistsList) => {
@@ -25,6 +28,13 @@ class SingleRequest extends Component {
     } else {
       return artistsList.slice(0, n-1).join(", ") + ", and " + artistsList[n-1];
     }
+  }
+
+  toggleAudioPlaying = () => {
+    this.setState(prevState => ({
+      audioPlaying: !prevState.audioPlaying
+    }));
+    
   }
 
   render() {
@@ -44,7 +54,13 @@ class SingleRequest extends Component {
           Offering...
           
           <div>
-            {this.props.offeredTrackInfo && <MusicPreview trackInfo={this.props.offeredTrackInfo}/>}
+            {this.props.offeredTrackInfo &&
+              <MusicPreview
+                trackInfo={this.props.offeredTrackInfo}
+                audioPlaying={this.state.audioPlaying}
+                toggleAudioPlaying={this.toggleAudioPlaying}
+              />
+            }
           </div>
         </div>
       </div>
