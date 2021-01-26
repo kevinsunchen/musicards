@@ -14,12 +14,13 @@
   margin-top: var(--m);
   background-color: var(--white);
   border-radius: var(--l);
+  margin-bottom: var(--m);
 }
 
 .Musicard-title {
-  margin-top: var(--m);
   font-size: 30px;
   background-color: var(--white);
+  white-space: nowrap;
 }
 
 .Musicard-artists {
@@ -32,11 +33,7 @@
 .Musicard-album {
   background-color: var(--white);
   color: #999999;
-  text-overflow: ellipsis;
-  overflow: hidden;
   white-space: nowrap;
-
-  
 }
 
 .Musicard-play{

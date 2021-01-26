@@ -30,18 +30,18 @@ class Home extends Component {
         <div className="Home-container">
           
           <div className="Home-requestGroup Home-topGroup Home-leftGroup">
-            <div className="Home-topWrapper">
+            <div className="Home-topWrapper u-flex-alignCenter">
               <div className="Home-iconText u-flex-justifyFlexEnd">
                 <Link to="/requests" className="u-link u-bold"> requests </Link>
               </div>
-              <Link to="/requests" className="Home-iconWrapper">
+              <Link to="/requests" className="Home-iconWrapperTopL">
                 <img src={requests} className="Home-icon" />
               </Link>
             </div>
           </div>
 
           <div className="Home-profileGroup Home-topGroup Home-rightGroup">
-            <div className="Home-topWrapper">
+            <div className="Home-topWrapper u-flex-alignCenter">
               <div className="Home-iconText u-flex-justifyFlexEnd">
                 <Link
                   to={(this.props.loggedInUser) ? (`/profile/${this.props.loggedInUser._id}`) : ('/login')}
@@ -52,7 +52,7 @@ class Home extends Component {
               </div>
               <Link
                 to={(this.props.loggedInUser) ? (`/profile/${this.props.loggedInUser._id}`) : ('/login')}
-                className="Home-iconWrapper"
+                className="Home-iconWrapperTopR"
               >
                 <img src={profile} className="Home-icon" />
               </Link>
@@ -62,23 +62,23 @@ class Home extends Component {
           <div className="Home-logoText"> musicards! </div>
           
           <div className="Home-incomingGroup Home-bottomGroup Home-leftGroup">
-            <div className="Home-topWrapper">
+            <div className="Home-topWrapper u-flex-alignCenter">
               <Link to="/incoming" className="Home-iconWrapper">
                 <img src={incoming} className="Home-icon" />
               </Link>
-              <div className="Home-iconText u-flex-justifyCenter">
+              <div className="Home-iconText Home-iconTextBottom u-flex-justifyStart">
                 <Link to="/incoming" className="u-link u-bold"> incoming </Link>
               </div>
             </div>
           </div>
 
           <div className = "Home-deckGroup Home-bottomGroup Home-rightGroup"> 
-            <div className="Home-topWrapper">
-              <Link to="/deck" className="Home-iconWrapper">
+            <div className="Home-topWrapper u-flex-alignCenter">
+              <Link to="/requests" className="Home-iconWrapper">
                 <img src={deck} className="Home-icon" />
               </Link>
-              <div className="Home-iconText u-flex-justifyCenter">
-                <Link to="/deck" className="u-link u-bold"> deck </Link>
+              <div className="Home-iconText Home-iconTextBottom u-flex-justifyFlexStart">
+                <Link to="/requests" className="u-link u-bold"> requests </Link>
               </div>
             </div>
           </div>
