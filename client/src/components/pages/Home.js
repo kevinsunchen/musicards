@@ -28,53 +28,59 @@ class Home extends Component {
       <>
         
         <div className="Home-container">
+          
           <div className="Home-requestGroup Home-topGroup Home-leftGroup">
-              <Link to="/requests" className="u-link u-bold">
-                <div className="Home-topWrapper">
-                  <div className="Home-iconTextTop">
-                    requests
-                  </div>
-                  <img src = {requests} className="Home-icon"/>
-                </div>
+            <div className="Home-topWrapper">
+              <div className="Home-iconText u-flex-justifyFlexEnd">
+                <Link to="/requests" className="u-link u-bold"> requests </Link>
+              </div>
+              <Link to="/requests" className="Home-iconWrapper">
+                <img src={requests} className="Home-icon" />
               </Link>
+            </div>
           </div>
 
-          <div className = "Home-profileGroup Home-topGroup Home-rightGroup"> 
-            <Link
-              to={(this.props.loggedInUser) ? (`/profile/${this.props.loggedInUser._id}`) : ('/login')}
-              className="u-link u-bold"
-            >
-              <div className="Home-topWrapper">
-                <div className="Home-iconTextTop">
+          <div className="Home-profileGroup Home-topGroup Home-rightGroup">
+            <div className="Home-topWrapper">
+              <div className="Home-iconText u-flex-justifyFlexEnd">
+                <Link
+                  to={(this.props.loggedInUser) ? (`/profile/${this.props.loggedInUser._id}`) : ('/login')}
+                  className="u-link u-bold"
+                >
                   {(this.props.loggedInUser) ? "profile" : "login"}
-                </div>
-                <img src = {profile} className="Home-icon"/>
+                </Link>
               </div>
-            </Link>
+              <Link
+                to={(this.props.loggedInUser) ? (`/profile/${this.props.loggedInUser._id}`) : ('/login')}
+                className="Home-iconWrapper"
+              >
+                <img src={profile} className="Home-icon" />
+              </Link>
+            </div>
           </div>
 
           <div className="Home-logoText"> musicards! </div>
           
-          <div className="Home-incomingGroup Home-bottomGroup Home-leftGroup"> 
-          <Link to="/deck" className="u-link u-bold">
-              <div className="Home-topWrapper">
-                <img src = {incoming} className="Home-icon"/>
-                <div className="Home-iconTextBottom">
-                  deck
-                </div>
+          <div className="Home-incomingGroup Home-bottomGroup Home-leftGroup">
+            <div className="Home-topWrapper">
+              <Link to="/incoming" className="Home-iconWrapper">
+                <img src={incoming} className="Home-icon" />
+              </Link>
+              <div className="Home-iconText u-flex-justifyCenter">
+                <Link to="/incoming" className="u-link u-bold"> incoming </Link>
               </div>
-            </Link>
+            </div>
           </div>
 
           <div className = "Home-deckGroup Home-bottomGroup Home-rightGroup"> 
-            <Link to="/deck" className="u-link u-bold">
-              <div className="Home-topWrapper">
-                <img src = {deck} className="Home-icon"/>
-                <div className="Home-iconTextBottom">
-                  deck
-                </div>
+            <div className="Home-topWrapper">
+              <Link to="/deck" className="Home-iconWrapper">
+                <img src={deck} className="Home-icon" />
+              </Link>
+              <div className="Home-iconText u-flex-justifyCenter">
+                <Link to="/deck" className="u-link u-bold"> deck </Link>
               </div>
-            </Link>
+            </div>
           </div>
           
         </div>

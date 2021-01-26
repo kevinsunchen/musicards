@@ -24,6 +24,12 @@ class Musicard extends Component {
     })
   }
 
+
+  isElementOverflowing = (element) => {
+    let overflowX = element.offsetWidth < element.scrollWidth;
+    return overflowX;
+  }
+
   render() {
     if (!this.state.trackInfo) {
       return <div> Loading card... </div>
