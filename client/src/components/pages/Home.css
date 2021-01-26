@@ -1,6 +1,7 @@
 .Home-container {
     min-height: 100vh;
     display: grid;
+    text-align: center;
     grid-template-columns: auto;
     grid-template-rows: auto;
     grid-template-areas:
