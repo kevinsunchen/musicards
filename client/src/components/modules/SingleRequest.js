@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
+import MusicPreview from "./MusicPreview";
 
 /**
  * Story is a component that renders creator and content of a story
@@ -31,7 +32,7 @@ class SingleRequest extends Component {
     offeredTrackText = (this.props.offeredTrackInfo)
       ? ( `Offering "${this.props.offeredTrackInfo.name}" by ${this.processTrackArtists(this.props.offeredTrackInfo.artists)}.`)
       : ( "Loading..." )
-
+      this.props.offeredTrackInfo && console.log(this.props.offeredTrackInfo.images);
       return (
       <div className="RequestCard-story">
         <Link to={`/profile/${this.props.requesterId}`} className="u-link u-bold">
@@ -40,6 +41,11 @@ class SingleRequest extends Component {
         <div className="RequestCard-storyContent">
           <p>Looking for a {this.props.requestedLabel} song, will trade for a {this.props.offeredLabel} song!</p>
           <p>{offeredTrackText}</p>
+          Offering...
+          
+          <div>
+            {this.props.offeredTrackInfo && <MusicPreview trackInfo={this.props.offeredTrackInfo}/>}
+          </div>
         </div>
       </div>
     );
