@@ -58,6 +58,14 @@ form {
   justify-content: center;
 }
 
+.u-flex-justifyFlexEnd {
+  justify-content: flex-end;
+}
+
+.u-flex-justifyFlexStart {
+  justify-content: flex-start;
+}
+
 .u-flex-alignCenter {
   align-items: center;
 }

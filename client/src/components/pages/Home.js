@@ -4,10 +4,10 @@ import React, { Component } from "react";
 import "../../utilities.css";
 import "./Skeleton.css";
 import "./Home.css";
-import envelope from "../../public/envelope.svg";
+import requests from "../../public/envelope.svg";
 import deck from "../../public/deck.svg";
-import idcard from "../../public/idcard.svg";
-import box from "../../public/giftbox.svg";
+import profile from "../../public/idcard.svg";
+import incoming from "../../public/giftbox.svg";
 
 class Home extends Component {
   constructor(props) {
@@ -28,47 +28,60 @@ class Home extends Component {
       <>
         
         <div className="Home-container">
-          <div className="Home-requestGroup Home-topIcons">
-            <Link to="/requests" className="u-link u-bold">
-              <div className="Home-iconText">
-                requests
+          
+          <div className="Home-requestGroup Home-topGroup Home-leftGroup">
+            <div className="Home-topWrapper">
+              <div className="Home-iconText u-flex-justifyFlexEnd">
+                <Link to="/requests" className="u-link u-bold"> requests </Link>
               </div>
-              <img src = {envelope} width = "500px" className= "icon"/>
-            </Link>
+              <Link to="/requests" className="Home-iconWrapper">
+                <img src={requests} className="Home-icon" />
+              </Link>
+            </div>
           </div>
 
-          <div className = "Home-profileGroup Home-topIcons"> 
-            <Link
-              to={(this.props.loggedInUser) ? (`/profile/${this.props.loggedInUser._id}`) : ('/login')}
-              className="u-link u-bold"
-            >
-              <div className="Home-iconText">
-                {(this.props.loggedInUser) ? "profile" : "login"}
+          <div className="Home-profileGroup Home-topGroup Home-rightGroup">
+            <div className="Home-topWrapper">
+              <div className="Home-iconText u-flex-justifyFlexEnd">
+                <Link
+                  to={(this.props.loggedInUser) ? (`/profile/${this.props.loggedInUser._id}`) : ('/login')}
+                  className="u-link u-bold"
+                >
+                  {(this.props.loggedInUser) ? "profile" : "login"}
+                </Link>
               </div>
-              <img src = {idcard} width = "450px"  />
-            </Link>
+              <Link
+                to={(this.props.loggedInUser) ? (`/profile/${this.props.loggedInUser._id}`) : ('/login')}
+                className="Home-iconWrapper"
+              >
+                <img src={profile} className="Home-icon" />
+              </Link>
+            </div>
           </div>
 
           <div className="Home-logoText"> musicards! </div>
           
-          <div className="Home-incomingGroup Home-bottomIcons"> 
-            <Link to="/incoming" className="u-link u-bold">
-              <img src = {box} width = "450px"/>
-              <div className="Home-iconText">
-                incoming
+          <div className="Home-incomingGroup Home-bottomGroup Home-leftGroup">
+            <div className="Home-topWrapper">
+              <Link to="/incoming" className="Home-iconWrapper">
+                <img src={incoming} className="Home-icon" />
+              </Link>
+              <div className="Home-iconText u-flex-justifyCenter">
+                <Link to="/incoming" className="u-link u-bold"> incoming </Link>
               </div>
-            </Link>
+            </div>
           </div>
 
-          <div className = "Home-deckGroup Home-bottomIcons"> 
-            <Link to="/deck" className="u-link u-bold">
-              <img src = {deck} width = "450px" />
-              <div className="Home-iconText">
-                deck
+          <div className = "Home-deckGroup Home-bottomGroup Home-rightGroup"> 
+            <div className="Home-topWrapper">
+              <Link to="/deck" className="Home-iconWrapper">
+                <img src={deck} className="Home-icon" />
+              </Link>
+              <div className="Home-iconText u-flex-justifyCenter">
+                <Link to="/deck" className="u-link u-bold"> deck </Link>
               </div>
-            </Link>
+            </div>
           </div>
-
           
         </div>
         
