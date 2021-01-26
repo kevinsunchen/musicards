@@ -2,10 +2,10 @@
   border: var(--darkgrey) 1px solid;
   border-radius: var(--l);
   background-color: var(--white);
-  width: 400px;
+  width: 30%;
   text-align: center;
-  margin: var(--m);
-  box-shadow: 3px 5px 10p var(--blueshadow);
+  margin: var(--s);
+  box-shadow: 3px 5px 10px var(--blueshadow);
   align-items: center;
   padding: var(--l);
 }
@@ -15,10 +15,11 @@
   background-color: var(--white);
   border-radius: var(--l);
   margin-bottom: var(--m);
+  width: 90%;
 }
 
 .Musicard-title {
-  font-size: 30px;
+  font-size: 120%;
   background-color: var(--white);
   white-space: nowrap;
 }
@@ -26,7 +27,7 @@
 .Musicard-artists {
   margin-top: var(--m);
   background-color: var(--white);
-  font-size: 24px;
+  font-size: 100%;
   color: var(--greyfade);
 }
 
@@ -34,18 +35,20 @@
   background-color: var(--white);
   color: var(--greyfade);
   white-space: nowrap;
+  font-size: 100%;
+  width: 90%
 }
 
 .Musicard-play{
   background-color: var(--white);
-  width: 56px;
+  width: 20%;
   align-self: center;
   margin: auto;
   margin-top: var(--m);
 }
 
 .marquee {
-  width: 320px;
+  width: 90%;
   margin: 0 auto;
   overflow: hidden;
   box-sizing: border-box;
