@@ -54,10 +54,9 @@
     grid-area: logo;
     font-size: 64px;
     color: #10669F;
-    background-color: none;
     justify-self: center;
     align-self: center;
-    text-shadow: 2px 2px var(--primary--dim);
+    text-shadow: var(--primary--dim) 1px 0 10px;
 }    
 
 .Home-iconText {
