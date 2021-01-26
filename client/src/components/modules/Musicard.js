@@ -13,9 +13,11 @@ class Musicard extends Component {
   constructor(props) {
     super(props);
     this.marqueeRef = React.createRef();
+    this.marqueeRefTitle = React.createRef();
     this.state = {
       trackInfo: undefined,
-      marquee: false
+      marquee: false,
+      marqueeTitle: false
     };
   }
 
@@ -24,11 +26,14 @@ class Musicard extends Component {
       console.log(trackInfo);
       this.setState({trackInfo: trackInfo});
       // console.log(this.isElementOverflowing(this.marqueeRef));
-      console.log(this.marqueeRef.current.clientWidth)
-      console.log(this.marqueeRef.current.scrollWidth)
       if (this.marqueeRef.current.clientWidth < this.marqueeRef.current.scrollWidth) {
-        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         this.setState({ marquee: true });
+      }
+      console.log(this.marqueeRefTitle.current.clientWidth)
+      console.log(this.marqueeRefTitle.current.scrollWidth)
+      if (this.marqueeRefTitle.current.clientWidth < this.marqueeRefTitle.current.scrollWidth) {
+        this.setState({ marqueeTitle: true });
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA");
       }
     });
   }
@@ -53,7 +58,11 @@ class Musicard extends Component {
           <span> {this.state.trackInfo.album} </span>
         </div>
         <img className="Musicard-image" src={this.state.trackInfo.images[1].url} />
-        <div className="Musicard-title">{this.state.trackInfo.name}</div>
+        <div ref={this.marqueeRefTitle} className={(this.state.marqueeTitle) ? ("marquee Musicard-title") : ("Musicard-title")}>
+          <span> {this.state.trackInfo.name} </span>
+        </div>
+        {//<div className="Musicard-title">{this.state.trackInfo.name}</div>
+        }
         <div className="Musicard-artists">{this.state.trackInfo.artists.join(", ")}</div>
         <div className="Musicard-play"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
