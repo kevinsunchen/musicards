@@ -30,7 +30,7 @@ class Home extends Component {
         <div className="Home-container">
           <div className="Home-requestGroup Home-topIcons">
             <Link to="/requests" className="u-link u-bold">
-              <div className="Home-iconLabels">
+              <div className="Home-iconText">
                 requests
               </div>
               <img src = {envelope} width = "500px" className= "icon"/>
@@ -42,7 +42,7 @@ class Home extends Component {
               to={(this.props.loggedInUser) ? (`/profile/${this.props.loggedInUser._id}`) : ('/login')}
               className="u-link u-bold"
             >
-              <div className="Home-iconLabels">
+              <div className="Home-iconText">
                 {(this.props.loggedInUser) ? "profile" : "login"}
               </div>
               <img src = {idcard} width = "450px"  />
@@ -54,7 +54,7 @@ class Home extends Component {
           <div className="Home-incomingGroup Home-bottomIcons"> 
             <Link to="/incoming" className="u-link u-bold">
               <img src = {box} width = "450px"/>
-              <div className="Home-iconLabels">
+              <div className="Home-iconText">
                 incoming
               </div>
             </Link>
@@ -63,7 +63,7 @@ class Home extends Component {
           <div className = "Home-deckGroup Home-bottomIcons"> 
             <Link to="/deck" className="u-link u-bold">
               <img src = {deck} width = "450px" />
-              <div className="Home-iconLabels">
+              <div className="Home-iconText">
                 deck
               </div>
             </Link>
