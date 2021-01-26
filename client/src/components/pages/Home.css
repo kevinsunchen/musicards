@@ -53,10 +53,10 @@
 .Home-logoText {
     grid-area: logo;
     font-size: 64px;
-    color: #10669F;
+    color: var(--primary);
     justify-self: center;
     align-self: center;
-    text-shadow: var(--primary--dim) 1px 0 10px;
+    text-shadow: var(--bluebright) 1px 0 10px;
 }    
 
 .Home-iconText {

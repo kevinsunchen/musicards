@@ -26,7 +26,10 @@
   --grey: #f7f7f7;
   --white: #fff;
   --blue: #adf1fe;
-  --darkblue: #88e3f3;
+  --bluemed: #88e3f3;
+  --blueshadow: #1e8fc7;
+  --bluebright: #00a2ff;
+  --greyfade: #999999;
 
   --xs: 4px;
   --s: 8px;
