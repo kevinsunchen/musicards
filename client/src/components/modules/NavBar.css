@@ -24,6 +24,7 @@
   color: var(--primary);
   text-shadow: var(--bluebright) 1px 0 10px;  
   padding: 8% 0;
+  text-align: center;
 }
 
   

@@ -2,6 +2,7 @@
   border: var(--darkgrey) 1px solid;
   border-radius: var(--xs);
   margin-top: var(--m);
+  background-color: var(--white);
 }
 
 .RequestCard-container:first-of-type {

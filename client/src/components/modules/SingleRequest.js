@@ -33,11 +33,11 @@ class SingleRequest extends Component {
       : ( "Loading..." )
 
       return (
-      <div className="Card-story">
+      <div className="RequestCard-story">
         <Link to={`/profile/${this.props.requesterId}`} className="u-link u-bold">
           {this.props.requesterName}
         </Link>
-        <div className="Card-storyContent">
+        <div className="RequestCard-storyContent">
           <p>Looking for a {this.props.requestedLabel} song, will trade for a {this.props.offeredLabel} song!</p>
           <p>{offeredTrackText}</p>
         </div>
