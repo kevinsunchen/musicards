@@ -21,8 +21,8 @@
 
 .NavBar-logo {
   font-size: var(--xl);
-  color: #10669F;
-  text-shadow: var(--primary--dim) 1px 0 10px;  
+  color: var(--primary);
+  text-shadow: var(--bluebright) 1px 0 10px;  
   padding: 8% 0;
 }
 

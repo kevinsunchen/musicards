@@ -74,11 +74,11 @@ class Home extends Component {
 
           <div className = "Home-deckGroup Home-bottomGroup Home-rightGroup"> 
             <div className="Home-topWrapper u-flex-alignCenter">
-              <Link to="/requests" className="Home-iconWrapper">
+              <Link to="/deck" className="Home-iconWrapper">
                 <img src={deck} className="Home-icon" />
               </Link>
               <div className="Home-iconText Home-iconTextBottom u-flex-justifyFlexStart">
-                <Link to="/requests" className="u-link u-bold"> requests </Link>
+                <Link to="/deck" className="u-link u-bold"> deck </Link>
               </div>
             </div>
           </div>
