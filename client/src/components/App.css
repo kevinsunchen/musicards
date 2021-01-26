@@ -1,17 +1,11 @@
 .App-container{
     background-color: var(--blue);
-    height: 100vh;
-    width: 100vw;
-}
-
-.navbar {
     height: 100%;
-    flex: 1;
+    width: auto;
+    overflow: auto
 }
 
-.maincontent {
-    /* margin-left: 150px;
-    */
-    flex: 3
+.App-outer {
+    background-color: var(--blue);
+    height: 100%;
 }
-

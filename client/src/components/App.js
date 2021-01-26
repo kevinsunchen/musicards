@@ -55,7 +55,7 @@ class App extends Component {
 
   render() {
     return (
-      <div id="outer-container" className="App-container">
+      <div id="outer-container" className="App-outer">
         {console.log("Currently logged-in user:", this.state.loggedInUser)}
         <Match path="/">
           {props =>
@@ -66,7 +66,7 @@ class App extends Component {
             )
           }
         </Match>
-        <main id="page-wrap">
+        <main id="page-wrap" className="App-container">
         <Router>
           <Home path="/" loggedInUser={this.state.loggedInUser} />
           <RequestFeed path="/requests" loggedInUser={this.state.loggedInUser} />
