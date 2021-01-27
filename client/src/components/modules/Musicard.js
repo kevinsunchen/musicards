@@ -45,20 +45,19 @@ class Musicard extends Component {
       return <div> Loading card... </div>
     }
     return (
-      <div className="Musicard-container">
+      <div className="u-flexColumn Musicard-container">
         {//<p className="marquee">
           //<span>
           //  {this.state.trackInfo.album} 
           //</span>
         //</p>
-      }
+        }
         <div ref={this.marqueeRef} className={(this.state.marquee) ? ("marquee Musicard-album") : ("Musicard-album")}>
           <span> {this.state.trackInfo.album} </span>
         </div>
+        
         <MusicPreview 
           trackInfo={this.state.trackInfo} 
-          autoRefreshOn={() => {}}
-          autoRefreshOff={() => {}}
         />
 
         {//<img className="Musicard-image" src={this.state.trackInfo.images[1].url} />

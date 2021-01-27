@@ -40,12 +40,10 @@ class SingleIncoming extends Component {
     </p>
 
     return (
-    <div className="IncomingCard-story">
       <div className="IncomingCard-storyContent">
         {requestInfoText}
         {traderTrackText}
       </div>
-    </div>
     );
   }
 }

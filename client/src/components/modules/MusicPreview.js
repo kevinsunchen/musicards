@@ -31,8 +31,15 @@ class MusicPreview extends Component {
   toggleAudioPlaying = () => {
     this.setState(prevState => ({ audioPlaying: !prevState.audioPlaying }), () => {
       console.log("playing?", this.state.audioPlaying);
-      (this.state.audioPlaying) ? (this.audio.play()) : (this.audio.pause());
-      (this.state.audioPlaying) ? (this.props.autoRefreshOff()) : (this.props.autoRefreshOn());
+      (this.state.audioPlaying) ? (
+        this.audio.play().catch((err) => {
+          console.log("err");
+          this.setState({ audioPlaying: false });
+        })
+      ) : (this.audio.pause());
+      if (this.props.autoRefreshOn && this.props.autoRefreshOff) {
+        (this.state.audioPlaying) ? (this.props.autoRefreshOff()) : (this.props.autoRefreshOn());
+      }
     });
   }
 

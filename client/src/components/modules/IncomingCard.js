@@ -75,26 +75,25 @@ class IncomingCard extends Component {
       <>
         <div className="IncomingCard-container">
           <div className="u-flex Incoming-text">
-            <SingleIncoming
-              selfName={this.props.selfName}
-              selfId={this.props.selfId}
-              selfLabel={this.props.selfLabel}
-              tradedTrackInfo={this.props.tradedTrackInfo}
-              traderName={this.props.traderName}
-              traderId={this.props.traderId}
-              traderLabel={this.props.traderLabel}
-              incomingTrackInfo={this.props.incomingTrackInfo}
+              <SingleIncoming
+                selfName={this.props.selfName}
+                selfId={this.props.selfId}
+                selfLabel={this.props.selfLabel}
+                tradedTrackInfo={this.props.tradedTrackInfo}
+                traderName={this.props.traderName}
+                traderId={this.props.traderId}
+                traderLabel={this.props.traderLabel}
+                incomingTrackInfo={this.props.incomingTrackInfo}
               />
             <div className="Incoming-buttonholder">
               <button
                 onClick={this.addIncomingToDeck}
-                className="Incoming-addButton Incoming-button"
+                className="Incoming-addButton Incoming-button u-buttonHoverRise"
               > add to deck! </button>
               <button 
                 onClick={this.declineIncoming}
-                className="Incoming-declineButton Incoming-button"
+                className="Incoming-declineButton Incoming-button u-buttonHoverRise"
               > decline </button>
-              
             </div>
           </div>
           <div className="IncomingCard-commentSection u-flex u-flex-justifyCenter">

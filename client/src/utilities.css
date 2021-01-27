@@ -259,6 +259,7 @@ form {
 
 .u-buttonHoverRise {
   transition: transform 0.2s ease;
+  cursor: pointer;
 }
 
 .u-buttonHoverRise:hover {

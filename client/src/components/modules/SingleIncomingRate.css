@@ -6,9 +6,3 @@
 .SingleIncomingRate-content {
   text-align: center;
 }
-
-.Incoming-RequestedInfo {
-  margin-bottom: var(--m);
-  color: var(--greyfade);
-  font-size: 16px;
-}

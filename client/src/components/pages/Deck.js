@@ -53,32 +53,31 @@ class Deck extends Component {
     console.log(deckCards)
     return (
       <>
-        {//<p>{this.props.loggedInUser.name}'s deck:</p>
-        }
         <div className = "Deck-deckGroup"> {deckCards} </div>
-        
       </>
     )
   }
 
   render() {
-    var currUser = this.props.loggedInUser;
-    if (!currUser) {
-      return <div className="u-pageWrap u-pageDescription"> Log in to view your deck! </div>
+    let contentToRender = null;
+    if (!this.props.loggedInUser) {
+      contentToRender = <div className=""> Log in to view your deck! </div>
     }
-    if (!this.state.deck) {
-      return <div className="u-pageWrap u-pageDescription"> Loading... </div>
+    else if (!this.state.deck) {
+      contentToRender = <div className=""> Loading... </div>
+    } else {
+      contentToRender = this.state.deck.length === 0 ? (
+        this.renderDeckEmptyContent()
+      ) : (
+        this.renderDeckContent()
+      )
     }
-    console.log(currUser)
+    console.log(this.props.loggedInUser)
     return (
       <div className="u-pageWrap">
         <h1 className = "u-pageTitle u-shadowPop u-shadowPopYellow u-logofont">my deck</h1>
         <h2 className = "u-pageDescription">your collected songs! use these in trades :)</h2>
-        {this.state.deck.length === 0 ? (
-          this.renderDeckEmptyContent()
-        ) : (
-          this.renderDeckContent()
-        )}
+        {contentToRender}
       </div>
     );
   }

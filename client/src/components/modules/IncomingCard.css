@@ -3,31 +3,35 @@
   border-radius: var(--m);
   margin-top: var(--m);
   background: white;
-  
-}
-
-.IncomingCard-container:first-of-type {
-  margin-top: var(--l);
 }
 
 .Incoming-text {
-  padding: var(--l);
+  padding: var(--l) var(--l);
   text-align: left;
-}
-
-.Incoming-buttonholder {
-  width: 22%;
-  margin-right: var(--m);
-}
-
-
-.IncomingCard-storyUser {
-  font-size: 20px;
-  font-weight: 600;
 }
 
 .IncomingCard-storyContent {
   font-size: 20px;
+  width: 85%;
+  padding-right: 1%;
+}
+
+.Incoming-RequestedInfo {
+  margin-bottom: var(--l);
+  color: var(--greyfade);
+  font-size: 18px;
+}
+
+.Incoming-buttonholder {
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.IncomingCard-storyUser {
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .IncomingCard-commentSection {
@@ -43,20 +47,30 @@
 }
 
 .Incoming-button {
+  background-color: white;
   border-radius: var(--s);
-  margin-left: var(--m);
-  margin-bottom: var(--s);
-  height: 50%;
-  width: 100%;
-  border: none;
+  height: 47%;
   padding: var(--s);
   font-size: 16px;
-}
-
-.Incoming-declineButton {
-  background: #ff9191;
+  font-weight: 600;
 }
 
 .Incoming-addButton {
-  background: #6bffae;
+  border: 3px solid #60E59C;
+  color: #60E59C;
+}
+
+.Incoming-declineButton {
+  border: 3px solid #E58282;
+  color: #E58282;
+}
+
+.Incoming-addButton:hover {
+  background-color: #60E59C;
+  color: white;
+}
+
+.Incoming-declineButton:hover {
+  background-color: #E58282;
+  color: white;
 }
