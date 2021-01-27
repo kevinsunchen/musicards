@@ -85,15 +85,15 @@ class IncomingCard extends Component {
               traderLabel={this.props.traderLabel}
               incomingTrackInfo={this.props.incomingTrackInfo}
               />
-            <div className="">
+            <div className="Incoming-buttonholder">
               <button
                 onClick={this.addIncomingToDeck}
                 className="Incoming-addButton Incoming-button"
-              > Add to deck </button>
+              > add to deck! </button>
               <button 
                 onClick={this.declineIncoming}
                 className="Incoming-declineButton Incoming-button"
-              > Decline </button>
+              > decline </button>
               
             </div>
           </div>
