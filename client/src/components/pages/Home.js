@@ -8,12 +8,14 @@ import requests from "../../public/envelope.svg";
 import deck from "../../public/deck.svg";
 import profile from "../../public/idcard.svg";
 import incoming from "../../public/giftbox.svg";
+import ModalSelectTrack from "../modules/ModalSelectTrack.js";
 
 class Home extends Component {
   constructor(props) {
     super(props);
     // Initialize Default State
-    this.state = {};
+    this.state = {showModal: false};
+    
   }
 
   componentDidMount() {
@@ -26,6 +28,19 @@ class Home extends Component {
   render() {
     return (
       <>
+        <ModalSelectTrack
+          isOpen={this.state.showModal}
+          handleClose={() => this.setState({ showModal: false })}
+        >
+          welcome to musicards! here are some recommendations for u :D
+          1. profile - log in with your spotify
+          2. deck - populate your deck with your first suit of musicards! 
+          3. request - add a request for a ~ v i b e ~ you've been searching for 
+          4. request pt. 2 - fulfill somebody else's request while you're at it!
+          5. incoming - check out what other people have sent u :O
+
+          if you ever need to find this info again, just click on the logo on the home page :) we hope you enjoy our site!
+        </ModalSelectTrack>
         
         <div className="Home-container">
           

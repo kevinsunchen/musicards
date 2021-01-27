@@ -46,9 +46,9 @@ class Modal extends Component {
               <button onClick={this.props.handleClose} className = "modal-button modal-cancelbutton">
                 {this.props.closeButtonText || (
                   this.props.onOkay ? (
-                    <>Cancel</>
+                    <>cancel</>
                   ) : (
-                    <>Close</>
+                    <>close</>
                   )
                 )}
               </button>

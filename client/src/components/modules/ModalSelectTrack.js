@@ -67,7 +67,7 @@ class ModalSelectTrack extends Component {
           onOpen={this.onOpen}
           handleClose={this.handleCloseModalClearDeck}
           onOkay={this.onModalOkay}
-          okayButtonText="Select"
+          okayButtonText="select"
         >
           {this.props.children}
           {this.state.deck ? (
