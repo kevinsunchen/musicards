@@ -52,19 +52,23 @@ class Musicard extends Component {
           //</span>
         //</p>
         }
+
         <div ref={this.marqueeRef} className={(this.state.marquee) ? ("marquee Musicard-album") : ("Musicard-album")}>
-          <span> {this.state.trackInfo.album} </span>
+          <a href={this.state.trackInfo.url} target="_blank" className="Musicard-album">
+            <span> {this.state.trackInfo.album} </span>
+          </a>        
         </div>
-        
-        <MusicPreview 
-          trackInfo={this.state.trackInfo} 
-        />
+        <div className="Musicard-previewWrapper">
+          <MusicPreview className="Musicard-preview" trackInfo={this.state.trackInfo}/>
+        </div>
 
         {//<img className="Musicard-image" src={this.state.trackInfo.images[1].url} />
         }
 
         <div ref={this.marqueeRefTitle} className={(this.state.marqueeTitle) ? ("marquee Musicard-title") : ("Musicard-title")}>
-          <span> {this.state.trackInfo.name} </span>
+          <a href={this.state.trackInfo.url} target="_blank">
+            <span> {this.state.trackInfo.name} </span>
+          </a>
         </div>
         {//<div className="Musicard-title">{this.state.trackInfo.name}</div>
         }

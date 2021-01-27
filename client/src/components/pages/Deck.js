@@ -40,7 +40,7 @@ class Deck extends Component {
     return (
       <>
         <p>Your deck is empty :(</p>
-        <button onClick={this.populateEmptyDeck}> Populate Deck from Spotify! </button>
+        <button onClick={this.populateEmptyDeck}> populate deck from Spotify! </button>
       </>
     )
   }
@@ -61,10 +61,10 @@ class Deck extends Component {
   render() {
     let contentToRender = null;
     if (!this.props.loggedInUser) {
-      contentToRender = <div className=""> Log in to view your deck! </div>
+      contentToRender = <div className=""> log in to view your deck! </div>
     }
     else if (!this.state.deck) {
-      contentToRender = <div className=""> Loading... </div>
+      contentToRender = <div className=""> loading... </div>
     } else {
       contentToRender = this.state.deck.length === 0 ? (
         this.renderDeckEmptyContent()
@@ -77,6 +77,7 @@ class Deck extends Component {
       <div className="u-pageWrap">
         <h1 className = "u-pageTitle u-shadowPop u-shadowPopYellow u-logofont">my deck</h1>
         <h2 className = "u-pageDescription">your collected songs! use these in trades :)</h2>
+        <h2 className = "u-pageDescription">click a title to visit the track on Spotify, or an image to hear a preview!</h2>
         {contentToRender}
       </div>
     );

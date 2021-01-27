@@ -8,6 +8,21 @@
   box-shadow: 3px 5px 10px var(--blueshadow);
   align-items: center;
   padding: var(--l);
+  transition: transform 0.2s ease;
+}
+
+.Musicard-container:hover {
+  -webkit-transform: scale(1.03); 
+  -moz-transform:    scale(1.03);
+  -ms-transform:     scale(1.03); 
+  -o-transform:      scale(1.03);
+  transform: scale(1.03);
+}
+.Musicard-previewWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: var(--l) 0;
 }
 
 .Musicard-image {
@@ -19,9 +34,20 @@
 }
 
 .Musicard-title {
-  font-size: 120%;
+  width: 90%;
   background-color: var(--white);
   white-space: nowrap;
+}
+
+.Musicard-title a {
+  text-decoration: none;
+  font-size: 140%;
+  color: var(--black);
+}
+
+.Musicard-title:hover {
+  font-weight: 600;
+  color: var(--primary);
 }
 
 .Musicard-artists {
@@ -37,6 +63,10 @@
   white-space: nowrap;
   font-size: 100%;
   width: 90%
+}
+
+.Musicard-album a {
+  text-decoration: none;
 }
 
 .Musicard-play{
