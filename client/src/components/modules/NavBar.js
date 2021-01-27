@@ -39,39 +39,39 @@ class NavBar extends Component {
       >
         <Link to="/" className="NavBar-logo u-logofont u-shadowPop u-shadowPopBlue" onClick={this.closeMenu}> musicards! </Link>
 
-        <div className="">
-          <Link to="/requests" className="NavBar-iconGroup u-link u-bold" onClick={this.closeMenu}>
-            <img src={requests} className="NavBar-icon" />
-            <div>requests</div>
+        <div className="u-flexColumn NavBar-requestsGroup">
+          <Link to="/requests" className="NavBar-iconGroup" onClick={this.closeMenu}>
+            <img src={requests} className="NavBar-icon NavBar-requestsIcon" />
+            <div className="NavBar-requestsText u-logofont">requests</div>
           </Link>
         </div>
 
-        <div className="u-flexColumn">
+        <div className="u-flexColumn NavBar-incomingGroup">
           <Link to="/incoming" className="NavBar-iconGroup u-link u-bold" onClick={this.closeMenu}>
-            <img src={incoming} className="NavBar-icon" />
-            <div>incoming</div>
+            <img src={incoming} className="NavBar-icon NavBar-incomingIcon" />
+            <div className="NavBar-incomingText u-logofont">incoming</div>
           </Link>
         </div>
 
-        <div className="u-flexColumn">
+        <div className="u-flexColumn NavBar-deckGroup">
           <Link to="/deck" className="NavBar-iconGroup u-link u-bold" onClick={this.closeMenu}>
-            <img src={deck} className="NavBar-icon" />
-            <div>deck</div>
+            <img src={deck} className="NavBar-icon NavBar-deckIcon" />
+            <div className="NavBar-deckText u-logofont">deck</div>
           </Link>
         </div>
 
         {this.props.loggedInUser ? (
-          <div className="u-flexColumn">
+          <div className="u-flexColumn NavBar-profileGroup">
             <Link to={`/profile/${this.props.loggedInUser._id}`} className="NavBar-iconGroup u-link u-bold" onClick={this.closeMenu}>
-              <img src={profile} className="NavBar-icon" />
-              <div>profile</div>
+              <img src={profile} className="NavBar-icon NavBar-profileIcon" />
+              <div className="NavBar-profileText u-logofont">profile</div>
             </Link>
           </div>
         ) : (
-            <div className="u-flexColumn">
+            <div className="u-flexColumn NavBar-profileGroup">
               <Link to={'/login'} className="NavBar-iconGroup u-link u-bold" onClick={this.closeMenu}>
-                <img src={requests} className="NavBar-icon" />
-                <div>login</div>
+                <img src={requests} className="NavBar-icon NavBar-profileIcon" />
+                <div className="NavBar-profileText u-logofont">login</div>
               </Link>
             </div>
           )}
