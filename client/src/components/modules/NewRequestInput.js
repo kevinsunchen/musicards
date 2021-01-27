@@ -107,7 +107,7 @@ class NewRequestInput extends Component {
           <div className="u-flex">
             <button
               type="submit"
-              className="NewPostInput-button u-pointer"
+              className="NewPostInput-button NewPostInput-addSong u-pointer"
               value="Submit"
               onClick={() => this.setState({ showModal: true })}
               >
@@ -116,7 +116,7 @@ class NewRequestInput extends Component {
 
             <button
               type="submit"
-              className="NewPostInput-button u-pointer"
+              className="NewPostInput-button NewPostInput-post u-pointer"
               value="Submit"
               onClick={this.handleSubmit}
             >

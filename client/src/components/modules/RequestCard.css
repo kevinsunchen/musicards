@@ -7,9 +7,6 @@
   display: flex;
 }
 
-.RequestCard-container:first-of-type {
-  margin-top: var(--l);
-}
 
 .RequestCard-story,
 .RequestCard-commentSection {

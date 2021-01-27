@@ -18,11 +18,15 @@
 }
 
 .NewPostInput-button {
-  color: var(--primary);
-  border: var(--primary) 1px solid;
-  border-radius: var(--m);
-  background: none;
-  transition: color 0.1s;
+  cursor: pointer;
+  border-radius: var(--l);
+  border: 6px solid #7ACCDA;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  font-size: 20px;
+  font-weight: 600;
+  color: #7ACCDA;
 }
 
 .NewPostInput-button:hover {
@@ -30,13 +34,27 @@
   background-color: var(--primary);
 }
 .NewRequest-main {
-  width: 100%;
-  color: #555555;
-  justify-content: center;
-  margin-bottom: var(--xl);
+  justify-content: space-around;
+  border: var(--darkgrey) 1px solid;
+  border-radius: var(--m);
+  margin-top: var(--m);
+  background-color: var(--white);
+  text-align: left;
+  display: flex;
+  margin-bottom: var(--l);
+  padding: var(--m) 0 var(--m) var(--l);
+}
+
+.NewPostInput-post {
+  width: 50%;
+}
+
+.NewPostInput-addSong {
+  width: 50%;
 }
 
 .NewRequest-text {
   font-size: 20px;
-  margin: var(--s);
+  margin: var(--s) 0 0;
+  width: 90%
 }
