@@ -79,6 +79,7 @@
   display: inline;
   font-weight: 600;
   cursor: pointer;
+  color: var(--primary);
 }
 
 .incoming-wrapReceivedText:hover {
