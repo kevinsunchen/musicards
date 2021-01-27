@@ -58,9 +58,11 @@ class SingleRequest extends Component {
           <div className="u-flexColumn u-flex-alignCenter">
             {this.props.offeredTrackInfo &&
               <MusicPreview
-              trackInfo={this.props.offeredTrackInfo}
-              audioPlaying={this.state.audioPlaying}
-              toggleAudioPlaying={this.toggleAudioPlaying}
+                trackInfo={this.props.offeredTrackInfo}
+                audioPlaying={this.state.audioPlaying}
+                toggleAudioPlaying={this.toggleAudioPlaying}
+                autoRefreshOn={this.props.autoRefreshOn}
+                autoRefreshOff={this.props.autoRefreshOff}
               />
             }
             <div>
