@@ -63,18 +63,17 @@
 .Request-tradeButton {
   cursor: pointer;
   border-radius: var(--s);
+  border: 2px solid #E58282;
   height: 100%;
   width: 100%;
   border: none;
-  padding: var(--s);
-  background-color: var(--bluemed);
+  background-color: white;
   padding: var(--m);
   font-size: 18px;
-
 }
 
 .RequestCard-chosenSongSection {
-  height: 50%;
+  height: 45%;
 }
 
 .RequestCard-buttongroup {
@@ -82,22 +81,38 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  height: 50%;
+  height: 55%;
 }
 
 .RequestCard-cancelConfirm {
   cursor: pointer;
   border-radius: var(--s);
-  border: none;
+  border: 1px solid #000000;
   width: 100%;
-  padding: var(--m);
+  height: 46%;
   font-size: 15px;
-}
-
-.RequestCard-cancel {
-  background-color: #ff9191;
+  font-weight: 600;
 }
 
 .RequestCard-confirm {
-  background-color: #6bffae;
+  background-color: white;
+  border: 2px solid #60E59C;
+  color: #60E59C;
 }
+
+.RequestCard-cancel {
+  background-color: white;
+  border: 2px solid #E58282;
+  color: #E58282;
+}
+
+.RequestCard-confirm:hover {
+  background-color: #60E59C;
+  color: white;
+}
+
+.RequestCard-cancel:hover {
+  background-color: #E58282;
+  color: white;
+}
+
