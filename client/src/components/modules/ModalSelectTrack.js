@@ -32,9 +32,9 @@ class ModalSelectTrack extends Component {
     })
   }
 
-  handleCloseModalClearDeck = () => {
-    this.props.handleClose();
-    this.setState({ deck: undefined, selectedOption: undefined });
+  onOpen = () => {
+    this.getUserDeck();
+    this.props.autoRefreshOff();
   }
 
   onModalOkay = () => {
@@ -43,6 +43,11 @@ class ModalSelectTrack extends Component {
       this.props.handleSelect(this.state.selectedOption.value);
       this.handleCloseModalClearDeck();
     }
+  }
+
+  handleCloseModalClearDeck = () => {
+    this.props.handleClose();
+    this.setState({ deck: undefined, selectedOption: undefined });
   }
 
   generateSelectionOptions = (deck) => {
@@ -59,7 +64,7 @@ class ModalSelectTrack extends Component {
       <>
         <Modal
           isOpen={this.props.isOpen}
-          onOpen={this.getUserDeck}
+          onOpen={this.onOpen}
           handleClose={this.handleCloseModalClearDeck}
           onOkay={this.onModalOkay}
           okayButtonText="Select"
