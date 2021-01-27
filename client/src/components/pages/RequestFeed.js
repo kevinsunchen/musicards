@@ -81,9 +81,9 @@ class RequestFeed extends Component {
   render() {
     let requestsList = null;
     if (!this.state.requests) {
-      requestsList = <div> Loading... </div>;
+      requestsList = <div> loading... </div>;
     } else if (this.state.requests.length === 0) {
-      requestsList = <div> No requests! </div>;
+      requestsList = <div> no requests! </div>;
     } else {
       // console.log(this.state.requests)
       requestsList = this.state.requests.map((requestObj) => (

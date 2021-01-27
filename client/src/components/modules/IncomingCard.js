@@ -66,6 +66,7 @@ class IncomingCard extends Component {
       }).catch((err) => {
         console.log(err);
       });
+      window.alert("card has been added to your deck!");
     }
   }
   
