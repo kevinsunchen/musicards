@@ -32,9 +32,9 @@ class Modal extends Component {
     else {
       return (
         <div className = "modal">
-          <div className = "modal-main">
+          <div className = "modal-main u-flexColumn">
         
-            <div>
+            <div className = "modal-Title">
               {this.props.title}
             </div>
 
@@ -43,12 +43,7 @@ class Modal extends Component {
             </div>
 
             <div>
-              {this.props.onOkay && (
-                <button onClick={this.props.onOkay}>
-                  {this.props.okayButtonText || (<>OK</>)}
-                </button>
-              )}
-              <button onClick={this.props.handleClose}>
+              <button onClick={this.props.handleClose} className = "modal-button modal-cancelbutton">
                 {this.props.closeButtonText || (
                   this.props.onOkay ? (
                     <>Cancel</>
@@ -57,6 +52,12 @@ class Modal extends Component {
                   )
                 )}
               </button>
+              {this.props.onOkay && (
+                <button onClick={this.props.onOkay} className = "modal-button modal-okbutton">
+                  {this.props.okayButtonText || (<>OK</>)}
+                </button>
+              )}
+              
             </div>
           </div>
         </div>
