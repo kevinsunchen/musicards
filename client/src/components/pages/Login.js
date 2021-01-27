@@ -17,7 +17,7 @@ class Login extends Component {
   render() {
     return (
       <div className="u-pageWrap">
-        <h1 className = "u-pageTitle">login</h1>
+        <h1 className = "u-pageTitle u-shadowPop u-shadowPopPurple u-logofont">login</h1>
         <h2 className = "u-pageDescription">connect your spotify to explore musicards!</h2>
         {this.props.loggedInUser ? (
             <button onClick={this.props.handleLogout}>logout</button>

@@ -129,8 +129,8 @@ form {
 }
 
 .u-pageTitle {
-  margin-bottom: var(--xl);
-  font-size: 72px;
+  margin-bottom: calc(var(--xl) + var(--s));
+  font-size: 80px;
 }
 
 .u-pageDescription {
@@ -216,15 +216,43 @@ form {
 } 
 
 .u-shadowPopPurple { 
-  text-shadow: 8px 8px #03d0f7, 
-               16px 16px #03c0e4, 
-               24px 24px #03b0d1;
+  text-shadow: 8px 8px #b592f0, 
+               16px 16px #a283d8, 
+               24px 24px #9074c0;
 }
 
 .u-shadowPopPurple:hover {
-  text-shadow: 8px 8px   #03d0f7, 
-               16px 16px #03c0e4, 
-               24px 24px #03b0d1,
-               32px 32px #029fbd, 
-               40px 40px #028faa;
+  text-shadow: 8px 8px   #b592f0, 
+               16px 16px #a283d8, 
+               24px 24px #9074c0,
+               32px 32px #7e66a8, 
+               40px 40px #6c5790;
+}
+
+.u-shadowPopOrange { 
+  text-shadow: 8px 8px #ec9272, 
+               16px 16px #ea8561, 
+               24px 24px #bc745b;
+}
+
+.u-shadowPopOrange:hover {
+  text-shadow: 8px 8px   #ec9272, 
+               16px 16px #ea8561, 
+               24px 24px #bc745b,
+               32px 32px #a5664f, 
+               40px 40px #8d5744;
+}
+
+.u-shadowPopYellow { 
+  text-shadow: 8px 8px #f3c583, 
+               16px 16px #f1bd71, 
+               24px 24px #dab175;
+}
+
+.u-shadowPopYellow:hover {
+  text-shadow: 8px 8px   #f3c583, 
+               16px 16px #f1bd71, 
+               24px 24px #dab175,
+               32px 32px #c29d68, 
+               40px 40px #aa895b;
 } 

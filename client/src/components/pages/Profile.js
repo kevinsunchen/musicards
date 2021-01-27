@@ -37,7 +37,7 @@ class Profile extends Component {
     else {
       return (
         <div className="u-pageWrap">
-          <h1 className = "u-pageTitle"><strong>{this.state.viewingUser.name}</strong>'s profile</h1>
+          <h1 className = "u-pageTitle u-shadowPop u-shadowPopPurple u-logofont"><strong>{this.state.viewingUser.name}</strong>'s profile</h1>
           {//<p className = "u-pageDescription">Viewing profile of user <strong>{this.state.viewingUser.name}</strong>, who has ID <strong>{this.state.viewingUser._id}</strong>.</p>
           }
           {(this.props.loggedInUser) ? (
