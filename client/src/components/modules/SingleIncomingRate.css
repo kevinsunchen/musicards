@@ -7,3 +7,8 @@
   text-align: center;
 }
 
+.Incoming-RequestedInfo {
+  margin-bottom: var(--s);
+  color: var(--greyfade);
+  font-size: 18px;
+}
