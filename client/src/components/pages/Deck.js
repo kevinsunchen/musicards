@@ -39,8 +39,9 @@ class Deck extends Component {
     console.log("User's deck is empty")
     return (
       <>
-        <p>Your deck is empty :(</p>
-        <button onClick={this.populateEmptyDeck}> populate deck from Spotify! </button>
+        <p className = "Deck-populateText">your deck is empty :(</p>
+        <p className = "Deck-populateText"> click the button below to populate your deck and get started!</p>
+        <button onClick={this.populateEmptyDeck} className="u-buttonHoverRise Deck-populateButton"> populate deck from Spotify! </button>
       </>
     )
   }
@@ -53,6 +54,7 @@ class Deck extends Component {
     console.log(deckCards)
     return (
       <>
+        <h2 className = "u-pageDescription">click a title to visit the track on Spotify, or an image to hear a preview!</h2>
         <div className = "Deck-deckGroup"> {deckCards} </div>
       </>
     )
@@ -77,7 +79,6 @@ class Deck extends Component {
       <div className="u-pageWrap">
         <h1 className = "u-pageTitle u-shadowPop u-shadowPopYellow u-logofont">my deck</h1>
         <h2 className = "u-pageDescription">your collected songs! use these in trades :)</h2>
-        <h2 className = "u-pageDescription">click a title to visit the track on Spotify, or an image to hear a preview!</h2>
         {contentToRender}
       </div>
     );

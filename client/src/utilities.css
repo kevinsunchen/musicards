@@ -60,6 +60,7 @@ form {
 
 .u-logofont {
   font-family: 'Inter', sans-serif;
+  font-weight: 900;
 }
 
 .u-flex {
@@ -230,7 +231,7 @@ form {
 }
 
 .u-shadowPopOrange { 
-  text-shadow: 8px 8px #ec9272, 
+  text-shadow: 8px 8px   #ec9272, 
                16px 16px #ea8561, 
                24px 24px #bc745b;
 }
@@ -244,7 +245,7 @@ form {
 }
 
 .u-shadowPopYellow { 
-  text-shadow: 8px 8px #f3c583, 
+  text-shadow: 8px 8px   #f3c583, 
                16px 16px #f1bd71, 
                24px 24px #dab175;
 }

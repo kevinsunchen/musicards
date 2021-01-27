@@ -15,7 +15,6 @@ class Home extends Component {
     super(props);
     // Initialize Default State
     this.state = {showModal: false};
-    
   }
 
   componentDidMount() {
@@ -33,7 +32,7 @@ class Home extends Component {
           handleClose={() => this.setState({ showModal: false })}
         >
           welcome to musicards! here are some recommendations for u :D
-          1. profile - log in with your spotify
+          1. login/profile - log in with your spotify
           2. deck - populate your deck with your first suit of musicards! 
           3. request - add a request for a ~ v i b e ~ you've been searching for 
           4. request pt. 2 - fulfill somebody else's request while you're at it!
@@ -47,7 +46,7 @@ class Home extends Component {
           <div className="Home-requestGroup Home-topGroup Home-leftGroup">
             <div className="Home-topWrapper u-flex-alignCenter">
               <div className="Home-iconText u-flex-justifyFlexEnd">
-                <Link to="/requests" className="u-link u-bold"> requests </Link>
+                <Link to="/requests" className="Home-requestsText u-logofont"> requests </Link>
               </div>
               <Link to="/requests" className="Home-iconWrapperTopL">
                 <img src={requests} className="Home-icon" />
@@ -60,7 +59,7 @@ class Home extends Component {
               <div className="Home-iconText u-flex-justifyFlexEnd">
                 <Link
                   to={(this.props.loggedInUser) ? (`/profile/${this.props.loggedInUser._id}`) : ('/login')}
-                  className="u-link u-bold"
+                  className="Home-profileText u-logofont"
                 >
                   {(this.props.loggedInUser) ? "profile" : "login"}
                 </Link>
@@ -82,7 +81,7 @@ class Home extends Component {
                 <img src={incoming} className="Home-icon" />
               </Link>
               <div className="Home-iconText Home-iconTextBottom u-flex-justifyStart">
-                <Link to="/incoming" className="u-link u-bold"> incoming </Link>
+                <Link to="/incoming" className="Home-incomingText u-logofont"> incoming </Link>
               </div>
             </div>
           </div>
@@ -93,7 +92,7 @@ class Home extends Component {
                 <img src={deck} className="Home-icon" />
               </Link>
               <div className="Home-iconText Home-iconTextBottom u-flex-justifyFlexStart">
-                <Link to="/deck" className="u-link u-bold"> deck </Link>
+                <Link to="/deck" className="Home-deckText u-logofont"> deck </Link>
               </div>
             </div>
           </div>
