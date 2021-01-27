@@ -13,22 +13,18 @@
   max-width: 28%;
   width: fit-content;
   cursor: pointer;
+  margin: 3% 0;
 }
 
 .MusicPreview-imgContainer:hover .MusicPreview-playButton {
   opacity: 100%;
-}
-
-.shadow {
-  -webkit-filter: drop-shadow( 1px 2px 5px #787878 );
-  filter: drop-shadow( 1px 2px 8px #787878 );
-  /* Similar syntax to box-shadow */
+  width: 40%;
+  top: 25%;
 }
 
 .MusicPreview-playButton {
-
-  transition: opacity 0.2s ease;
-  opacity: 0%;
+  transition: opacity 0.2s ease, width 0.2s ease, top 0.2s ease;
+  opacity: 70%;
   text-shadow: 10px;
   position: absolute;
   top: 28%; 
@@ -37,4 +33,10 @@
   left: 0px;
   right: 0px;
   z-index: 100;
+}
+
+.shadow {
+  -webkit-filter: drop-shadow( 1px 2px 5px #787878 );
+  filter: drop-shadow( 1px 2px 8px #787878 );
+  /* Similar syntax to box-shadow */
 }
