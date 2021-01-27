@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
-import MusicPreview from "./MusicPreview";
+import MusicPreview from "./MusicPreview.js";
 import "./RequestCard.css";
 
 /**
@@ -51,7 +51,7 @@ class SingleRequest extends Component {
 
         </div>
 
-        <div className="u-flexColumn u-flex-alignCenter RequestCard-Preview">
+        <div className="u-flexColumn u-flex-alignCenter">
           {this.props.offeredTrackInfo &&
             <MusicPreview
               trackInfo={this.props.offeredTrackInfo}

@@ -108,15 +108,15 @@ class RequestCard extends Component {
         console.log("Track to trade:", this.state.trackToTrade);
         tradeOrConfirmButton = (
           <div className = "u-flex RequestCard-buttongroup">
-            <button className = "RequestCard-cancel"
-              onClick={() => {this.setState({ trackToTrade: undefined })}}
-            >
-              Cancel
-            </button>
-            <button className = "RequestCard-confirm"
+            <button className = "RequestCard-cancelConfirm RequestCard-confirm"
               onClick={this.executeTrade}
             >
-              Confirm
+              confirm
+            </button>
+            <button className = "RequestCard-cancelConfirm RequestCard-cancel"
+              onClick={() => {this.setState({ trackToTrade: undefined })}}
+            >
+              cancel
             </button>
           </div>
         );
@@ -126,7 +126,7 @@ class RequestCard extends Component {
             onClick={this.onTradeButtonClick}
             className = "Request-tradeButton"
           >
-            Trade!
+            trade!
           </button>
         );
       }
@@ -159,10 +159,13 @@ class RequestCard extends Component {
               autoRefreshOff={this.props.autoRefreshOff}
             />
           </div>
-          <div className = "RequestCard-tradeSection u-flexColumn">
+          <div className="RequestCard-tradeSection u-flexColumn">
             {this.state.trackToTrade && (
-                <div>
-                  Currently chosen song: {this.state.trackToTrade.name}
+                <div className="RequestCard-chosenSongSection">
+                  <p>
+                    Currently chosen:
+                  </p>
+                  {this.state.trackToTrade.name}
                 </div>
               )} 
               {tradeOrConfirmButton}
