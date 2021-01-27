@@ -37,7 +37,7 @@ class NavBar extends Component {
         isOpen={ this.state.isOpen }
         onStateChange={(state) => this.handleStateChange(state)}
       >
-        <Link to="/" className="NavBar-logo u-logofont u-shadowPop u-shadowPopBlue" onClick={this.closeMenu}> musicards! </Link>
+        <Link to="/" className="NavBar-logo u-logofont NavBar-logoPop" onClick={this.closeMenu}> musicards! </Link>
 
         <div className="u-flexColumn NavBar-requestsGroup">
           <Link to="/requests" className="NavBar-iconGroup u-link u-bold" onClick={this.closeMenu}>

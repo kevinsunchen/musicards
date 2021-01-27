@@ -16,11 +16,40 @@
 }
 
 .NavBar-logo {
-  font-size: var(--xl);
+  font-size: 38px;
+  text-decoration: none;
+  color: white;
+  top: 0;
+  left: 0;
+  -webkit-transition: all 0.12s ease;
+  -moz-transition: all 0.12s ease;
+  -ms-transition: all 0.12s ease;
+  -o-transition: all 0.12s ease;
+  transition: all 0.2s ease;
   padding: 5% 0;
   margin-bottom: 5%;
   text-align: center;
   text-decoration: none;
+}
+
+.NavBar-logo:hover {
+  position: relative;
+  top: -12px;
+  left: -12px;
+}
+
+.NavBar-logoPop { 
+  text-shadow: 5px 5px #03d0f7, 
+               10px 10px #03c0e4, 
+               15px 15px #03b0d1;
+}
+
+.NavBar-logoPop:hover {
+  text-shadow: 5px 5px   #03d0f7, 
+               10px 10px #03c0e4, 
+               15px 15px #03b0d1,
+               20px 20px #029fbd, 
+               25px 25px #028faa;
 }
 
 .NavBar-requestsText, .NavBar-profileText, .NavBar-incomingText, .NavBar-deckText {
