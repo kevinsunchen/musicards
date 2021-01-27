@@ -54,6 +54,7 @@
 }
 
 .RequestCard-lookingText {
+  font-size: 18px;
   margin-bottom: var(--s);
 }
 

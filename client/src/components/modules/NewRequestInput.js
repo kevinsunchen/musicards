@@ -5,6 +5,8 @@ import "./NewRequestInput.css";
 import { post } from "../../utilities";
 import Modal from "./Modal.js";
 
+import "./RequestCard.css";
+
 /**
  * New Post is a parent component for all input components
  *
