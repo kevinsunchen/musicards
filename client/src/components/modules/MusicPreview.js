@@ -11,18 +11,30 @@ class MusicPreview extends Component {
   constructor(props) {
     super(props);
     this.audio = new Audio(this.props.trackInfo.preview_url)
-    console.log(this.audio);
+    this.state = {
+      audioPlaying: false
+    }
   }
 
   componentDidMount() {
     console.log(this.props.trackInfo);
-    this.audio.addEventListener('ended', () => this.props.toggleAudioPlaying(this.audio));
+    this.audio.addEventListener('ended', () => this.toggleAudioPlaying());
   }
 
   componentWillUnmount() {
-    this.audio.removeEventListener('ended', () => this.props.toggleAudioPlaying(this.audio));
+    this.audio.removeEventListener('ended', () => this.toggleAudioPlaying());
     this.audio.pause();
-    console.log("unmounitng", this.props.audioPlaying)
+    console.log("unmounitng", this.state.audioPlaying);
+  }
+
+  toggleAudioPlaying = () => {
+    this.setState(prevState => ({
+      audioPlaying: !prevState.audioPlaying
+    }), () => {
+      console.log("playing?", this.state.audioPlaying);
+      this.state.audioPlaying ? this.audio.play() : this.audio.pause();
+      this.state.audioPlaying ? this.props.autoRefreshOff : this.props.autoRefreshOn
+    });
   }
 
   render() {
@@ -30,7 +42,7 @@ class MusicPreview extends Component {
       return <div> Loading card... </div>
     }
     return (
-      <div className="MusicPreview-imgContainer" onClick={() => { this.props.toggleAudioPlaying(this.audio) }}>
+      <div className="MusicPreview-imgContainer" onClick={() => { this.toggleAudioPlaying() }}>
           <img className="MusicPreview-img" src={this.props.trackInfo.images[1].url} />
 
           <div className="MusicPreview-playButton">
