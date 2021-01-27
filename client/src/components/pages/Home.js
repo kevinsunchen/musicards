@@ -8,13 +8,15 @@ import requests from "../../public/envelope.svg";
 import deck from "../../public/deck.svg";
 import profile from "../../public/idcard.svg";
 import incoming from "../../public/giftbox.svg";
-import ModalSelectTrack from "../modules/ModalSelectTrack.js";
+import Modal from "../modules/Modal.js";
 
 class Home extends Component {
   constructor(props) {
     super(props);
     // Initialize Default State
-    this.state = {showModal: false};
+    this.state = {
+      showModal: true
+    };
   }
 
   componentDidMount() {
@@ -27,7 +29,7 @@ class Home extends Component {
   render() {
     return (
       <>
-        <ModalSelectTrack
+        <Modal
           isOpen={this.state.showModal}
           handleClose={() => this.setState({ showModal: false })}
         >
@@ -39,17 +41,17 @@ class Home extends Component {
           5. incoming - check out what other people have sent u :O
 
           if you ever need to find this info again, just click on the logo on the home page :) we hope you enjoy our site!
-        </ModalSelectTrack>
+        </Modal>
         
         <div className="Home-container">
           
-          <div className="Home-requestGroup Home-topGroup Home-leftGroup">
+          <div className="Home-requestsGroup Home-topGroup Home-leftGroup">
             <div className="Home-topWrapper u-flex-alignCenter">
               <div className="Home-iconText u-flex-justifyFlexEnd">
                 <Link to="/requests" className="Home-requestsText u-logofont"> requests </Link>
               </div>
               <Link to="/requests" className="Home-iconWrapperTopL">
-                <img src={requests} className="Home-icon" />
+                <img src={requests} className="Home-icon Home-requestsIcon" />
               </Link>
             </div>
           </div>
@@ -68,17 +70,17 @@ class Home extends Component {
                 to={(this.props.loggedInUser) ? (`/profile/${this.props.loggedInUser._id}`) : ('/login')}
                 className="Home-iconWrapperTopR"
               >
-                <img src={profile} className="Home-icon" />
+                <img src={profile} className="Home-icon Home-profileIcon" />
               </Link>
             </div>
           </div>
 
-          <div className="Home-logoText u-logofont u-shadowPop u-shadowPopBlue"> musicards! </div>
+          <div className="Home-logoText u-logofont u-shadowPop u-shadowPopBlue" onClick={() => {this.setState({showModal: true})}}> musicards! </div>
           
           <div className="Home-incomingGroup Home-bottomGroup Home-leftGroup">
             <div className="Home-topWrapper u-flex-alignCenter">
               <Link to="/incoming" className="Home-iconWrapper">
-                <img src={incoming} className="Home-icon" />
+                <img src={incoming} className="Home-icon Home-incomingIcon" />
               </Link>
               <div className="Home-iconText Home-iconTextBottom u-flex-justifyStart">
                 <Link to="/incoming" className="Home-incomingText u-logofont"> incoming </Link>
@@ -89,7 +91,7 @@ class Home extends Component {
           <div className = "Home-deckGroup Home-bottomGroup Home-rightGroup"> 
             <div className="Home-topWrapper u-flex-alignCenter">
               <Link to="/deck" className="Home-iconWrapper">
-                <img src={deck} className="Home-icon" />
+                <img src={deck} className="Home-icon Home-deckIcon" />
               </Link>
               <div className="Home-iconText Home-iconTextBottom u-flex-justifyFlexStart">
                 <Link to="/deck" className="Home-deckText u-logofont"> deck </Link>
