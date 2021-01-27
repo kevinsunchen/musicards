@@ -12,14 +12,24 @@
   justify-content: center;
   max-width: 28%;
   width: fit-content;
+  cursor: pointer;
 }
 
 .MusicPreview-imgContainer:hover .MusicPreview-playButton {
-  display: block;
+  opacity: 100%;
+}
+
+.shadow {
+  -webkit-filter: drop-shadow( 1px 2px 5px #787878 );
+  filter: drop-shadow( 1px 2px 8px #787878 );
+  /* Similar syntax to box-shadow */
 }
 
 .MusicPreview-playButton {
-  display: none;
+
+  transition: opacity 0.2s ease;
+  opacity: 0%;
+  text-shadow: 10px;
   position: absolute;
   top: 28%; 
   width: 38%;
