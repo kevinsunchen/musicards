@@ -144,26 +144,29 @@ class RequestCard extends Component {
           Choose a song from your deck to trade!
         </ModalSelectTrack>
 
-        <div className="RequestCard-container">
-          <SingleRequest
-            _id={this.props._id}
-            requesterName={this.props.requesterName}
-            requesterId={this.props.requesterId}
-            content={this.props.content}
-            offeredLabel={this.props.offeredLabel}
-            requestedLabel={this.props.requestedLabel}
-            offeredTrackInfo={this.state.offeredTrackInfo}
-            autoRefreshOn={this.props.autoRefreshOn}
-            autoRefreshOff={this.props.autoRefreshOff}
-          />
-
-          {this.state.trackToTrade && (
-            <div>
-              Currently chosen song: {this.state.trackToTrade.name}
+        <div className="RequestCard-container u-flex">
+          <div className="RequestCard-infoSection"> 
+            <SingleRequest
+              _id={this.props._id}
+              requesterName={this.props.requesterName}
+              requesterId={this.props.requesterId}
+              content={this.props.content}
+              offeredLabel={this.props.offeredLabel}
+              requestedLabel={this.props.requestedLabel}
+              offeredTrackInfo={this.state.offeredTrackInfo}
+              autoRefreshOn={this.props.autoRefreshOn}
+              autoRefreshOff={this.props.autoRefreshOff}
+            />
+          </div>
+          <div className = "RequestCard-tradeSection">
+            {this.state.trackToTrade && (
+                <div>
+                  Currently chosen song: {this.state.trackToTrade.name}
+                </div>
+              )} 
+              {tradeOrConfirmButton}
             </div>
-          )} 
-          {tradeOrConfirmButton}
-        </div>
+          </div>
       </div>
     );
   }

@@ -1,9 +1,11 @@
 .RequestCard-container {
   border: var(--darkgrey) 1px solid;
-  border-radius: var(--xs);
+  border-radius: var(--m);
   margin-top: var(--m);
   background-color: var(--white);
   text-align: left;
+  
+  
 }
 
 .RequestCard-container:first-of-type {
@@ -32,4 +34,27 @@
 
 .RequestCard-commentBody {
   margin: 0 0 var(--s);
+}
+
+.RequestCard-infoSection {
+  width: 80%;
+}
+
+.RequestCard-tradeSection {
+  text-align: center;
+  padding: var(--s);
+}
+
+.RequestCard-Text {
+  width: 90%;
+  padding: var(--m);
+}
+
+.RequestCard-user {
+  font-size: 24px;
+  margin-bottom: var(--m);
+}
+
+.RequestCard-lookingText {
+  margin-bottom: var(--s);
 }
