@@ -44,8 +44,7 @@
 .Musicard-title a {
   text-decoration: none;
   font-size: 140%;
-  font-weight: 600;
-  color: var(--primary);
+  color: var(--primary--dim);
 }
 
 .Musicard-title:hover {
