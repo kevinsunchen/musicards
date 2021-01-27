@@ -253,6 +253,7 @@
 .Home-modalText {
     text-align: center;
     align-items: center;
+    padding: var(--s);
 }
 .Home-modalTextIntro {
     font-size: 18px;
