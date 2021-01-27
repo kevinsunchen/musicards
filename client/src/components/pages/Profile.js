@@ -27,12 +27,12 @@ class Profile extends Component {
   render() {
     console.log("loggedInUser:", this.props.loggedInUser, "viewingUser:", this.state.viewingUser)
     if (!this.state.viewingUser) {
-      return <div> Loading! </div>;
+      return <div className="u-pageWrap"> loading! </div>;
     }
     else if (this.state.viewingUser._id !== this.props.profileId) {
       this.state.viewingUser = undefined;
       this.updateViewingUser();
-      return <div> Loading! </div>
+      return <div className="u-pageWrap"> loading! </div>
     }
     else {
       return (

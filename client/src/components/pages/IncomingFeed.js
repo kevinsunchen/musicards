@@ -39,11 +39,11 @@ class IncomingFeed extends Component {
   render() {
     let incomingList = null;
     if (!this.props.loggedInUser) {
-      incomingList = "Log in to see your incoming Musicards!";
+      incomingList = "log in to see your incoming Musicards!";
     } else if (!this.state.incoming) {
-      incomingList = "Loading...";
+      incomingList = "loading...";
     } else if (this.state.incoming.length === 0) {
-      incomingList = "No incoming Musicards!";
+      incomingList = "no incoming musicards!";
     } else {
       // console.log(this.state.requests)
       incomingList = this.state.incoming.map((incomingObj) => (

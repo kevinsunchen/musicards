@@ -82,7 +82,7 @@ class NewRequestInput extends Component {
             <div className = "u-flex RequestCard-infoSection RequestCard-story">
               <div className="u-flexColumn RequestCard-Text">
                 <div className = "RequestCard-user"> 
-                  <Link to={`/profile/${this.props.loggedInUser._id}`} className="u-link u-bold"> Me </Link>
+                  <Link to={`/profile/${this.props.loggedInUser._id}`} className="u-link u-bold"> me </Link>
                 </div>
                 <div className = "RequestCard-lookingText">
                   <p>
