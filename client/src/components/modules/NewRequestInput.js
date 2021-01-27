@@ -146,7 +146,7 @@ class NewRequestInput extends Component {
 }
 
 
-const phrases = ["some party bangerzzz B)", "sad boi hours :(", "chillhop", "good vibes :)", "AMGERY", "the sauce", "wholesome music :>", "weeb shit", "jazzy tracks", "some tasty numbers", "instrumentals", "the genshin impact soundtrack", "your favorite of the week!", "something spicyy", "surprise me :0"]
+const phrases = ["some party bangerzzz B)", "sad boi hours :(", "chillhop", "good vibes :)", "AMGERY", "the sauce", "wholesome music :>", "weeb shit", "jazzy tracks", "some tasty numbers", "instrumentals", "genshin impact", "your favorite of the week!", "something spicyy", "surprise me :0"]
 
 /**
  * NewRequest is a New Post component for requests
@@ -155,6 +155,14 @@ const phrases = ["some party bangerzzz B)", "sad boi hours :(", "chillhop", "goo
  * @param {string} defaultText is the placeholder text
  */
 class NewRequest extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      rand1: 0,
+      rand2: 1
+    };
+  }
+
   addRequest = (offeredLabel, requestedLabel, offeredTrackId) => {
     console.log(offeredLabel, requestedLabel, offeredTrackId)
     const body = {
@@ -169,15 +177,18 @@ class NewRequest extends Component {
   };
 
   componentDidMount() {
-    const rand1 = Math.floor(phrases.length * Math.random())
-    const rand2 = Math.floor(phrases.length * Math.random())
-    console.log(rand1, rand2);
+    this.setState({
+      rand1: Math.floor(phrases.length * Math.random()),
+      rand2: Math.floor(phrases.length * Math.random())
+    }, () => {
+      console.log(this.state.rand1, this.state.rand2);
+    })
   }
 
   render() {
     return <NewRequestInput
-      defaultTextWanted="party bangerzzz B)"
-      defaultTextOffered="sad boi hours :("
+      defaultTextWanted={phrases[this.state.rand1]}
+      defaultTextOffered={phrases[this.state.rand2]}
       onSubmit={this.addRequest}
       autoRefreshOn={this.props.autoRefreshOn}
       autoRefreshOff={this.props.autoRefreshOff}
