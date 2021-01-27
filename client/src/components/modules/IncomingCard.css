@@ -12,6 +12,7 @@
 
 .Incoming-text {
   padding: var(--l);
+  text-align: left;
 }
 
 .Incoming-buttonholder {

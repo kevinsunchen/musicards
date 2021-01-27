@@ -64,10 +64,10 @@ class Deck extends Component {
   render() {
     var currUser = this.props.loggedInUser;
     if (!currUser) {
-      return <div> Log in to view your deck! </div>
+      return <div className="u-pageWrap u-pageDescription"> Log in to view your deck! </div>
     }
     if (!this.state.deck) {
-      return <div> Loading... </div>
+      return <div className="u-pageWrap u-pageDescription"> Loading... </div>
     }
     console.log(currUser)
     return (
