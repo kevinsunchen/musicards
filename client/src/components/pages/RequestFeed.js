@@ -31,6 +31,10 @@ class RequestFeed extends Component {
     }
   }
 
+  componentDidUpdate() {
+    
+  }
+
   autoRefreshOff = () => {
     this.setState({ autoRefresh: false });
   }

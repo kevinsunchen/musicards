@@ -84,7 +84,7 @@ class IncomingCard extends Component {
               traderId={this.props.traderId}
               traderLabel={this.props.traderLabel}
               incomingTrackInfo={this.props.incomingTrackInfo}
-              />
+            />
             <div className="">
               <button
                 onClick={this.addIncomingToDeck}
