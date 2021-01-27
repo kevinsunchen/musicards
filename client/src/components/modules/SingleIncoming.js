@@ -43,7 +43,7 @@ class SingleIncoming extends Component {
 
   render() {
     const requestInfoText = <p className = "Incoming-RequestedInfo">
-      <i>You asked for a {this.props.selfLabel} song in exchange for a {this.props.traderLabel} song, offering "{this.props.tradedTrackInfo.name}" by {this.processTrackArtists(this.props.tradedTrackInfo.artists)}.</i>
+      <i>You asked for {this.props.selfLabel} in exchange for {this.props.traderLabel}, offering "{this.props.tradedTrackInfo.name}" by {this.processTrackArtists(this.props.tradedTrackInfo.artists)}.</i>
     </p>
 
     const traderTrackText = <div className = "Incoming-GivenInfo">
