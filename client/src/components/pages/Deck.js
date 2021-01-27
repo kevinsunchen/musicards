@@ -53,7 +53,8 @@ class Deck extends Component {
     console.log(deckCards)
     return (
       <>
-        <p>{this.props.loggedInUser.name}'s deck:</p>
+        {//<p>{this.props.loggedInUser.name}'s deck:</p>
+        }
         <div className = "Deck-deckGroup"> {deckCards} </div>
         
       </>
@@ -71,9 +72,8 @@ class Deck extends Component {
     console.log(currUser)
     return (
       <div className="u-pageWrap">
-        <h1 className = "u-pageTitle">MY DECK</h1>
-        <h2 className = "u-pageDescription">Page where the user can view their deck.</h2>
-        <p>Current user <strong>{currUser.name}</strong> with ID <strong>{currUser.uid}</strong> and Spotify username <strong>{currUser.spotifyId}</strong>.</p>
+        <h1 className = "u-pageTitle">my deck</h1>
+        <h2 className = "u-pageDescription">your collected songs! use these in trades :)</h2>
         {this.state.deck.length === 0 ? (
           this.renderDeckEmptyContent()
         ) : (

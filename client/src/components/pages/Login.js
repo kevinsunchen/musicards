@@ -17,12 +17,12 @@ class Login extends Component {
   render() {
     return (
       <div className="u-pageWrap">
-        <h1>LOGIN</h1>
-        <h2>Page that displays when a user is not logged in and performs any action that requires being logged in.</h2>
+        <h1 className = "u-pageTitle">login</h1>
+        <h2 className = "u-pageDescription">connect your spotify to explore musicards!</h2>
         {this.props.loggedInUser ? (
             <button onClick={this.props.handleLogout}>logout</button>
           ) : (
-            <button onClick={this.props.handleLogin}>spotify login</button>
+            <button onClick={this.props.handleLogin} className = "u-refresh">spotify login</button>
         )}
       </div>
     );

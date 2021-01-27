@@ -100,9 +100,9 @@ class RequestFeed extends Component {
     }
     return (
       <div className="u-pageWrap">
-        <h1>REQUESTS FEED</h1>
-        <h2>The page displaying the public requests feed. Includes links to a users' own pending requests, as well as their trade history.</h2>
-        <button onClick={this.refreshFeed}>Refresh feed</button>
+        <h1 className = "u-pageTitle">requests</h1>
+        <h2 className = "u-pageDescription">The page displaying the public requests feed. Includes links to a users' own pending requests, as well as their trade history.</h2>
+        <button onClick={this.refreshFeed} className = "u-refresh">refresh feed</button>
         {this.props.loggedInUser && <NewRequest addNewRequest={this.addNewRequest} />}
         {requestsList}
       </div>

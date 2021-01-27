@@ -113,6 +113,7 @@ form {
   max-width: 960px;
   padding: calc(2 * var(--xl) - 6px) var(--m);
   margin: auto;
+  text-align:center;
 }
 
 .u-pageTitle {
@@ -122,8 +123,9 @@ form {
 }
 
 .u-pageDescription {
-  margin-bottom: var(--m);
+  margin-bottom: var(--l);
   color: #555555;
+  font-size: 24px;
 }
 
 .u-refresh {
@@ -134,7 +136,7 @@ form {
   padding: var(--s);
   background-color: var(--bluemed);
   padding: var(--m);
-  font-size: 15px;
+  font-size: 18px;
   color: #555555;
   margin-bottom: var(--xl);
 }
