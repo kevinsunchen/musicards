@@ -60,6 +60,8 @@ class NewRequestInput extends Component {
           isOpen={this.state.showModal}
           handleClose={() => this.setState({ showModal: false })}
           handleSelect={(track) => this.setState({ offeredTrack: track })}
+          autoRefreshOn={this.props.autoRefreshOn}
+          autoRefreshOff={this.props.autoRefreshOff}
         >
           Choose a song from your deck!
         </ModalSelectTrack>
@@ -148,7 +150,13 @@ class NewRequest extends Component {
   };
 
   render() {
-    return <NewRequestInput defaultTextWanted="a banger B)" defaultTextOffered="sad boi hours :(" onSubmit={this.addRequest} />;
+    return <NewRequestInput
+      defaultTextWanted="a banger B)"
+      defaultTextOffered="sad boi hours :("
+      onSubmit={this.addRequest}
+      autoRefreshOn={this.props.autoRefreshOn}
+      autoRefreshOff={this.props.autoRefreshOff}
+    />;
   }
 }
 
