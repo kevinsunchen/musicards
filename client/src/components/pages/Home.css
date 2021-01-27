@@ -61,32 +61,6 @@
     cursor: pointer;
 }
 
-.shadowpop { 
-    color: white;
-    top: 0;
-    left: 0;
-    text-shadow: 8px 8px #fe4902, 
-                 16px 16px #fe4902, 
-                 24px 24px #fe4902;
-    -webkit-transition: all 0.2s ease;
-    -moz-transition:    all 0.2s ease;
-    -ms-transition:     all 0.2s ease;
-    -o-transition:      all 0.2s ease;
-    transition:      all 0.2s ease;
- }
-
- .shadowpop:hover {
-    position: relative; 
-    top: -24px; 
-    left: -24px; 
-    text-shadow: 8px 8px #fe4902, 
-                 16px 16px #fe4902, 
-                 24px 24px #fe4902, 
-                 32px 32px #fe4902, 
-                 40px 40px #fe4902, 
-                 48px 48px #fe4902;
- } 
-
 .Home-iconText {
     font-size: 30px;
     display: flex;

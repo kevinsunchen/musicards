@@ -59,7 +59,7 @@ class Home extends Component {
             </div>
           </div>
 
-          <div className="Home-logoText u-logofont shadowpop"> musicards! </div>
+          <div className="Home-logoText u-logofont u-shadowPop u-shadowPopBlue"> musicards! </div>
           
           <div className="Home-incomingGroup Home-bottomGroup Home-leftGroup">
             <div className="Home-topWrapper u-flex-alignCenter">
