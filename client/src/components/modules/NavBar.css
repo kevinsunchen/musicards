@@ -11,10 +11,6 @@
   align-items: center;
 }
 
-.NavBar-iconGroup:hover {
-  text-shadow: var(--white) 1px 0px 10px;
-}
-
 .NavBar-icon {
   max-width: 80%;
 }

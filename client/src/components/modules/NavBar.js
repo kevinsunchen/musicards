@@ -40,7 +40,7 @@ class NavBar extends Component {
         <Link to="/" className="NavBar-logo u-logofont u-shadowPop u-shadowPopBlue" onClick={this.closeMenu}> musicards! </Link>
 
         <div className="u-flexColumn NavBar-requestsGroup">
-          <Link to="/requests" className="NavBar-iconGroup" onClick={this.closeMenu}>
+          <Link to="/requests" className="NavBar-iconGroup u-link u-bold" onClick={this.closeMenu}>
             <img src={requests} className="NavBar-icon NavBar-requestsIcon" />
             <div className="NavBar-requestsText u-logofont">requests</div>
           </Link>
