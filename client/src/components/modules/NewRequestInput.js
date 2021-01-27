@@ -169,7 +169,7 @@ class NewRequest extends Component {
   };
 
   render() {
-    Math.floor(phrases.length() * Math.random())
+    Math.floor(phrases.length * Math.random())
     return <NewRequestInput
       defaultTextWanted="party bangerzzz B)"
       defaultTextOffered="sad boi hours :("
