@@ -64,9 +64,9 @@ class IncomingFeed extends Component {
     }
     return (
       <div className="u-pageWrap">
-        <h1>INCOMING</h1>
-        <h2>Page where the user can view their incoming cards from trades.</h2>
-        {this.props.loggedInUser && <button onClick={this.refreshFeed}>Refresh feed</button>}
+        <h1 className = "u-pageTitle">incoming</h1>
+        <h2 className = "u-pageDescription">view your fulfilled requests!</h2>
+        {this.props.loggedInUser && <button onClick={this.refreshFeed} className = "u-refresh">Refresh feed</button>}
         {incomingList}
       </div>
     );
