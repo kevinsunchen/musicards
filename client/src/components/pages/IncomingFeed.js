@@ -39,11 +39,11 @@ class IncomingFeed extends Component {
   render() {
     let incomingList = null;
     if (!this.props.loggedInUser) {
-      incomingList = "Log in to see your incoming Musicards!";
+      incomingList = "log in to see your incoming musicards!";
     } else if (!this.state.incoming) {
-      incomingList = "Loading...";
+      incomingList = "loading...";
     } else if (this.state.incoming.length === 0) {
-      incomingList = "No incoming Musicards!";
+      incomingList = "no incoming musicards!";
     } else {
       // console.log(this.state.requests)
       incomingList = this.state.incoming.map((incomingObj) => (
@@ -63,12 +63,14 @@ class IncomingFeed extends Component {
       ));
     }
     return (
-      <>
-        <h1>INCOMING</h1>
-        <h2>Page where the user can view their incoming cards from trades.</h2>
-        {this.props.loggedInUser && <button onClick={this.refreshFeed}>Refresh feed</button>}
+      <div className="u-pageWrap">
+        <h1 className = "u-pageTitle u-shadowPop u-shadowPopOrange u-logofont">incoming</h1>
+        <h2 className = "u-pageDescription">view your fulfilled requests!</h2>
+        <div>
+          {this.props.loggedInUser && <button onClick={this.refreshFeed} className = "u-refresh">refresh feed</button>}
+        </div>
         {incomingList}
-      </>
+      </div>
     );
   }
 }

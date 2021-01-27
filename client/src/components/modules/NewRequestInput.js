@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 import ModalSelectTrack from "./ModalSelectTrack.js";
+import { Link } from "@reach/router";
 
 import "./NewRequestInput.css";
 import { post } from "../../utilities";
-import Modal from "./Modal.js";
+import placeholder from "../../public/blank.png";
+
+import "./RequestCard.css";
+import "./MusicPreview.css"
+import "./ModalSelectTrack.css"
 
 /**
  * New Post is a parent component for all input components
@@ -49,6 +54,7 @@ class NewRequestInput extends Component {
         offeredTrack: undefined
       });
     } else {
+      window.alert("Incomplete fields! Please check that all fields are filled before posting.")
       console.log("Incomplete fields!", this.state.offeredLabel, this.state.requestedLabel, this.state.offeredTrack)
     }
   };
@@ -60,72 +66,87 @@ class NewRequestInput extends Component {
           isOpen={this.state.showModal}
           handleClose={() => this.setState({ showModal: false })}
           handleSelect={(track) => this.setState({ offeredTrack: track })}
+          autoRefreshOn={this.props.autoRefreshOn}
+          autoRefreshOff={this.props.autoRefreshOff}
         >
-          Choose a song from your deck!
+          <div>
+            <p className="modalselectTrack-text"> choose a song from your deck to trade! </p>
+            <p className="modalselectTrack-text modalselectTrack-subtext"> and don't worry, traded cards don't disappear from your deck, so share your music to your heart's content :) </p>
+          </div>
         </ModalSelectTrack>
 
-        <div className="u-flex">
-          <div className="">
-            <div className="">
-              I want a
-              <input
-                type="text"
-                placeholder={this.props.defaultText}
-                value={this.state.requestedLabel}
-                onChange={this.handleChangeRequested}
-                className="NewPostInput-input"
-              />
-              song 
-            </div>
-            <div className="">
-              for a 
-              <input
-                type="text"
-                placeholder={this.props.defaultText}
-                value={this.state.offeredLabel}
-                onChange={this.handleChangeOffered}
-                className="NewPostInput-input"
-              />
-              song
-            </div>
-            <div>
-              {(this.state.offeredTrack) ? (
-                <>
-                  Currently chosen song: {this.state.offeredTrack.name}
-                </>
-              ) : (
-                <>
-                  Add a song to trade!
-                </>
-              )}
+        <div className="">
+          <div className="u-flex RequestCard-container">
+            <div className = "u-flex RequestCard-infoSection RequestCard-story">
+              <div className="u-flexColumn RequestCard-Text">
+                <div className = "RequestCard-user"> 
+                  <Link to={`/profile/${this.props.loggedInUser._id}`} className="u-link u-bold"> me </Link>
+                </div>
+                <div className = "RequestCard-lookingText">
+                  <p>
+                    i'm looking for
+                    <input
+                      type="text"
+                      placeholder={this.props.defaultTextWanted}
+                      value={this.state.requestedLabel}
+                      onChange={this.handleChangeRequested}
+                      className="NewPostInput-input"
+                    />,
+                  </p>
+                </div>
 
-            </div>
-          </div>
+                <div className = "RequestCard-lookingText">
+                  <p>
+                    and will give 
+                    <input
+                      type="text"
+                      placeholder={this.props.defaultTextOffered}
+                      value={this.state.offeredLabel}
+                      onChange={this.handleChangeOffered}
+                      className="NewPostInput-input"
+                    />.
+                  </p>
+                </div>
 
-          <div className="u-flex">
-            <button
-              type="submit"
-              className="NewPostInput-button u-pointer"
-              value="Submit"
-              onClick={() => this.setState({ showModal: true })}
+                <div className = "RequestCard-lookingText">
+                  <p>
+                    {(this.state.offeredTrack) ? ( <>offering {this.state.offeredTrack.name}!</> ) : ( <>no song selected yet :(</> )}
+                  </p>
+                </div> 
+              </div>
+               
+              <div className="u-flexColumn u-flex-alignCenter">
+                <div className="MusicPreview-imgContainer" onClick={() => {this.setState({ showModal: true })}}>
+                  <img className="MusicPreview-img" src={this.state.offeredTrack ? this.state.offeredTrack.images[1].url : placeholder} />
+                  <div className="MusicPreview-addButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="u-flexColumn RequestCard-tradeSection">
+              <button
+                type="submit"
+                value="Submit"
+                className="Request-tradeButton u-buttonHoverRise"
+                onClick={this.handleSubmit}
               >
-              Add song
-            </button>
-
-            <button
-              type="submit"
-              className="NewPostInput-button u-pointer"
-              value="Submit"
-              onClick={this.handleSubmit}
-            >
-              Post!
-            </button>
+                post!
+              </button>
+            </div>
+            
           </div>
         </div>
       </>
     );
   }
 }
+
+
+const phrases = ["some party bangerzzz B)", "sad boi hours :(", "chillhop", "good vibes :)", "AMGERY", "the sauce", "wholesome music :>", "weeb shit", "jazzy tracks", "some tasty numbers", "instrumentals", "genshin impact", "your favorite of the week!", "something spicyy", "surprise me :0"]
 
 /**
  * NewRequest is a New Post component for requests
@@ -134,6 +155,14 @@ class NewRequestInput extends Component {
  * @param {string} defaultText is the placeholder text
  */
 class NewRequest extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      rand1: 0,
+      rand2: 1
+    };
+  }
+
   addRequest = (offeredLabel, requestedLabel, offeredTrackId) => {
     console.log(offeredLabel, requestedLabel, offeredTrackId)
     const body = {
@@ -147,8 +176,24 @@ class NewRequest extends Component {
     });
   };
 
+  componentDidMount() {
+    this.setState({
+      rand1: Math.floor(phrases.length * Math.random()),
+      rand2: Math.floor(phrases.length * Math.random())
+    }, () => {
+      console.log(this.state.rand1, this.state.rand2);
+    })
+  }
+
   render() {
-    return <NewRequestInput defaultText="" onSubmit={this.addRequest} />;
+    return <NewRequestInput
+      defaultTextWanted={phrases[this.state.rand1]}
+      defaultTextOffered={phrases[this.state.rand2]}
+      onSubmit={this.addRequest}
+      autoRefreshOn={this.props.autoRefreshOn}
+      autoRefreshOff={this.props.autoRefreshOff}
+      loggedInUser={this.props.loggedInUser}
+    />;
   }
 }
 

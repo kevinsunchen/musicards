@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
+import MusicPreview from "./MusicPreview.js";
+import "./RequestCard.css";
 
 /**
  * Story is a component that renders creator and content of a story
@@ -31,15 +33,32 @@ class SingleRequest extends Component {
     offeredTrackText = (this.props.offeredTrackInfo)
       ? ( `Offering "${this.props.offeredTrackInfo.name}" by ${this.processTrackArtists(this.props.offeredTrackInfo.artists)}.`)
       : ( "Loading..." )
+  
+    return (
+      <div className="u-flex RequestCard-story">
+        <div className = "u-flexColumn RequestCard-Text"> 
+          <div className = "RequestCard-user"> 
+            <Link to={`/profile/${this.props.requesterId}`} className="u-link u-bold">
+              {this.props.requesterName}
+            </Link>
+          </div>
+          <div className = "RequestCard-lookingText">
+            <p>looking for <strong>{this.props.requestedLabel}</strong>,</p>
+          </div>
+          <div className = "RequestCard-lookingText">
+            <p>will trade for <strong>{this.props.offeredLabel}!</strong></p>
+          </div>
 
-      return (
-      <div className="Card-story">
-        <Link to={`/profile/${this.props.requesterId}`} className="u-link u-bold">
-          {this.props.requesterName}
-        </Link>
-        <div className="Card-storyContent">
-          <p>Looking for a {this.props.requestedLabel} song, will trade for a {this.props.offeredLabel} song!</p>
-          <p>{offeredTrackText}</p>
+        </div>
+
+        <div className="u-flexColumn u-flex-alignCenter">
+          {this.props.offeredTrackInfo &&
+            <MusicPreview
+              trackInfo={this.props.offeredTrackInfo}
+              autoRefreshOn={this.props.autoRefreshOn}
+              autoRefreshOff={this.props.autoRefreshOff}
+            />
+          }
         </div>
       </div>
     );

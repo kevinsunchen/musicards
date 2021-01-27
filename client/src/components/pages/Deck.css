@@ -1,0 +1,27 @@
+.Deck-deckGroup {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 50px;
+    justify-content: center;
+}
+
+.Deck-populateButton {
+    border-radius: var(--l);
+    height: 40%;
+    border: none;
+    padding: var(--s);
+    background-color: var(--bluemed);
+    padding: var(--l);
+    font-size: 18px;
+    font-weight: 600;
+    color: #555555;
+    margin: var(--l) 0 var(--l) auto;
+    cursor: pointer;    
+}
+
+.Deck-populateText {
+    font-size: 20px;
+    font-weight: 600;
+    color: #555555;
+    margin-top: var(--m);
+}

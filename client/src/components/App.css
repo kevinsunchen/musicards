@@ -1,0 +1,17 @@
+.App-container{
+    background-color: var(--blue);
+    height: 100%;
+    width: auto;
+    overflow: auto
+}
+
+.App-pageWrapper {
+    max-width: 960px;
+    padding: var(--m) var(--m);
+    margin: auto;
+}
+
+.App-outer {
+    background-color: var(--blue--dim);
+    height: 100%;
+}

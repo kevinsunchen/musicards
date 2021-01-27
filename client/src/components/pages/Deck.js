@@ -3,6 +3,7 @@ import { get, post } from "../../utilities";
 import Musicard from "../modules/Musicard.js";
 
 import "../../utilities.css";
+import "./Deck.css"
 
 class Deck extends Component {
   constructor(props) {
@@ -38,8 +39,9 @@ class Deck extends Component {
     console.log("User's deck is empty")
     return (
       <>
-        <p>Your deck is empty :(</p>
-        <button onClick={this.populateEmptyDeck}> Populate Deck from Spotify! </button>
+        <p className = "Deck-populateText">your deck is empty :(</p>
+        <p className = "Deck-populateText"> click the button below to populate your deck and get started!</p>
+        <button onClick={this.populateEmptyDeck} className="u-buttonHoverRise Deck-populateButton"> populate deck from Spotify! </button>
       </>
     )
   }
@@ -52,32 +54,33 @@ class Deck extends Component {
     console.log(deckCards)
     return (
       <>
-        <p>{this.props.loggedInUser.name}'s deck:</p>
-        {deckCards}
+        <h2 className = "u-pageDescription">click a title to visit the track on Spotify or an image to hear a preview!</h2>
+        <div className = "Deck-deckGroup"> {deckCards} </div>
       </>
     )
   }
 
   render() {
-    var currUser = this.props.loggedInUser;
-    if (!currUser) {
-      return <div> Log in to view your deck! </div>
+    let contentToRender = null;
+    if (!this.props.loggedInUser) {
+      contentToRender = <div className=""> log in to view your deck! </div>
     }
-    if (!this.state.deck) {
-      return <div> Loading... </div>
+    else if (!this.state.deck) {
+      contentToRender = <div className=""> loading... </div>
+    } else {
+      contentToRender = this.state.deck.length === 0 ? (
+        this.renderDeckEmptyContent()
+      ) : (
+        this.renderDeckContent()
+      )
     }
-    console.log(currUser)
+    console.log(this.props.loggedInUser)
     return (
-      <>
-        <h1>MY DECK</h1>
-        <h2>Page where the user can view their deck.</h2>
-        <p>Current user <strong>{currUser.name}</strong> with ID <strong>{currUser.uid}</strong> and Spotify username <strong>{currUser.spotifyId}</strong>.</p>
-        {this.state.deck.length === 0 ? (
-          this.renderDeckEmptyContent()
-        ) : (
-          this.renderDeckContent()
-        )}
-      </>
+      <div className="u-pageWrap">
+        <h1 className = "u-pageTitle u-shadowPop u-shadowPopYellow u-logofont">my deck</h1>
+        <h2 className = "u-pageDescription">your collected songs! use these in trades :)</h2>
+        {contentToRender}
+      </div>
     );
   }
 }

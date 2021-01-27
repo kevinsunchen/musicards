@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { navigate, Router, Match } from "@reach/router";
+import { navigate, Router, Match, Link } from "@reach/router";
+import { push as Menu } from 'react-burger-menu'
 import NavBar from "./modules/NavBar.js";
 import Home from "./pages/Home.js";
 import RequestFeed from "./pages/RequestFeed.js";
@@ -11,11 +12,12 @@ import MyRequests from "./pages/MyRequests.js";
 import TradeHistory from "./pages/TradeHistory.js";
 import NotFound from "./pages/NotFound.js";
 
-import "../utilities.css";
-
+import { get, post } from "../utilities";
 import { socket } from "../client-socket.js";
 
-import { get, post } from "../utilities";
+import "../utilities.css";
+import "./App.css";
+import "./Menu.css";
 
 /**
  * Define the "App" component as a class.
@@ -26,6 +28,7 @@ class App extends Component {
     super(props);
     this.state = {
       loggedInUser: undefined,
+      showIntroModal: true
     };
   }
 
@@ -53,21 +56,26 @@ class App extends Component {
 
   render() {
     return (
-      <>
+      <div id="outer-container" className="App-outer">
         {console.log("Currently logged-in user:", this.state.loggedInUser)}
         <Match path="/">
           {props =>
             props.match ? (
               <></>
             ) : (
-              <NavBar
-                loggedInUser={this.state.loggedInUser}
-              />
+              <NavBar loggedInUser={this.state.loggedInUser}/>
             )
           }
         </Match>
+        <main id="page-wrap" className="App-container">
         <Router>
-          <Home path="/" loggedInUser={this.state.loggedInUser} />
+          <Home
+            path="/"
+            loggedInUser={this.state.loggedInUser}
+            isOpen={this.state.showIntroModal}
+            handleClose={() => this.setState({ showIntroModal: false })}
+            openModal={() => this.setState({ showIntroModal: true })}
+          />
           <RequestFeed path="/requests" loggedInUser={this.state.loggedInUser} />
           <IncomingFeed path="/incoming" loggedInUser={this.state.loggedInUser} />
           <Deck path="/deck" loggedInUser={this.state.loggedInUser} />
@@ -76,18 +84,19 @@ class App extends Component {
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             loggedInUser={this.state.loggedInUser}
-          />
+            />
           <Profile 
             path="/profile/:profileId"
             handleLogin={this.handleLogin}
             handleLogout={this.handleLogout}
             loggedInUser={this.state.loggedInUser}
-          />
+            />
           <MyRequests path="/profile/:profileId/my_requests" />
           <TradeHistory path="/profile/:profileId/trade_history" />
           <NotFound default />
         </Router>
-      </>
+        </main>
+      </div>
     );
   }
 }

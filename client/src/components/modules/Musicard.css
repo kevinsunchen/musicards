@@ -1,29 +1,126 @@
 .Musicard-container {
   border: var(--darkgrey) 1px solid;
-  border-radius: var(--xs);
+  border-radius: var(--l);
+  background-color: var(--white);
+  width: 30%;
+  text-align: center;
+  margin: var(--s);
+  align-items: center;
+  padding: var(--l);
+  box-shadow: 2px 2px 10px var(--blueshadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.Musicard-container:hover {
+  box-shadow: 3px 3px 20px var(--blueshadow);
+  -webkit-transform: scale(1.03); 
+  -moz-transform:    scale(1.03);
+  -ms-transform:     scale(1.03); 
+  -o-transform:      scale(1.03);
+  transform: scale(1.03);
+}
+
+.Musicard-previewWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: var(--l) 0;
+}
+
+.Musicard-image {
+  margin-top: var(--m);
+  background-color: var(--white);
+  border-radius: var(--l);
+  margin-bottom: var(--m);
+  width: 90%;
+}
+
+.Musicard-title {
+  width: 90%;
+  background-color: var(--white);
+  white-space: nowrap;
+}
+
+.Musicard-title a {
+  text-decoration: none;
+  font-size: 140%;
+  color: var(--primary--dim);
+}
+
+.Musicard-title:hover {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.Musicard-artists {
+  margin-top: var(--m);
+  background-color: var(--white);
+  font-size: 100%;
+  color: var(--greyfade);
+}
+
+.Musicard-album {
+  background-color: var(--white);
+  color: var(--greyfade);
+  white-space: nowrap;
+  font-size: 100%;
+  width: 90%
+}
+
+.Musicard-album a {
+  text-decoration: none;
+}
+
+.Musicard-play{
+  background-color: var(--white);
+  width: 20%;
+  align-self: center;
+  margin: auto;
   margin-top: var(--m);
 }
 
-.Musicard-story,
-.Musicard-commentSection {
-  padding: var(--m) var(--l);
+.marquee {
+  width: 90%;
+  margin: 0 auto;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
-.Musicard-storyUser {
-  font-size: 20px;
-  font-weight: 600;
+.marquee span {
+  display: inline-block;
+  width: max-content;
+
+  /*padding-left: 100%;
+   show the marquee just outside the paragraph */
+  will-change: transform;
+  animation: marquee-reset;
+  animation-play-state: paused;   
+  
 }
 
-.Musicard-storyContent {
-  font-size: 40px;
-  margin: var(--s) 0 0;
+.marquee span:hover {
+  animation: marquee 15s linear infinite;
 }
 
-.Musicard-commentSection {
-  background-color: var(--grey);
-  border-top: 1px solid var(--darkgrey);
+@keyframes marquee-reset {
+  0% {transform: translate(-50%, 0);}  
 }
 
-.Musicard-commentBody {
-  margin: 0 0 var(--s);
+@keyframes marquee {
+  0% {transform: translate(0%, 0);}    
+  50% {transform: translate(-100%, 0);}
+  50.001% {transform: translate(100%, 0);}
+  100% {transform: translate(0%, 0);}
+}
+/* Respect user preferences about animations */
+@media (prefers-reduced-motion: reduce) {
+  .marquee span {
+    animation-iteration-count: 1;
+    animation-duration: 0.01; 
+    /* instead of animation: none, so an animationend event is 
+     * still available, if previously attached.
+     */
+    width: auto;
+    padding-left: 0;
+  }
 }

@@ -36,7 +36,7 @@ class RatingIcon extends Component {
     } else if (!this.props.hoverRating && this.props.rating >= this.props.index) {
       return 'red';
     }
-    return 'none';
+    return 'white';
   }
 
   render() {

@@ -27,32 +27,31 @@ class Profile extends Component {
   render() {
     console.log("loggedInUser:", this.props.loggedInUser, "viewingUser:", this.state.viewingUser)
     if (!this.state.viewingUser) {
-      return <div> Loading! </div>;
+      return <div className="u-pageWrap"> loading! </div>;
     }
     else if (this.state.viewingUser._id !== this.props.profileId) {
       this.state.viewingUser = undefined;
       this.updateViewingUser();
-      return <div> Loading! </div>
+      return <div className="u-pageWrap"> loading! </div>
     }
     else {
       return (
-        <>
-          <h1>PROFILE</h1>
-          <h2>Page where a user can view and update their profile information.</h2>
-          <p>Viewing profile of user <strong>{this.state.viewingUser.name}</strong>, who has ID <strong>{this.state.viewingUser._id}</strong>.</p>
-          
+        <div className="u-pageWrap">
+          <h1 className = "u-pageTitle u-shadowPop u-shadowPopPurple u-logofont"><strong>{this.state.viewingUser.name}</strong>'s profile</h1>
+          {//<p className = "u-pageDescription">Viewing profile of user <strong>{this.state.viewingUser.name}</strong>, who has ID <strong>{this.state.viewingUser._id}</strong>.</p>
+          }
           {(this.props.loggedInUser) ? (
             <>
-              <p>Currently logged in as user <strong>{this.props.loggedInUser.name}</strong>, who has ID <strong>{this.props.loggedInUser._id}</strong>.</p>
-
+              <p className = "u-pageDescription">welcome! now go view your deck and make requests :)</p>
+              <p className = "u-pageDescription"></p>
               {(this.props.loggedInUser._id === this.state.viewingUser._id) && (
-                <button onClick={this.props.handleLogout}>logout</button>
+                <button onClick={this.props.handleLogout} className = "u-mainbutton">logout</button>
               )}
 
             </>
           ) : (<p>Not logged in.</p>)
           }
-        </>
+        </div>
       );
     }
   }

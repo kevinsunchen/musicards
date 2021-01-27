@@ -4,6 +4,8 @@ import Select from "react-select"
 
 import { get } from "../../utilities";
 
+import "./ModalSelectTrack.css"
+
 /**
  * Story is a component that renders creator and content of a story
  *
@@ -26,23 +28,28 @@ class ModalSelectTrack extends Component {
     get("/api/getMyDeckProcessed").then((deck) => {
       console.log("Deck received from server", deck);
       this.setState({ deck: deck });
-      console.log(this.state.deck.map((track) => {
-        return [track.name, track.artists];
-      }));
-    })
+    });
   }
 
-  handleCloseModalClearDeck = () => {
-    this.props.handleClose();
-    this.setState({ deck: undefined, selectedOption: undefined });
+  onOpen = () => {
+    this.getUserDeck();
+    this.props.autoRefreshOff();
   }
 
   onModalOkay = () => {
     if (this.state.selectedOption) {
       console.log("Track selected:", this.state.selectedOption);
       this.props.handleSelect(this.state.selectedOption.value);
-      this.handleCloseModalClearDeck();
+      this.props.handleClose();
+      this.setState({ deck: undefined, selectedOption: undefined });
     }
+  }
+
+  handleCloseModalClearDeck = () => {
+    console.log("close modal");
+    this.props.handleClose();
+    this.props.autoRefreshOn();
+    this.setState({ deck: undefined, selectedOption: undefined });
   }
 
   generateSelectionOptions = (deck) => {
@@ -59,20 +66,20 @@ class ModalSelectTrack extends Component {
       <>
         <Modal
           isOpen={this.props.isOpen}
-          onOpen={this.getUserDeck}
+          onOpen={this.onOpen}
           handleClose={this.handleCloseModalClearDeck}
           onOkay={this.onModalOkay}
-          okayButtonText="Select"
+          okayButtonText="select"
         >
           {this.props.children}
           {this.state.deck ? (
-            <>
+            <div className="modalSelectTrack-selectBar">
               <Select
                 value={this.state.selectedTrack}
                 onChange={this.handleSelectionChange}
                 options={this.generateSelectionOptions(this.state.deck)}              
               />
-            </>
+            </div>
           ) : (
             <div>Loading</div>
           )}

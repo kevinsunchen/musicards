@@ -4,20 +4,23 @@ import ModalSelectTrack from "./ModalSelectTrack.js"
 
 import { get, post } from "../../utilities";
 
-import "./Card.css";
+import "./RequestCard.css";
 
 /**
  * Card is a component for displaying content like stories
  *
  * Proptypes
- * @param {string} key ={`Card_${requestObj._id}`}
- * @param {string} _id ={requestObj._id}
- * @param {string} requesterName ={requestObj.creator_name}
- * @param {string} requesterId ={requestObj.creator_id}
- * @param {string} offeredLabel ={requestObj.offeredLabel}
- * @param {string} requestedLabel ={requestObj.requestedLabel}
- * @param {string} offeredTrackId ={requestObj.offeredTrackId}
- * @param {Object} loggedInUser ={this.props.loggedInUser}
+ * @param {String} key={`RequestCard_${requestObj._id}`}
+ * @param {String} _id={requestObj._id}
+ * @param {String} requesterName={requestObj.requesterName}
+ * @param {String} requesterId={requestObj.requesterId}
+ * @param {String} offeredLabel={requestObj.offeredLabel}
+ * @param {String} requestedLabel={requestObj.requestedLabel}
+ * @param {String} offeredTrackId={requestObj.offeredTrackId}
+ * @param {Object} loggedInUser={this.props.loggedInUser}
+ * @param {Function} triggerFeedRefresh={this.refreshFeed}
+ * @param {Function} autoRefreshOn={this.autoRefreshOn}
+ * @param {Function} autoRefreshOff={this.autoRefreshOff}
  */
 class RequestCard extends Component {
   _isMounted = false;
@@ -80,12 +83,16 @@ class RequestCard extends Component {
       post("/api/performTrade", body).then((trade) => {
         console.log("Traded")
         console.log(trade);
+        window.alert("card has been added to your deck!");
       }).catch((err) => {
         console.log(err);
+        window.alert("this request has already been fulfilled!");
       }).finally(() => {
         this.setState({ trackToTrade: undefined });
+        this.props.autoRefreshOn();
         this.props.triggerFeedRefresh();
       });
+      
     }
   }
   
@@ -103,25 +110,26 @@ class RequestCard extends Component {
       if (this.state.trackToTrade) {
         console.log("Track to trade:", this.state.trackToTrade);
         tradeOrConfirmButton = (
-          <>
-          <button
-            onClick={() => {this.setState({ trackToTrade: undefined })}}
-          >
-            Cancel
-          </button>
-          <button
-            onClick={this.executeTrade}
-          >
-            Confirm
-          </button>
-          </>
+          <div className = "u-flex RequestCard-buttongroup">
+            <button className = "RequestCard-cancelConfirm RequestCard-confirm u-buttonHoverRise"
+              onClick={this.executeTrade}
+            >
+              confirm
+            </button>
+            <button className = "RequestCard-cancelConfirm RequestCard-cancel u-buttonHoverRise"
+              onClick={() => {this.setState({ trackToTrade: undefined })}}
+            >
+              cancel
+            </button>
+          </div>
         );
       } else {
         tradeOrConfirmButton = (
           <button
             onClick={this.onTradeButtonClick}
+            className = "Request-tradeButton u-buttonHoverRise"
           >
-            Trade!
+            trade!
           </button>
         );
       }
@@ -129,34 +137,47 @@ class RequestCard extends Component {
       tradeOrConfirmButton = "Log in to trade!"
     }
     return (
-      <>
+      <div>
         <ModalSelectTrack
           isOpen={this.state.showModal}
           handleClose={() => this.setState({ showModal: false })}
           handleSelect={(track) => this.setState({ trackToTrade: track })}
+          autoRefreshOn={this.props.autoRefreshOn}
+          autoRefreshOff={this.props.autoRefreshOff}
         >
-          Choose a song from your deck to trade!
+          <div>
+            <p className="modalselectTrack-text"> choose a song from your deck to trade! </p>
+            <p className="modalselectTrack-text modalselectTrack-subtext"> and don't worry, traded cards don't disappear from your deck, so share your music to your heart's content :) </p>
+          </div>
         </ModalSelectTrack>
 
-        <div className="Card-container">
-          <SingleRequest
-            _id={this.props._id}
-            requesterName={this.props.requesterName}
-            requesterId={this.props.requesterId}
-            content={this.props.content}
-            offeredLabel={this.props.offeredLabel}
-            requestedLabel={this.props.requestedLabel}
-            offeredTrackInfo={this.state.offeredTrackInfo}
-          />
-
-          {this.state.trackToTrade && (
-            <div>
-              Currently chosen song: {this.state.trackToTrade.name}
+        <div className="RequestCard-container u-flex">
+          <div className="RequestCard-infoSection"> 
+            <SingleRequest
+              _id={this.props._id}
+              requesterName={this.props.requesterName}
+              requesterId={this.props.requesterId}
+              content={this.props.content}
+              offeredLabel={this.props.offeredLabel}
+              requestedLabel={this.props.requestedLabel}
+              offeredTrackInfo={this.state.offeredTrackInfo}
+              autoRefreshOn={this.props.autoRefreshOn}
+              autoRefreshOff={this.props.autoRefreshOff}
+            />
+          </div>
+          <div className="RequestCard-tradeSection u-flexColumn">
+            {this.state.trackToTrade && (
+                <div className="RequestCard-chosenSongSection">
+                  <p>
+                    currently chosen:
+                  </p>
+                  {this.state.trackToTrade.name}
+                </div>
+              )} 
+              {tradeOrConfirmButton}
             </div>
-          )} 
-          {tradeOrConfirmButton}
-        </div>
-      </>
+          </div>
+      </div>
     );
   }
 }

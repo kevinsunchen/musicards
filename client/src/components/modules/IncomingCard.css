@@ -1,15 +1,32 @@
 .IncomingCard-container {
   border: var(--darkgrey) 1px solid;
-  border-radius: var(--xs);
+  border-radius: var(--m);
   margin-top: var(--m);
+  background: white;
 }
 
-.IncomingCard-container:first-of-type {
-  margin-top: var(--l);
+.Incoming-text {
+  padding: var(--l) var(--l);
+  text-align: left;
 }
 
-.IncomingCard-story {
-  padding: var(--m) var(--l);
+.IncomingCard-storyContent {
+  font-size: 20px;
+  width: 85%;
+  padding-right: 1%;
+}
+
+.Incoming-RequestedInfo {
+  margin-bottom: var(--l);
+  color: var(--greyfade);
+  font-size: 18px;
+}
+
+.Incoming-buttonholder {
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .IncomingCard-storyUser {
@@ -17,17 +34,74 @@
   font-weight: 600;
 }
 
-.IncomingCard-storyContent {
-  font-size: 20px;
-  margin: var(--s) 0 0;
-}
-
 .IncomingCard-commentSection {
   background-color: var(--grey);
   border-top: 1px solid var(--darkgrey);
+  border-bottom-left-radius: var(--m);
+  border-bottom-right-radius: var(--m);
   padding: var(--s) 0;
 }
 
 .IncomingCard-commentBody {
   margin: 0 0 var(--s);
+}
+
+.Incoming-button {
+  background-color: white;
+  border-radius: var(--s);
+  height: 47%;
+  padding: var(--s);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.Incoming-addButton {
+  border: 3px solid #60E59C;
+  color: #60E59C;
+}
+
+.Incoming-declineButton {
+  border: 3px solid #E58282;
+  color: #E58282;
+}
+
+.Incoming-addButton:hover {
+  background-color: #60E59C;
+  color: white;
+}
+
+.Incoming-declineButton:hover {
+  background-color: #E58282;
+  color: white;
+}
+
+.incoming-wrapReceivedText {
+  display: inline;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--primary);
+}
+
+.incoming-wrapReceivedText:hover {
+  color: var(--blue--dim);
+}
+
+.IncomingCard-ModalContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 0 3% 0;
+}
+
+.IncomingCard-ModalText {
+  font-size: 24px;
+  margin-bottom: 2%;
+  text-align: center;
+}
+
+.IncomingCard-ModalSubtitle {
+  font-size: 18px;
+  margin-bottom: 2%;
+  text-align: center;
+  padding: 0 8%;
 }

@@ -1,33 +1,116 @@
-.NavBar-container {
-    padding: var(--s) var(--m);
-    background-color: var(--primary);
-  }
-  
-  .NavBar-title {
-    color: var(--white);
-    font-size: 20px;
-  }
-  
-  .NavBar-linkContainer {
-    margin-left: var(--l);
-  }
-  
-  .NavBar-link,
-  .NavBar-link:visited {
-    color: var(--white);
-    opacity: 0.6;
-    text-decoration: none;
-  }
-  
-  .NavBar-link:hover {
-    opacity: 0.8;
-  }
-  
-  .NavBar-link.NavBar-login {
-    opacity: 1;
-  }
-  
-  .NavBar-link + .NavBar-link {
-    margin-left: var(--m);
-  }
-  
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.NavBar-iconGroup {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.NavBar-icon {
+  max-width: 80%;
+}
+
+.NavBar-logo {
+  font-size: 38px;
+  text-decoration: none;
+  color: white;
+  top: 0;
+  left: 0;
+  -webkit-transition: all 0.12s ease;
+  -moz-transition: all 0.12s ease;
+  -ms-transition: all 0.12s ease;
+  -o-transition: all 0.12s ease;
+  transition: all 0.2s ease;
+  padding: 5% 0;
+  margin-bottom: 5%;
+  text-align: center;
+  text-decoration: none;
+}
+
+.NavBar-logo:hover {
+  position: relative;
+  top: -12px;
+  left: -12px;
+}
+
+.NavBar-logoPop { 
+  text-shadow: 5px 5px #03d0f7, 
+               10px 10px #03c0e4, 
+               15px 15px #03b0d1;
+}
+
+.NavBar-logoPop:hover {
+  text-shadow: 5px 5px   #03d0f7, 
+               10px 10px #03c0e4, 
+               15px 15px #03b0d1,
+               20px 20px #029fbd, 
+               25px 25px #028faa;
+}
+
+.NavBar-requestsText, .NavBar-profileText, .NavBar-incomingText, .NavBar-deckText {
+  font-size: 24px;
+  text-decoration: none;
+  color: white;
+  top: 0;
+  left: 0;
+  -webkit-transition: all 0.12s ease;
+  -moz-transition: all 0.12s ease;
+  -ms-transition: all 0.12s ease;
+  -o-transition: all 0.12s ease;
+  transition: all 0.2s ease;
+}
+
+.NavBar-requestsGroup:hover .NavBar-requestsText, .NavBar-profileGroup:hover .NavBar-profileText, .NavBar-incomingGroup:hover .NavBar-incomingText, .NavBar-deckGroup:hover .NavBar-deckText {
+  position: relative;
+  top: -9px;
+  left: -9px;
+}
+
+.NavBar-requestsIcon, .NavBar-profileIcon, .NavBar-incomingIcon, .NavBar-deckIcon {
+  transition: transform 0.2s ease;
+}
+
+.NavBar-requestsGroup:hover .NavBar-requestsIcon, .NavBar-profileGroup:hover .NavBar-profileIcon, .NavBar-incomingGroup:hover .NavBar-incomingIcon, .NavBar-deckGroup:hover .NavBar-deckIcon {
+  -webkit-transform: scale(1.08);
+  -moz-transform: scale(1.08);
+  -ms-transform: scale(1.08);
+  -o-transform: scale(1.08);
+  transform: scale(1.08);
+}
+
+.NavBar-requestsText {
+  text-shadow: 3px 3px #f6d9fc, 6px 6px #ddc3e2, 9px 9px #c4adc9;
+}
+
+.NavBar-requestsGroup:hover .NavBar-requestsText {
+  text-shadow: 3px 3px #f6d9fc, 6px 6px #ddc3e2, 9px 9px #c4adc9, 12px 12px #ac97b0, 15px 15px #938297;
+}
+
+.NavBar-profileText {
+  text-shadow: 3px 3px #b592f0, 6px 6px #a283d8, 9px 9px #9074c0;
+}
+
+.NavBar-profileGroup:hover .NavBar-profileText {
+  text-shadow: 3px 3px #b592f0, 6px 6px #a283d8, 9px 9px #9074c0, 12px 12px #7e66a8, 15px 15px #6c5790;
+}
+
+.NavBar-incomingText {
+  text-shadow: 3px 3px #ec9272, 6px 6px #ea8561, 9px 9px #bc745b;
+}
+
+.NavBar-incomingGroup:hover .NavBar-incomingText {
+  text-shadow: 3px 3px #ec9272, 6px 6px #ea8561, 9px 9px #bc745b, 12px 12px #a5664f, 15px 15px #8d5744;
+}
+
+.NavBar-deckText {
+  text-shadow: 3px 3px #f3c583, 6px 6px #f1bd71, 9px 9px #dab175;
+}
+
+.NavBar-deckGroup:hover .NavBar-deckText {
+  text-shadow: 3px 3px #f3c583, 6px 6px #f1bd71, 9px 9px #dab175, 12px 12px #c29d68, 15px 15px #aa895b;
+}

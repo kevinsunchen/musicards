@@ -1,22 +1,7 @@
-# Project Skeleton
-
-## What we provide
-
-- Google Auth (Skeleton.js & auth.js)
-  - Disclaimer: Auth isn't being taught until the second week.
-- Socket Infrastructure (client-socket.js & server-socket.js)
-  - Disclaimer: Socket isn't being taught until the second week.
-- User Model (auth.js & user.js)
+# musicards! 
 
 ## What you need to change
 
-- Change the font in utilities.css
-- Change the Frontend CLIENT_ID for Google Auth (Skeleton.js) (we'll talk about it at the end of week 2)
-- Change the Server CLIENT_ID for Google Auth (auth.js) (we'll talk about it at the end of week 2)
-- Change the Database SRV for Atlas (server.js)
-- Change the Database Name for MongoDB (server.js)
-- Add a favicon to your website at the path client/dist/favicon.ico
-- Update website title in client/dist/index.html
 - Update this README file ;)
 - Update the package.json file with your app name :) (line 2)
 

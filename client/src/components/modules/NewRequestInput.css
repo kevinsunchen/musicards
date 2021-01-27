@@ -1,15 +1,16 @@
 .NewPostInput-input,
 .NewPostInput-button {
-  font-family: "Open Sans";
   font-size: 14px;
   padding: var(--s) var(--m);
+  font-family: 'Montserrat';
 }
 
 .NewPostInput-input {
-  flex-grow: 1;
+  max-width: 50%;
   border: var(--darkgrey) 1px solid;
-  border-radius: var(--xs) 0 0 var(--xs);
+  border-radius: var(--s);
   transition: box-shadow 0.1s;
+  margin: 0 var(--s);
 }
 
 .NewPostInput-input:focus-within {
@@ -18,14 +19,43 @@
 }
 
 .NewPostInput-button {
-  color: var(--primary);
-  border: var(--primary) 1px solid;
-  border-radius: 0 var(--xs) var(--xs) 0;
-  background: none;
-  transition: color 0.1s, background 0.1s;
+  cursor: pointer;
+  border-radius: var(--l);
+  border: 6px solid #7ACCDA;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  font-size: 20px;
+  font-weight: 600;
+  color: #7ACCDA;
 }
 
 .NewPostInput-button:hover {
   color: var(--white);
   background-color: var(--primary);
+}
+.NewRequest-main {
+  justify-content: space-around;
+  border: var(--darkgrey) 1px solid;
+  border-radius: var(--m);
+  margin-top: var(--m);
+  background-color: var(--white);
+  text-align: left;
+  display: flex;
+  margin-bottom: var(--l);
+  padding: var(--m) 0 var(--m) var(--l);
+}
+
+.NewPostInput-post {
+  width: 50%;
+}
+
+.NewPostInput-addSong {
+  width: 50%;
+}
+
+.NewRequest-text {
+  font-size: 20px;
+  margin: var(--s) 0 0;
+  width: 90%
 }

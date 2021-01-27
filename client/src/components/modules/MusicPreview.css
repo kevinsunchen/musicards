@@ -1,0 +1,59 @@
+.MusicPreview-imgContainer {
+  border: var(--darkgrey) 1px solid;
+  border-radius: var(--l);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  max-width: 90%;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.MusicPreview-img {
+  opacity: 90%;
+  background-color: var(--darkgrey);
+  border-radius: var(--l);
+  max-width: 100%;
+  box-shadow: 2px 2px 10px var(--darkgrey);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.MusicPreview-imgContainer:hover .MusicPreview-img {
+  opacity: 100%;
+  box-shadow: 5px 5px 10px var(--darkgrey);
+  -webkit-transform: scale(1.01); 
+  -moz-transform:    scale(1.01);
+  -ms-transform:     scale(1.01); 
+  -o-transform:      scale(1.01);
+  transform: scale(1.1);
+}
+
+.MusicPreview-imgContainer:hover .MusicPreview-playButton, .MusicPreview-imgContainer:hover .MusicPreview-addButton {
+  opacity: 100%;
+  -webkit-transform: scale(1.2); 
+  -moz-transform:    scale(1.2);
+  -ms-transform:     scale(1.2); 
+  -o-transform:      scale(1.2);
+  transform: scale(1.2);
+}
+
+
+
+.MusicPreview-playButton, .MusicPreview-addButton {
+  transition: opacity 0.12s ease, transform 0.12s ease;
+  opacity: 70%;
+  text-shadow: 10px;
+  position: absolute;
+  top: 28%; 
+  width: 38%;
+  margin: 0 auto;
+  left: 0px;
+  right: 0px;
+  z-index: 99;
+}
+
+.shadow {
+  -webkit-filter: drop-shadow( 1px 2px 5px #787878 );
+  filter: drop-shadow( 1px 2px 8px #787878 );
+  /* Similar syntax to box-shadow */
+}

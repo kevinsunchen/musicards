@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import "./Modal.css";
 
 /**
  * Story is a component that renders creator and content of a story
@@ -19,7 +20,7 @@ class Modal extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!prevProps.isOpen && this.props.isOpen) {
+    if (!prevProps.isOpen && this.props.isOpen && this.props.onOpen) {
       this.props.onOpen();
     }
   }
@@ -30,32 +31,37 @@ class Modal extends Component {
     }
     else {
       return (
-        <>
-        <div>
-          {this.props.title}
-        </div>
+        <div className = "modal">
+          <div className = "modal-main u-flexColumn">
+        
+            <div className = "modal-Title">
+              {this.props.title}
+            </div>
 
-        <div>
-          {this.props.children}
-        </div>
+            <div>
+              {this.props.children}
+            </div>
 
-        <div>
-          {this.props.onOkay && (
-            <button onClick={this.props.onOkay}>
-              {this.props.okayButtonText || (<>OK</>)}
-            </button>
-          )}
-          <button onClick={this.props.handleClose}>
-            {this.props.closeButtonText || (
-              this.props.onOkay ? (
-                <>Cancel</>
-              ) : (
-                <>Close</>
-              )
-            )}
-          </button>
+            <div className="modal-buttonHolder">
+              <button onClick={this.props.handleClose} className = {this.props.onOkay ? "modal-button modal-cancelbutton u-buttonHoverRise" : "modal-buttonLong modal-cancelbutton u-buttonHoverRise"}>
+                {this.props.closeButtonText || (
+                  this.props.onOkay ? (
+                    <>cancel</>
+                  ) : (
+                    <>close</>
+                  )
+                )}
+              </button>
+              {this.props.onOkay && (
+                <button onClick={this.props.onOkay} className = "modal-button modal-okbutton u-buttonHoverRise">
+                  {this.props.okayButtonText || (<>OK</>)}
+                </button>
+              )}
+              
+            </div>
+          </div>
         </div>
-        </>
+        
       );
     }
   }

@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import RequestCard from "../modules/RequestCard.js";
 import { NewRequest } from "../modules/NewRequestInput.js";
 import { socket } from "../../client-socket.js";
+import { get } from "../../utilities";
 
 import "../../utilities.css";
-
-import { get } from "../../utilities";
 
 class RequestFeed extends Component {
   _isMounted = false;
@@ -13,6 +12,7 @@ class RequestFeed extends Component {
     super(props);
     this.state = {
       requests: undefined,
+      autoRefresh: true
     };
   }
 
@@ -27,17 +27,30 @@ class RequestFeed extends Component {
     socket.on("getRequestFeed", (requestObjs) => {
       this.populateRequestsList(requestObjs)
     });
-
   }
   
   componentWillUnmount() {
     this._isMounted = false;
   }
+
+  autoRefreshOff = () => {
+    console.log("turning autorefresh off");
+    this.setState({ autoRefresh: false }, () => {
+      console.log("autorefresh:", this.state.autoRefresh);
+    });
+  }
+
+  autoRefreshOn = () => {
+    console.log("turning autorefresh on");
+    this.setState({ autoRefresh: true}, () => {
+      console.log("autorefresh:", this.state.autoRefresh);
+    });
+  }
   
   populateRequestsList = (requestObjs) => {
-    if (this._isMounted) {
-      console.log(this._isMounted);
-      this.setState({ requests: [] })
+    if (this._isMounted && this.state.autoRefresh) {
+      console.log(this.autoRefresh);
+      this.setState({ requests: [] });
       let reversedRequestObjs = requestObjs.reverse();
       reversedRequestObjs.map((requestObj) => {
         this.setState({ requests: this.state.requests.concat([requestObj]) });
@@ -68,9 +81,9 @@ class RequestFeed extends Component {
   render() {
     let requestsList = null;
     if (!this.state.requests) {
-      requestsList = "Loading...";
+      requestsList = <div> loading... </div>;
     } else if (this.state.requests.length === 0) {
-      requestsList = "No requests!";
+      requestsList = <div> no requests! </div>;
     } else {
       // console.log(this.state.requests)
       requestsList = this.state.requests.map((requestObj) => (
@@ -84,17 +97,33 @@ class RequestFeed extends Component {
           offeredTrackId={requestObj.offeredTrackId}
           loggedInUser={this.props.loggedInUser}
           triggerFeedRefresh={this.refreshFeed}
+          autoRefreshOn={this.autoRefreshOn}
+          autoRefreshOff={this.autoRefreshOff}
         />
       ));
     }
     return (
-      <>
-        <h1>REQUESTS FEED</h1>
-        <h2>The page displaying the public requests feed. Includes links to a users' own pending requests, as well as their trade history.</h2>
-        <button onClick={this.refreshFeed}>Refresh feed</button>
-        {this.props.loggedInUser && <NewRequest addNewRequest={this.addNewRequest} />}
+      <div className="u-pageWrap">
+        <h1 className = "u-pageTitle u-shadowPop u-shadowPopPink u-logofont">requests</h1>
+        <h2 className = "u-pageDescription">what kind of song would you like to discover today?</h2>
+        {this.props.loggedInUser &&
+          <NewRequest
+            addNewRequest={this.addNewRequest}
+            autoRefreshOn={this.autoRefreshOn}
+            autoRefreshOff={this.autoRefreshOff}
+            loggedInUser={this.props.loggedInUser}
+          />}
+        <div className="u-flex">
+          <button
+            onClick={() => {
+              this.refreshFeed();
+              this.setState({ autoRefresh: true });
+            }}
+            className="u-refresh u-buttonHoverRise"
+            > refresh feed </button>
+        </div>
         {requestsList}
-      </>
+      </div>
     );
   }
 }
