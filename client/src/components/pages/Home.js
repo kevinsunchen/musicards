@@ -8,13 +8,15 @@ import requests from "../../public/envelope.svg";
 import deck from "../../public/deck.svg";
 import profile from "../../public/idcard.svg";
 import incoming from "../../public/giftbox.svg";
-import ModalSelectTrack from "../modules/ModalSelectTrack.js";
+import Modal from "../modules/Modal.js";
 
 class Home extends Component {
   constructor(props) {
     super(props);
     // Initialize Default State
-    this.state = {showModal: false};
+    this.state = {
+      showModal: true
+    };
   }
 
   componentDidMount() {
@@ -27,7 +29,7 @@ class Home extends Component {
   render() {
     return (
       <>
-        <ModalSelectTrack
+        <Modal
           isOpen={this.state.showModal}
           handleClose={() => this.setState({ showModal: false })}
         >
@@ -39,7 +41,7 @@ class Home extends Component {
           5. incoming - check out what other people have sent u :O
 
           if you ever need to find this info again, just click on the logo on the home page :) we hope you enjoy our site!
-        </ModalSelectTrack>
+        </Modal>
         
         <div className="Home-container">
           
@@ -73,7 +75,7 @@ class Home extends Component {
             </div>
           </div>
 
-          <div className="Home-logoText u-logofont u-shadowPop u-shadowPopBlue"> musicards! </div>
+          <div className="Home-logoText u-logofont u-shadowPop u-shadowPopBlue" onClick={() => {this.setState({showModal: true})}}> musicards! </div>
           
           <div className="Home-incomingGroup Home-bottomGroup Home-leftGroup">
             <div className="Home-topWrapper u-flex-alignCenter">
