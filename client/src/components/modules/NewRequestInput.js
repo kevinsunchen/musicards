@@ -145,6 +145,9 @@ class NewRequestInput extends Component {
   }
 }
 
+
+const phrases = ["some party bangerzzz B)", "sad boi hours :(", "chillhop", "good vibes :)", "AMGERY", "the sauce", "wholesome music :>", "weeb shit", "jazzy tracks", "some tasty numbers", "instrumentals", "the genshin impact soundtrack", "your favorite of the week!", "something spicyy", "surprise me :0"]
+
 /**
  * NewRequest is a New Post component for requests
  *
@@ -166,6 +169,7 @@ class NewRequest extends Component {
   };
 
   render() {
+
     return <NewRequestInput
       defaultTextWanted="party bangerzzz B)"
       defaultTextOffered="sad boi hours :("
