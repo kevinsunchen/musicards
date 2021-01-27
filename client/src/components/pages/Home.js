@@ -59,7 +59,7 @@ class Home extends Component {
             </div>
           </div>
 
-          <div className="Home-logoText"> musicards! </div>
+          <div className="Home-logoText u-logofont"> musicards! </div>
           
           <div className="Home-incomingGroup Home-bottomGroup Home-leftGroup">
             <div className="Home-topWrapper u-flex-alignCenter">
