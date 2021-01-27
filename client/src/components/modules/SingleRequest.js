@@ -31,7 +31,7 @@ class SingleRequest extends Component {
   }
 
   toggleAudioPlaying = (audio) => {
-    console.log("outside", this.state.audioPlaying)
+    console.log("outside", this.state.audioPlaying);
     this.setState(prevState => ({
       audioPlaying: !prevState.audioPlaying
     }), () => {
@@ -45,8 +45,8 @@ class SingleRequest extends Component {
     offeredTrackText = (this.props.offeredTrackInfo)
       ? ( `Offering "${this.props.offeredTrackInfo.name}" by ${this.processTrackArtists(this.props.offeredTrackInfo.artists)}.`)
       : ( "Loading..." )
-      this.props.offeredTrackInfo && console.log(this.props.offeredTrackInfo.images);
-      return (
+  
+    return (
       <div className="RequestCard-story">
         <Link to={`/profile/${this.props.requesterId}`} className="u-link u-bold">
           {this.props.requesterName}
@@ -58,9 +58,11 @@ class SingleRequest extends Component {
           <div className="u-flexColumn u-flex-alignCenter">
             {this.props.offeredTrackInfo &&
               <MusicPreview
-              trackInfo={this.props.offeredTrackInfo}
-              audioPlaying={this.state.audioPlaying}
-              toggleAudioPlaying={this.toggleAudioPlaying}
+                trackInfo={this.props.offeredTrackInfo}
+                audioPlaying={this.state.audioPlaying}
+                toggleAudioPlaying={this.toggleAudioPlaying}
+                autoRefreshOn={this.props.autoRefreshOn}
+                autoRefreshOff={this.props.autoRefreshOff}
               />
             }
             <div>

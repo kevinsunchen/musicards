@@ -29,7 +29,14 @@ class RequestFeed extends Component {
         this.populateRequestsList(requestObjs)
       });
     }
+  }
 
+  autoRefreshOff = () => {
+    this.setState({ autoRefresh: false });
+  }
+
+  autoRefreshOn = () => {
+    this.setState({ autoRefresh: true});
   }
   
   componentWillUnmount() {
@@ -86,6 +93,8 @@ class RequestFeed extends Component {
           offeredTrackId={requestObj.offeredTrackId}
           loggedInUser={this.props.loggedInUser}
           triggerFeedRefresh={this.refreshFeed}
+          autoRefreshOn={this.autoRefreshOn}
+          autoRefreshOff={this.autoRefreshOff}
         />
       ));
     }

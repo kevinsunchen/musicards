@@ -10,14 +10,17 @@ import "./RequestCard.css";
  * Card is a component for displaying content like stories
  *
  * Proptypes
- * @param {string} key ={`Card_${requestObj._id}`}
- * @param {string} _id ={requestObj._id}
- * @param {string} requesterName ={requestObj.creator_name}
- * @param {string} requesterId ={requestObj.creator_id}
- * @param {string} offeredLabel ={requestObj.offeredLabel}
- * @param {string} requestedLabel ={requestObj.requestedLabel}
- * @param {string} offeredTrackId ={requestObj.offeredTrackId}
- * @param {Object} loggedInUser ={this.props.loggedInUser}
+ * @param {String} key={`RequestCard_${requestObj._id}`}
+ * @param {String} _id={requestObj._id}
+ * @param {String} requesterName={requestObj.requesterName}
+ * @param {String} requesterId={requestObj.requesterId}
+ * @param {String} offeredLabel={requestObj.offeredLabel}
+ * @param {String} requestedLabel={requestObj.requestedLabel}
+ * @param {String} offeredTrackId={requestObj.offeredTrackId}
+ * @param {Object} loggedInUser={this.props.loggedInUser}
+ * @param {Function} triggerFeedRefresh={this.refreshFeed}
+ * @param {Function} autoRefreshOn={this.autoRefreshOn}
+ * @param {Function} autoRefreshOff={this.autoRefreshOff}
  */
 class RequestCard extends Component {
   _isMounted = false;
@@ -147,6 +150,8 @@ class RequestCard extends Component {
             offeredLabel={this.props.offeredLabel}
             requestedLabel={this.props.requestedLabel}
             offeredTrackInfo={this.state.offeredTrackInfo}
+            autoRefreshOn={this.props.autoRefreshOn}
+            autoRefreshOff={this.props.autoRefreshOff}
           />
 
           {this.state.trackToTrade && (
