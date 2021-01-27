@@ -59,7 +59,13 @@ class SingleIncoming extends Component {
           isOpen={this.state.showModal}
           handleClose={this.handleClose}
         >
-          <div className="u-flex u-flex-justifyCenter">
+          <div className="IncomingCard-ModalContent">
+            <div className="IncomingCard-ModalText">
+              you received a song!
+            </div>
+            <div className="IncomingCard-ModalSubtitle">
+              click on the album cover to hear a preview, or click on the title to go to the song's Spotify page.
+            </div>
             <Musicard trackId={this.props.incomingTrackInfo._id}/>
           </div>
         </Modal>
