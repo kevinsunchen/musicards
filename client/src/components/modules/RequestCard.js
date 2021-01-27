@@ -90,6 +90,7 @@ class RequestCard extends Component {
         this.props.autoRefreshOn();
         this.props.triggerFeedRefresh();
       });
+      window.alert("card has been added to your deck!");
     }
   }
   
@@ -166,7 +167,7 @@ class RequestCard extends Component {
             {this.state.trackToTrade && (
                 <div className="RequestCard-chosenSongSection">
                   <p>
-                    Currently chosen:
+                    currently chosen:
                   </p>
                   {this.state.trackToTrade.name}
                 </div>
