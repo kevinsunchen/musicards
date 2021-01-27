@@ -3,7 +3,8 @@ import "./MusicPreview.css";
 
 /**
  * Story is a component that renders creator and content of a story
- *
+ * Partially inspired by https://stackoverflow.com/questions/47686345/playing-sound-in-react-js
+ * 
  * Proptypes
  * @param {string} _id of the track (Spotify)
  */
@@ -28,12 +29,10 @@ class MusicPreview extends Component {
   }
 
   toggleAudioPlaying = () => {
-    this.setState(prevState => ({
-      audioPlaying: !prevState.audioPlaying
-    }), () => {
+    this.setState(prevState => ({ audioPlaying: !prevState.audioPlaying }), () => {
       console.log("playing?", this.state.audioPlaying);
-      this.state.audioPlaying ? this.audio.play() : this.audio.pause();
-      this.state.audioPlaying ? this.props.autoRefreshOff : this.props.autoRefreshOn
+      (this.state.audioPlaying) ? (this.audio.play()) : (this.audio.pause());
+      (this.state.audioPlaying) ? (this.props.autoRefreshOff()) : (this.props.autoRefreshOn());
     });
   }
 
@@ -52,7 +51,6 @@ class MusicPreview extends Component {
             </svg>
           </div>
       </div>
-
     );
   }
 }

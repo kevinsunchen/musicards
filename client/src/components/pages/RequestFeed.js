@@ -24,11 +24,9 @@ class RequestFeed extends Component {
     console.log(this.props.loggedInUser);
     this.getRequestFeed();
 
-    if (this.state.autoRefresh) {
-      socket.on("getRequestFeed", (requestObjs) => {
-        this.populateRequestsList(requestObjs)
-      });
-    }
+    socket.on("getRequestFeed", (requestObjs) => {
+      this.populateRequestsList(requestObjs)
+    });
   }
 
   componentDidUpdate() {
@@ -36,11 +34,17 @@ class RequestFeed extends Component {
   }
 
   autoRefreshOff = () => {
-    this.setState({ autoRefresh: false });
+    console.log("turning autorefresh off");
+    this.setState({ autoRefresh: false }, () => {
+      console.log("autorefresh:", this.state.autoRefresh);
+    });
   }
 
   autoRefreshOn = () => {
-    this.setState({ autoRefresh: true});
+    console.log("turning autorefresh on");
+    this.setState({ autoRefresh: true}, () => {
+      console.log("autorefresh:", this.state.autoRefresh);
+    });
   }
   
   componentWillUnmount() {
@@ -48,9 +52,9 @@ class RequestFeed extends Component {
   }
   
   populateRequestsList = (requestObjs) => {
-    if (this._isMounted) {
-      console.log(this._isMounted);
-      this.setState({ requests: [] })
+    if (this._isMounted && this.state.autoRefresh) {
+      console.log(this.autoRefresh);
+      this.setState({ requests: [] });
       let reversedRequestObjs = requestObjs.reverse();
       reversedRequestObjs.map((requestObj) => {
         this.setState({ requests: this.state.requests.concat([requestObj]) });

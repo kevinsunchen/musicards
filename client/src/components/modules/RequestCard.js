@@ -87,6 +87,7 @@ class RequestCard extends Component {
         console.log(err);
       }).finally(() => {
         this.setState({ trackToTrade: undefined });
+        this.props.autoRefreshOn();
         this.props.triggerFeedRefresh();
       });
     }
@@ -137,6 +138,8 @@ class RequestCard extends Component {
           isOpen={this.state.showModal}
           handleClose={() => this.setState({ showModal: false })}
           handleSelect={(track) => this.setState({ trackToTrade: track })}
+          autoRefreshOn={this.props.autoRefreshOn}
+          autoRefreshOff={this.props.autoRefreshOff}
         >
           Choose a song from your deck to trade!
         </ModalSelectTrack>
