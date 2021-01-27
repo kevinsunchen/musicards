@@ -140,3 +140,16 @@ form {
   color: #555555;
   margin-bottom: var(--xl);
 }
+
+.u-mainbutton {
+  border-radius: var(--s);
+  height: 40%;
+  width: 16%;
+  border: none;
+  padding: var(--s);
+  background-color: var(--bluemed);
+  padding: var(--m);
+  font-size: 18px;
+  color: #555555;
+  margin-bottom: var(--xl);
+}

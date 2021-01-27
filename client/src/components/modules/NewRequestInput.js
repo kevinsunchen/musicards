@@ -64,42 +64,42 @@ class NewRequestInput extends Component {
           Choose a song from your deck!
         </ModalSelectTrack>
 
-        <div className="u-flex">
-          <div className="">
-            <div className="">
-              I want a
-              <input
-                type="text"
-                placeholder={this.props.defaultText}
-                value={this.state.requestedLabel}
-                onChange={this.handleChangeRequested}
-                className="NewPostInput-input"
-              />
-              song 
-            </div>
-            <div className="">
-              for a 
-              <input
-                type="text"
-                placeholder={this.props.defaultText}
-                value={this.state.offeredLabel}
-                onChange={this.handleChangeOffered}
-                className="NewPostInput-input"
-              />
-              song
-            </div>
-            <div>
-              {(this.state.offeredTrack) ? (
-                <>
-                  Currently chosen song: {this.state.offeredTrack.name}
-                </>
-              ) : (
-                <>
-                  Add a song to trade!
-                </>
-              )}
+        <div className="u-flex NewRequest-main">
+          <div className="NewRequest-text">
+            <div className = "u-flex">
+              <div className="">
+                I am looking for
+                <input
+                  type="text"
+                  placeholder={this.props.defaultTextWanted}
+                  value={this.state.requestedLabel}
+                  onChange={this.handleChangeRequested}
+                  className="NewPostInput-input"
+                />
+                and will give 
+                <input
+                  type="text"
+                  placeholder={this.props.defaultTextOffered}
+                  value={this.state.offeredLabel}
+                  onChange={this.handleChangeOffered}
+                  className="NewPostInput-input"
+                />
+                <div>
+                {(this.state.offeredTrack) ? (
+                  <>
+                    offering {this.state.offeredTrack.name}!
+                  </>
+                ) : (
+                  <>
+                    no song selected yet :(
+                  </>
+                )}
 
+              </div> 
+              </div>
+               
             </div>
+            
           </div>
 
           <div className="u-flex">
@@ -148,7 +148,7 @@ class NewRequest extends Component {
   };
 
   render() {
-    return <NewRequestInput defaultText="" onSubmit={this.addRequest} />;
+    return <NewRequestInput defaultTextWanted="a banger B)" defaultTextOffered="sad boi hours :(" onSubmit={this.addRequest} />;
   }
 }
 

@@ -45,7 +45,7 @@ class Profile extends Component {
               <p className = "u-pageDescription">welcome! now go view your deck and make requests :)</p>
               <p className = "u-pageDescription"></p>
               {(this.props.loggedInUser._id === this.state.viewingUser._id) && (
-                <button onClick={this.props.handleLogout} className = "u-refresh">logout</button>
+                <button onClick={this.props.handleLogout} className = "u-mainbutton">logout</button>
               )}
 
             </>
