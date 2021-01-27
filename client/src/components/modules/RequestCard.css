@@ -33,3 +33,13 @@
 .RequestCard-commentBody {
   margin: 0 0 var(--s);
 }
+
+.RequestCard-infoSection {
+  width: 80%;
+}
+
+.RequestCard-tradeSection {
+  width: 20%;
+  text-align: center;
+  padding: var(--s);
+}
