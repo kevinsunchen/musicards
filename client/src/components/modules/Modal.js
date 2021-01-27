@@ -42,8 +42,8 @@ class Modal extends Component {
               {this.props.children}
             </div>
 
-            <div>
-              <button onClick={this.props.handleClose} className = "modal-button modal-cancelbutton u-buttonHoverRise">
+            <div className="modal-buttonHolder">
+              <button onClick={this.props.handleClose} className = {this.props.onOkay ? "modal-button modal-cancelbutton u-buttonHoverRise" : "modal-buttonLong modal-cancelbutton u-buttonHoverRise"}>
                 {this.props.closeButtonText || (
                   this.props.onOkay ? (
                     <>cancel</>
