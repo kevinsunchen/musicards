@@ -249,3 +249,26 @@
     -o-transform:      scale(1.08);
     transform: scale(1.08);
 }
+
+.Home-modalText {
+    text-align: center;
+    align-items: center;
+}
+.Home-modalTextIntro {
+    font-size: 18px;
+    margin-bottom: var(--l);
+}
+
+.Home-modalTextBullets {
+    margin-bottom: var(--m);
+    color: #555555;
+    text-align: left;
+}
+
+.Home-modalTextBulletPoint {
+    margin-bottom: var(--s);
+}
+
+.Home-modalTextClosing {
+    margin-bottom: var(--m);
+}
