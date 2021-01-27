@@ -3,7 +3,7 @@ import Modal from "./Modal.js"
 import Select from "react-select"
 
 import { get } from "../../utilities";
-
+import "./ModalSelectTrack.css";
 /**
  * Story is a component that renders creator and content of a story
  *
