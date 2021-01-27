@@ -115,3 +115,25 @@ form {
   margin: auto;
   text-align: center;
 }
+
+.u-pageTitle {
+  margin-bottom: var(--l);
+  color: var(--primary);
+  font-size: 48px;
+}
+
+.u-pageDescription {
+  margin-bottom: var(--l);
+
+}
+
+.u-refresh {
+  border-radius: var(--s);
+  height: 40%;
+  width: 16%;
+  border: none;
+  padding: var(--s);
+  background-color: var(--bluemed);
+  padding: var(--m);
+  font-size: 15px;
+}
