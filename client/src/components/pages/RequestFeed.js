@@ -12,6 +12,7 @@ class RequestFeed extends Component {
     super(props);
     this.state = {
       requests: undefined,
+      autoRefresh: true
     };
   }
 
@@ -23,9 +24,11 @@ class RequestFeed extends Component {
     console.log(this.props.loggedInUser);
     this.getRequestFeed();
 
-    socket.on("getRequestFeed", (requestObjs) => {
-      this.populateRequestsList(requestObjs)
-    });
+    if (this.state.autoRefresh) {
+      socket.on("getRequestFeed", (requestObjs) => {
+        this.populateRequestsList(requestObjs)
+      });
+    }
 
   }
   

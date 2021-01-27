@@ -30,17 +30,23 @@ class MusicPreview extends Component {
     if (this.marqueeRefTitle.current.clientWidth < this.marqueeRefTitle.current.scrollWidth) {
       this.setState({ marqueeTitle: true });
     }
+    this.audio.addEventListener('ended', () => this.props.toggleAudioPlaying(this.audio));
   }
 
-  componentDidUpdate() {
-  
+  componentWillUnmount() {
+    this.audio.removeEventListener('ended', () => this.props.toggleAudioPlaying(this.audio));
+    this.audio.pause();
+    console.log("unmounitng", this.props.audioPlaying)
   }
+
 
   toggleAudioPlaying = () => {
-    console.log(this.state.audioPlaying)
+    console.log(this.state.audioPlaying);
     this.setState(prevState => ({
       audioPlaying: !prevState.audioPlaying
-    }));
+    }), () => {
+      console.log(this.state.audioPlaying);
+    });
   }
 
   render() {
@@ -55,24 +61,13 @@ class MusicPreview extends Component {
 
         <div className="MusicPreview-imgContainer">
           <img className="MusicPreview-image" src={this.props.trackInfo.images[1].url} />
-          <div className="MusicPreview-playButton" onClick={this.toggleAudioPlaying}>
+          <div className="MusicPreview-playButton" onClick={() => { this.props.toggleAudioPlaying(this.audio) }}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
         </div>
-        <div id="timeline">
-          <div id="playhead"></div>
-        </div>
-
-        <audio
-          controls
-          controlsList="nodownload"
-          src={this.props.trackInfo.preview_url}
-          className="audio"
-          onClick={()=>{console.log("PLAYING")}}
-        />
         
         <div ref={this.marqueeRefTitle} className={(this.state.marqueeTitle) ? ("marquee MusicPreview-title") : ("MusicPreview-title")}>
           <span> {this.props.trackInfo.name} </span>

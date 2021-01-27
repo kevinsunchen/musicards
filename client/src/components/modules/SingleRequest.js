@@ -30,11 +30,14 @@ class SingleRequest extends Component {
     }
   }
 
-  toggleAudioPlaying = () => {
+  toggleAudioPlaying = (audio) => {
+    console.log("outside", this.state.audioPlaying)
     this.setState(prevState => ({
       audioPlaying: !prevState.audioPlaying
-    }));
-    
+    }), () => {
+      console.log("outside", this.state.audioPlaying);
+      this.state.audioPlaying ? audio.play() : audio.pause();
+    });
   }
 
   render() {
