@@ -54,16 +54,18 @@ class SingleRequest extends Component {
         <div className="RequestCard-storyContent">
           <p>Looking for a {this.props.requestedLabel} song, will trade for a {this.props.offeredLabel} song!</p>
           <p>{offeredTrackText}</p>
-          Offering...
-          
-          <div>
+          offering...
+          <div className="u-flexColumn u-flex-alignCenter">
             {this.props.offeredTrackInfo &&
               <MusicPreview
-                trackInfo={this.props.offeredTrackInfo}
-                audioPlaying={this.state.audioPlaying}
-                toggleAudioPlaying={this.toggleAudioPlaying}
+              trackInfo={this.props.offeredTrackInfo}
+              audioPlaying={this.state.audioPlaying}
+              toggleAudioPlaying={this.toggleAudioPlaying}
               />
             }
+            <div>
+              a {this.props.offeredLabel} song
+            </div>
           </div>
         </div>
       </div>
