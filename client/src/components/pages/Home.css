@@ -52,7 +52,8 @@
 
 .Home-logoText {
     grid-area: logo;
-    font-size: 64px;
+    font-size: 80px;
+    font-weight: 400;
     color: var(--primary);
     justify-self: center;
     align-self: center;
