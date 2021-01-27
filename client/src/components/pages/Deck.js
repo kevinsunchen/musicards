@@ -71,8 +71,8 @@ class Deck extends Component {
     console.log(currUser)
     return (
       <div className="u-pageWrap">
-        <h1>MY DECK</h1>
-        <h2>Page where the user can view their deck.</h2>
+        <h1 className = "u-pageTitle">MY DECK</h1>
+        <h2 className = "u-pageDescription">Page where the user can view their deck.</h2>
         <p>Current user <strong>{currUser.name}</strong> with ID <strong>{currUser.uid}</strong> and Spotify username <strong>{currUser.spotifyId}</strong>.</p>
         {this.state.deck.length === 0 ? (
           this.renderDeckEmptyContent()
