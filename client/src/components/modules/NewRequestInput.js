@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import ModalSelectTrack from "./ModalSelectTrack.js";
+import { Link } from "@reach/router";
 
 import "./NewRequestInput.css";
 import { post } from "../../utilities";
 import Modal from "./Modal.js";
+import placeholder from "../../public/blank.png";
+
 
 import "./RequestCard.css";
+import "./MusicPreview.css"
 
 /**
  * New Post is a parent component for all input components
@@ -68,62 +72,69 @@ class NewRequestInput extends Component {
           choose a song from your deck!
         </ModalSelectTrack>
 
-        <div className="u-flex NewRequest-main">
-          <div className="NewRequest-text">
-            <div className = "u-flex">
-              <div className="">
-                I am looking for
-                <input
-                  type="text"
-                  placeholder={this.props.defaultTextWanted}
-                  value={this.state.requestedLabel}
-                  onChange={this.handleChangeRequested}
-                  className="NewPostInput-input"
-                />
-                and will give 
-                <input
-                  type="text"
-                  placeholder={this.props.defaultTextOffered}
-                  value={this.state.offeredLabel}
-                  onChange={this.handleChangeOffered}
-                  className="NewPostInput-input"
-                />
-                <div>
-                {(this.state.offeredTrack) ? (
-                  <>
-                    offering {this.state.offeredTrack.name}!
-                  </>
-                ) : (
-                  <>
-                    no song selected yet :(
-                  </>
-                )}
+        <div className="">
+          <div className="u-flex RequestCard-container">
+            <div className = "u-flex RequestCard-infoSection RequestCard-story">
+              <div className="u-flexColumn RequestCard-Text">
+                <div className = "RequestCard-user"> 
+                  <Link to={`/profile/${this.props.loggedInUser._id}`} className="u-link u-bold"> Me </Link>
+                </div>
+                <div className = "RequestCard-lookingText">
+                  <p>
+                    I am looking for
+                    <input
+                      type="text"
+                      placeholder={this.props.defaultTextWanted}
+                      value={this.state.requestedLabel}
+                      onChange={this.handleChangeRequested}
+                      className="NewPostInput-input"
+                    />
+                  </p>
+                </div>
 
-              </div> 
+                <div className = "RequestCard-lookingText">
+                  <p>
+                    and will give 
+                    <input
+                      type="text"
+                      placeholder={this.props.defaultTextOffered}
+                      value={this.state.offeredLabel}
+                      onChange={this.handleChangeOffered}
+                      className="NewPostInput-input"
+                    />
+                  </p>
+                </div>
+
+                <div className = "RequestCard-lookingText">
+                  <p>
+                    {(this.state.offeredTrack) ? ( <>offering {this.state.offeredTrack.name}!</> ) : ( <>no song selected yet :(</> )}
+                  </p>
+                </div> 
               </div>
                
+              <div className="u-flexColumn u-flex-alignCenter">
+                <div className="MusicPreview-imgContainer" onClick={() => {this.setState({ showModal: true })}}>
+                  <img className="MusicPreview-img" src={placeholder} />
+                  <div className="MusicPreview-addButton">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="u-flexColumn RequestCard-tradeSection">
+              <button
+                type="submit"
+                value="Submit"
+                className="Request-tradeButton u-buttonHoverRise"
+                onClick={this.handleSubmit}
+              >
+                post!
+              </button>
             </div>
             
-          </div>
-
-          <div className="u-flex">
-            <button
-              type="submit"
-              className="NewPostInput-button NewPostInput-addSong u-pointer"
-              value="Submit"
-              onClick={() => this.setState({ showModal: true })}
-              >
-              add song
-            </button>
-
-            <button
-              type="submit"
-              className="NewPostInput-button NewPostInput-post u-pointer"
-              value="Submit"
-              onClick={this.handleSubmit}
-            >
-              post!
-            </button>
           </div>
         </div>
       </>
@@ -158,6 +169,7 @@ class NewRequest extends Component {
       onSubmit={this.addRequest}
       autoRefreshOn={this.props.autoRefreshOn}
       autoRefreshOff={this.props.autoRefreshOff}
+      loggedInUser={this.props.loggedInUser}
     />;
   }
 }

@@ -81,9 +81,9 @@ class RequestFeed extends Component {
   render() {
     let requestsList = null;
     if (!this.state.requests) {
-      requestsList = "Loading...";
+      requestsList = <div> Loading... </div>;
     } else if (this.state.requests.length === 0) {
-      requestsList = "No requests!";
+      requestsList = <div> No requests! </div>;
     } else {
       // console.log(this.state.requests)
       requestsList = this.state.requests.map((requestObj) => (
@@ -111,13 +111,14 @@ class RequestFeed extends Component {
             addNewRequest={this.addNewRequest}
             autoRefreshOn={this.autoRefreshOn}
             autoRefreshOff={this.autoRefreshOff}
+            loggedInUser={this.props.loggedInUser}
           />}
         <button
           onClick={() => {
             this.refreshFeed();
             this.setState({ autoRefresh: true });
           }}
-          className="u-refresh"
+          className="u-refresh u-buttonHoverRise"
         > refresh feed </button>
         {requestsList}
       </div>

@@ -149,7 +149,7 @@ form {
   padding: var(--m);
   font-size: 18px;
   color: #555555;
-  margin-bottom: var(--xl);
+  margin: var(--l) 0;
   cursor: pointer;
 }
 
@@ -255,4 +255,16 @@ form {
                24px 24px #dab175,
                32px 32px #c29d68, 
                40px 40px #aa895b;
-} 
+}
+
+.u-buttonHoverRise {
+  transition: transform 0.2s ease;
+}
+
+.u-buttonHoverRise:hover {
+  -webkit-transform: scale(1.01); 
+  -moz-transform:    scale(1.01);
+  -ms-transform:     scale(1.01); 
+  -o-transform:      scale(1.01);
+  transform: scale(1.1);
+}

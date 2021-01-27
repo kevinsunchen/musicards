@@ -43,7 +43,7 @@ class Modal extends Component {
             </div>
 
             <div>
-              <button onClick={this.props.handleClose} className = "modal-button modal-cancelbutton">
+              <button onClick={this.props.handleClose} className = "modal-button modal-cancelbutton u-buttonHoverRise">
                 {this.props.closeButtonText || (
                   this.props.onOkay ? (
                     <>cancel</>
@@ -53,7 +53,7 @@ class Modal extends Component {
                 )}
               </button>
               {this.props.onOkay && (
-                <button onClick={this.props.onOkay} className = "modal-button modal-okbutton">
+                <button onClick={this.props.onOkay} className = "modal-button modal-okbutton u-buttonHoverRise">
                   {this.props.okayButtonText || (<>OK</>)}
                 </button>
               )}

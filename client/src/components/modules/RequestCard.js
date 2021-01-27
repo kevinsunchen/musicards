@@ -108,12 +108,12 @@ class RequestCard extends Component {
         console.log("Track to trade:", this.state.trackToTrade);
         tradeOrConfirmButton = (
           <div className = "u-flex RequestCard-buttongroup">
-            <button className = "RequestCard-cancelConfirm RequestCard-confirm"
+            <button className = "RequestCard-cancelConfirm RequestCard-confirm u-buttonHoverRise"
               onClick={this.executeTrade}
             >
               confirm
             </button>
-            <button className = "RequestCard-cancelConfirm RequestCard-cancel"
+            <button className = "RequestCard-cancelConfirm RequestCard-cancel u-buttonHoverRise"
               onClick={() => {this.setState({ trackToTrade: undefined })}}
             >
               cancel
@@ -124,7 +124,7 @@ class RequestCard extends Component {
         tradeOrConfirmButton = (
           <button
             onClick={this.onTradeButtonClick}
-            className = "Request-tradeButton"
+            className = "Request-tradeButton u-buttonHoverRise"
           >
             trade!
           </button>

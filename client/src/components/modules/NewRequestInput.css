@@ -5,11 +5,11 @@
 }
 
 .NewPostInput-input {
-  flex-grow: 1;
+  max-width: 50%;
   border: var(--darkgrey) 1px solid;
   border-radius: var(--s);
   transition: box-shadow 0.1s;
-  margin: var(--s);
+  margin: 0 var(--s);
 }
 
 .NewPostInput-input:focus-within {

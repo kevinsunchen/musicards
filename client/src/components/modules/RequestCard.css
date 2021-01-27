@@ -1,12 +1,11 @@
 .RequestCard-container {
   border: var(--darkgrey) 1px solid;
   border-radius: var(--m);
-  margin-top: var(--m);
+  margin: var(--m) 0;
   background-color: var(--white);
   text-align: left;
   display: flex;
 }
-
 
 .RequestCard-story,
 .RequestCard-commentSection {
