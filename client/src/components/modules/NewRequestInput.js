@@ -4,13 +4,11 @@ import { Link } from "@reach/router";
 
 import "./NewRequestInput.css";
 import { post } from "../../utilities";
-import Modal from "./Modal.js";
 import placeholder from "../../public/blank.png";
 
 import "./RequestCard.css";
 import "./MusicPreview.css"
 import "./ModalSelectTrack.css"
-
 
 /**
  * New Post is a parent component for all input components

@@ -142,7 +142,10 @@ class RequestCard extends Component {
           autoRefreshOn={this.props.autoRefreshOn}
           autoRefreshOff={this.props.autoRefreshOff}
         >
-          Choose a song from your deck to trade!
+          <div>
+            <p className="modalselectTrack-text"> choose a song from your deck to trade! </p>
+            <p className="modalselectTrack-text modalselectTrack-subtext"> and don't worry, traded cards don't disappear from your deck, so share your music to your heart's content :) </p>
+          </div>
         </ModalSelectTrack>
 
         <div className="RequestCard-container u-flex">
