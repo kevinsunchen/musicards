@@ -113,4 +113,5 @@ form {
   max-width: 960px;
   padding: calc(2 * var(--xl) - 6px) var(--m);
   margin: auto;
+  text-align: center;
 }
