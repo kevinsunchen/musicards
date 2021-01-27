@@ -29,12 +29,12 @@ class SingleIncoming extends Component {
   }
 
   render() {
-    const requestInfoText = <p>
-      You requested a {this.props.selfLabel} song in exchange for a {this.props.traderLabel} song, offering "{this.props.tradedTrackInfo.name}" by {this.processTrackArtists(this.props.tradedTrackInfo.artists)}.
+    const requestInfoText = <p className = "Incoming-RequestedInfo">
+      <i>You asked for a {this.props.selfLabel} song in exchange for a {this.props.traderLabel} song, offering "{this.props.tradedTrackInfo.name}" by {this.processTrackArtists(this.props.tradedTrackInfo.artists)}.</i>
     </p>
 
-    const traderTrackText = <p>
-      In response, <Link to={`/profile/${this.props.traderId}`} className="u-link u-bold">
+    const traderTrackText = <p className = "Incoming-GivenInfo">
+      <Link to={`/profile/${this.props.traderId}`} className="u-link u-bold">
         {this.props.traderName}
       </Link> sent you "{this.props.incomingTrackInfo.name}" by {this.processTrackArtists(this.props.incomingTrackInfo.artists)}!
     </p>

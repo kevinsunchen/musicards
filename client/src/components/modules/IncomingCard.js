@@ -74,7 +74,7 @@ class IncomingCard extends Component {
     return (
       <>
         <div className="IncomingCard-container">
-          <div className="u-flex">
+          <div className="u-flex Incoming-text">
             <SingleIncoming
               selfName={this.props.selfName}
               selfId={this.props.selfId}
@@ -87,13 +87,14 @@ class IncomingCard extends Component {
               />
             <div className="">
               <button
-                onClick={this.declineIncoming}
-                className=""
-              > Decline </button>
-              <button
                 onClick={this.addIncomingToDeck}
-                className=""
+                className="Incoming-addButton Incoming-button"
               > Add to deck </button>
+              <button 
+                onClick={this.declineIncoming}
+                className="Incoming-declineButton Incoming-button"
+              > Decline </button>
+              
             </div>
           </div>
           <div className="IncomingCard-commentSection u-flex u-flex-justifyCenter">
