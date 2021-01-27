@@ -19,6 +19,7 @@
   -o-transform:      scale(1.03);
   transform: scale(1.03);
 }
+
 .Musicard-previewWrapper {
   width: 100%;
   display: flex;

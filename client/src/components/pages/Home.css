@@ -12,7 +12,7 @@
     row-gap: 5vh;
 }
 
-.Home-requestGroup {
+.Home-requestsGroup {
     grid-area: requests;
 }
 
@@ -108,7 +108,7 @@
                 9px 9px #c4adc9;
       }
 
-.Home-requestGroup:hover .Home-requestsText {
+.Home-requestsGroup:hover .Home-requestsText {
     position: relative; 
     top: -9px; 
     left: -9px;
@@ -119,9 +119,19 @@
                 15px 15px #938297;
 }
 
-.Home-requestGroup:hover {
-    
+.Home-requestsIcon {
+    transition: transform 0.2s ease;
 }
+
+.Home-requestsGroup:hover .Home-requestsIcon {
+    -webkit-transform: scale(1.08); 
+    -moz-transform:    scale(1.08);
+    -ms-transform:     scale(1.08); 
+    -o-transform:      scale(1.08);
+    transform: scale(1.08);
+}
+
+
 
 .Home-profileText {
     font-size: 38px;
@@ -150,6 +160,19 @@
                  15px 15px #6c5790;
   }
 
+    
+.Home-profileIcon {
+    transition: transform 0.2s ease;
+}
+
+.Home-profileGroup:hover .Home-profileIcon {
+    -webkit-transform: scale(1.08); 
+    -moz-transform:    scale(1.08);
+    -ms-transform:     scale(1.08); 
+    -o-transform:      scale(1.08);
+    transform: scale(1.08);
+}
+
 
   .Home-incomingText {
     font-size: 38px;
@@ -166,7 +189,7 @@
                  6px 6px #ea8561, 
                  9px 9px #bc745b;
   }
-  
+
   .Home-incomingGroup:hover .Home-incomingText {
     position: relative; 
     top: -9px; 
@@ -177,7 +200,18 @@
                  12px 12px #a5664f, 
                  15px 15px #8d5744;
   }
+  
+  .Home-incomingIcon {
+    transition: transform 0.2s ease;
+}
 
+.Home-incomingGroup:hover .Home-incomingIcon {
+    -webkit-transform: scale(1.08); 
+    -moz-transform:    scale(1.08);
+    -ms-transform:     scale(1.08); 
+    -o-transform:      scale(1.08);
+    transform: scale(1.08);
+}
   .Home-deckText {
     font-size: 38px;
     text-decoration: none;
@@ -204,3 +238,14 @@
                  12px 12px #c29d68, 
                  15px 15px #aa895b;
   }
+  .Home-deckIcon {
+    transition: transform 0.2s ease;
+}
+
+.Home-deckGroup:hover .Home-deckIcon {
+    -webkit-transform: scale(1.08); 
+    -moz-transform:    scale(1.08);
+    -ms-transform:     scale(1.08); 
+    -o-transform:      scale(1.08);
+    transform: scale(1.08);
+}

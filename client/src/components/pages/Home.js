@@ -43,13 +43,13 @@ class Home extends Component {
         
         <div className="Home-container">
           
-          <div className="Home-requestGroup Home-topGroup Home-leftGroup">
+          <div className="Home-requestsGroup Home-topGroup Home-leftGroup">
             <div className="Home-topWrapper u-flex-alignCenter">
               <div className="Home-iconText u-flex-justifyFlexEnd">
                 <Link to="/requests" className="Home-requestsText u-logofont"> requests </Link>
               </div>
               <Link to="/requests" className="Home-iconWrapperTopL">
-                <img src={requests} className="Home-icon" />
+                <img src={requests} className="Home-icon Home-requestsIcon" />
               </Link>
             </div>
           </div>
@@ -68,7 +68,7 @@ class Home extends Component {
                 to={(this.props.loggedInUser) ? (`/profile/${this.props.loggedInUser._id}`) : ('/login')}
                 className="Home-iconWrapperTopR"
               >
-                <img src={profile} className="Home-icon" />
+                <img src={profile} className="Home-icon Home-profileIcon" />
               </Link>
             </div>
           </div>
@@ -78,7 +78,7 @@ class Home extends Component {
           <div className="Home-incomingGroup Home-bottomGroup Home-leftGroup">
             <div className="Home-topWrapper u-flex-alignCenter">
               <Link to="/incoming" className="Home-iconWrapper">
-                <img src={incoming} className="Home-icon" />
+                <img src={incoming} className="Home-icon Home-incomingIcon" />
               </Link>
               <div className="Home-iconText Home-iconTextBottom u-flex-justifyStart">
                 <Link to="/incoming" className="Home-incomingText u-logofont"> incoming </Link>
@@ -89,7 +89,7 @@ class Home extends Component {
           <div className = "Home-deckGroup Home-bottomGroup Home-rightGroup"> 
             <div className="Home-topWrapper u-flex-alignCenter">
               <Link to="/deck" className="Home-iconWrapper">
-                <img src={deck} className="Home-icon" />
+                <img src={deck} className="Home-icon Home-deckIcon" />
               </Link>
               <div className="Home-iconText Home-iconTextBottom u-flex-justifyFlexStart">
                 <Link to="/deck" className="Home-deckText u-logofont"> deck </Link>
