@@ -73,7 +73,7 @@ class NewRequestInput extends Component {
         >
           <div>
             <p className="modalselectTrack-text"> choose a song from your deck to trade! </p>
-            <p className="modalselectTrack-text"> and don't worry, traded cards don't disappear from your deck, so share your music to your heart's content :) </p>
+            <p className="modalselectTrack-text modalselectTrack-subtext"> and don't worry, traded cards don't disappear from your deck, so share your music to your heart's content :) </p>
           </div>
         </ModalSelectTrack>
 

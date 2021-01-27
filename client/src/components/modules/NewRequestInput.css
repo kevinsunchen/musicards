@@ -2,6 +2,7 @@
 .NewPostInput-button {
   font-size: 14px;
   padding: var(--s) var(--m);
+  font-family: 'Montserrat';
 }
 
 .NewPostInput-input {
