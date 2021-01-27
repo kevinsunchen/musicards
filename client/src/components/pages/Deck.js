@@ -72,7 +72,7 @@ class Deck extends Component {
     console.log(currUser)
     return (
       <div className="u-pageWrap">
-        <h1 className = "u-pageTitle">my deck</h1>
+        <h1 className = "u-pageTitle u-shadowPop u-shadowPopYellow u-logofont">my deck</h1>
         <h2 className = "u-pageDescription">your collected songs! use these in trades :)</h2>
         {this.state.deck.length === 0 ? (
           this.renderDeckEmptyContent()

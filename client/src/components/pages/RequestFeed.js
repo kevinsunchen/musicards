@@ -104,7 +104,7 @@ class RequestFeed extends Component {
     }
     return (
       <div className="u-pageWrap">
-        <h1 className = "u-pageTitle">requests</h1>
+        <h1 className = "u-pageTitle u-shadowPop u-shadowPopPink u-logofont">requests</h1>
         <h2 className = "u-pageDescription">what kind of song would you like to discover today?</h2>
         {this.props.loggedInUser &&
           <NewRequest
