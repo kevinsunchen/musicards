@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
+import Modal from "./Modal.js"
+import Musicard from "./Musicard.js"
 
 import "./IncomingCard.css";
 
@@ -15,6 +17,9 @@ import "./IncomingCard.css";
 class SingleIncoming extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      showModal: false
+    }
   }
 
   processTrackArtists = (artistsList) => {
@@ -28,22 +33,41 @@ class SingleIncoming extends Component {
     }
   }
 
+  handleClick = () => {
+    this.setState({ showModal: true });
+  }
+
+  handleClose = () => {
+    this.setState({ showModal: false });
+  }
+
   render() {
     const requestInfoText = <p className = "Incoming-RequestedInfo">
       <i>You asked for a {this.props.selfLabel} song in exchange for a {this.props.traderLabel} song, offering "{this.props.tradedTrackInfo.name}" by {this.processTrackArtists(this.props.tradedTrackInfo.artists)}.</i>
     </p>
 
-    const traderTrackText = <p className = "Incoming-GivenInfo">
+    const traderTrackText = <div className = "Incoming-GivenInfo">
       <Link to={`/profile/${this.props.traderId}`} className="u-link u-bold">
         {this.props.traderName}
-      </Link> sent you "{this.props.incomingTrackInfo.name}" by {this.processTrackArtists(this.props.incomingTrackInfo.artists)}!
-    </p>
+      </Link> sent you <div className="incoming-wrapReceivedText" onClick={this.handleClick}>
+        "{this.props.incomingTrackInfo.name}" by {this.processTrackArtists(this.props.incomingTrackInfo.artists)}</div>!
+    </div>
 
     return (
-      <div className="IncomingCard-storyContent">
-        {requestInfoText}
-        {traderTrackText}
-      </div>
+      <>
+        <Modal
+          isOpen={this.state.showModal}
+          handleClose={this.handleClose}
+        >
+          <div className="u-flex u-flex-justifyCenter">
+            <Musicard trackId={this.props.incomingTrackInfo._id}/>
+          </div>
+        </Modal>
+        <div className="IncomingCard-storyContent">
+          {requestInfoText}
+          {traderTrackText}
+        </div>
+      </>
     );
   }
 }

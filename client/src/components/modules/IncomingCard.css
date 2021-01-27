@@ -74,3 +74,13 @@
   background-color: #E58282;
   color: white;
 }
+
+.incoming-wrapReceivedText {
+  display: inline;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.incoming-wrapReceivedText:hover {
+  color: var(--blue--dim);
+}
