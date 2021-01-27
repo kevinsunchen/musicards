@@ -168,8 +168,13 @@ class NewRequest extends Component {
     });
   };
 
-  render() {
+  componentDidMount() {
+    const rand1 = Math.floor(phrases.length * Math.random())
+    const rand2 = Math.floor(phrases.length * Math.random())
+    console.log(rand1, rand2);
+  }
 
+  render() {
     return <NewRequestInput
       defaultTextWanted="party bangerzzz B)"
       defaultTextOffered="sad boi hours :("
