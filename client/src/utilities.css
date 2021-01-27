@@ -139,6 +139,7 @@ form {
   font-size: 18px;
   color: #555555;
   margin-bottom: var(--xl);
+  cursor: pointer;
 }
 
 .u-mainbutton {
@@ -152,4 +153,5 @@ form {
   font-size: 18px;
   color: #555555;
   margin-bottom: var(--xl);
+  cursor: pointer;
 }

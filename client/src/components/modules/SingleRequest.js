@@ -43,10 +43,10 @@ class SingleRequest extends Component {
             </Link>
           </div>
           <div className = "RequestCard-lookingText">
-            <p>Looking for <b>{this.props.requestedLabel}</b>,</p>
+            <p>Looking for <strong>{this.props.requestedLabel}</strong>,</p>
           </div>
           <div>
-            <p>will trade for <b>{this.props.offeredLabel}</b>!</p>
+            <p>will trade for <strong>{this.props.offeredLabel}</strong>!</p>
           </div>
 
         </div>

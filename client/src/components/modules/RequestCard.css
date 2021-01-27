@@ -4,7 +4,8 @@
   margin-top: var(--m);
   background-color: var(--white);
   text-align: left;
-  
+  align-items: stretch;
+  display:flex;
   
 }
 
@@ -43,6 +44,8 @@
 .RequestCard-tradeSection {
   text-align: center;
   padding: var(--s);
+  width: 20%;
+  justify-content: center;
 }
 
 .RequestCard-Text {
@@ -57,4 +60,46 @@
 
 .RequestCard-lookingText {
   margin-bottom: var(--s);
+}
+
+.Request-tradeButton {
+  cursor: pointer;
+  border-radius: var(--s);
+  height: 85%;
+  width: 80%;
+  border: none;
+  padding: var(--s);
+  background-color: var(--bluemed);
+  padding: var(--m);
+  font-size: 18px;
+
+}
+
+.RequestCard-buttongroup {
+  align-items: center;
+  justify-content: space-around;
+  display:flex;
+}
+
+.RequestCard-cancel {
+  margin-top: var(--l);
+  margin-right: var(--s);
+  cursor: pointer;
+  border-radius: var(--s);
+  border: none;
+  padding: var(--s);
+  background-color: #ff9191;
+  padding: var(--m);
+  font-size: 15px;
+}
+
+.RequestCard-confirm {
+  margin-top: var(--l);
+  cursor: pointer;
+  border-radius: var(--s);
+  border: none;
+  padding: var(--s);
+  background-color: #6bffae;
+  padding: var(--m);
+  font-size: 15px;
 }
