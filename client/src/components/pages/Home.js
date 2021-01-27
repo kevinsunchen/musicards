@@ -33,14 +33,25 @@ class Home extends Component {
           isOpen={this.state.showModal}
           handleClose={() => this.setState({ showModal: false })}
         >
-          welcome to musicards! here are some recommendations for u :D
-          1. login/profile - log in with your spotify
-          2. deck - populate your deck with your first suit of musicards! 
-          3. request - add a request for a ~ v i b e ~ you've been searching for 
-          4. request pt. 2 - fulfill somebody else's request while you're at it!
-          5. incoming - check out what other people have sent u :O
+          <div className = "Home-modalText u-flexColumn"> 
+            <div className = "Home-modalTextIntro"> 
+              welcome to musicards! here are some recommendations for u :D
+            </div>
 
-          if you ever need to find this info again, just click on the logo on the home page :) we hope you enjoy our site!
+            <div className = "Home-modalTextBullets u-flexColumn"> 
+              <div className = "Home-modalTextBulletPoint"> 1.  <strong> login/profile</strong> - log in with your spotify </div>
+              <div className = "Home-modalTextBulletPoint"> 2.  <strong> deck</strong> - populate your deck with your first suit of musicards! </div>
+              <div className = "Home-modalTextBulletPoint"> 3.  <strong> request</strong> - make a request for a <i>~ v i b e ~</i> you've been searching for  </div>
+              <div className = "Home-modalTextBulletPoint"> 4.  <strong> request</strong> - fulfill somebody else's request while you're at it! </div>
+              <div className = "Home-modalTextBulletPoint"> 5.  <strong> incoming</strong> - check out what other people have sent u :O </div>
+            </div>
+
+            <div className = "Home-modalTextClosing"> 
+              if you ever need to find this info again, just click on the <strong>logo </strong> on the <strong> home page</strong> :) we hope you enjoy our site!
+            </div>
+
+          </div>
+          
         </Modal>
         
         <div className="Home-container">
