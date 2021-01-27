@@ -3,7 +3,9 @@ import Modal from "./Modal.js"
 import Select from "react-select"
 
 import { get } from "../../utilities";
-import "./ModalSelectTrack.css";
+
+import "./ModalSelectTrack.css"
+
 /**
  * Story is a component that renders creator and content of a story
  *
@@ -71,13 +73,13 @@ class ModalSelectTrack extends Component {
         >
           {this.props.children}
           {this.state.deck ? (
-            <>
+            <div className="modalSelectTrack-selectBar">
               <Select
                 value={this.state.selectedTrack}
                 onChange={this.handleSelectionChange}
                 options={this.generateSelectionOptions(this.state.deck)}              
               />
-            </>
+            </div>
           ) : (
             <div>Loading</div>
           )}

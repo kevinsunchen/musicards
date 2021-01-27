@@ -7,9 +7,10 @@ import { post } from "../../utilities";
 import Modal from "./Modal.js";
 import placeholder from "../../public/blank.png";
 
-
 import "./RequestCard.css";
 import "./MusicPreview.css"
+import "./ModalSelectTrack.css"
+
 
 /**
  * New Post is a parent component for all input components
@@ -55,6 +56,7 @@ class NewRequestInput extends Component {
         offeredTrack: undefined
       });
     } else {
+      window.alert("Incomplete fields! Please check that all fields are filled before posting.")
       console.log("Incomplete fields!", this.state.offeredLabel, this.state.requestedLabel, this.state.offeredTrack)
     }
   };
@@ -69,7 +71,10 @@ class NewRequestInput extends Component {
           autoRefreshOn={this.props.autoRefreshOn}
           autoRefreshOff={this.props.autoRefreshOff}
         >
-          choose a song from your deck!
+          <div>
+            <p className="modalselectTrack-text"> choose a song from your deck to trade! </p>
+            <p className="modalselectTrack-text"> and don't worry, traded cards don't disappear from your deck, so share your music to your heart's content :) </p>
+          </div>
         </ModalSelectTrack>
 
         <div className="">
@@ -81,14 +86,14 @@ class NewRequestInput extends Component {
                 </div>
                 <div className = "RequestCard-lookingText">
                   <p>
-                    I am looking for
+                    i'm looking for
                     <input
                       type="text"
                       placeholder={this.props.defaultTextWanted}
                       value={this.state.requestedLabel}
                       onChange={this.handleChangeRequested}
                       className="NewPostInput-input"
-                    />
+                    />,
                   </p>
                 </div>
 
@@ -101,7 +106,7 @@ class NewRequestInput extends Component {
                       value={this.state.offeredLabel}
                       onChange={this.handleChangeOffered}
                       className="NewPostInput-input"
-                    />
+                    />.
                   </p>
                 </div>
 
@@ -114,7 +119,7 @@ class NewRequestInput extends Component {
                
               <div className="u-flexColumn u-flex-alignCenter">
                 <div className="MusicPreview-imgContainer" onClick={() => {this.setState({ showModal: true })}}>
-                  <img className="MusicPreview-img" src={placeholder} />
+                  <img className="MusicPreview-img" src={this.state.offeredTrack ? this.state.offeredTrack.images[1].url : placeholder} />
                   <div className="MusicPreview-addButton">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -164,7 +169,7 @@ class NewRequest extends Component {
 
   render() {
     return <NewRequestInput
-      defaultTextWanted="a banger B)"
+      defaultTextWanted="party bangerzzz B)"
       defaultTextOffered="sad boi hours :("
       onSubmit={this.addRequest}
       autoRefreshOn={this.props.autoRefreshOn}

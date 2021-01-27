@@ -113,13 +113,15 @@ class RequestFeed extends Component {
             autoRefreshOff={this.autoRefreshOff}
             loggedInUser={this.props.loggedInUser}
           />}
-        <button
-          onClick={() => {
-            this.refreshFeed();
-            this.setState({ autoRefresh: true });
-          }}
-          className="u-refresh u-buttonHoverRise"
-        > refresh feed </button>
+        <div className="u-flex">
+          <button
+            onClick={() => {
+              this.refreshFeed();
+              this.setState({ autoRefresh: true });
+            }}
+            className="u-refresh u-buttonHoverRise"
+            > refresh feed </button>
+        </div>
         {requestsList}
       </div>
     );

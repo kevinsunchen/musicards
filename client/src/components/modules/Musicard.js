@@ -40,10 +40,6 @@ class Musicard extends Component {
     });
   }
 
-  componentDidUpdate() {
-
-  }
-
   render() {
     if (!this.state.trackInfo) {
       return <div> Loading card... </div>
