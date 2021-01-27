@@ -69,7 +69,13 @@ class App extends Component {
         </Match>
         <main id="page-wrap" className="App-container">
         <Router>
-          <Home path="/" loggedInUser={this.state.loggedInUser} />
+          <Home
+            path="/"
+            loggedInUser={this.state.loggedInUser}
+            isOpen={this.state.showIntroModal}
+            handleClose={() => this.setState({ showIntroModal: false })}
+            openModal={() => this.setState({ showIntroModal: true })}
+          />
           <RequestFeed path="/requests" loggedInUser={this.state.loggedInUser} />
           <IncomingFeed path="/incoming" loggedInUser={this.state.loggedInUser} />
           <Deck path="/deck" loggedInUser={this.state.loggedInUser} />

@@ -14,9 +14,6 @@ class Home extends Component {
   constructor(props) {
     super(props);
     // Initialize Default State
-    this.state = {
-      showModal: true
-    };
   }
 
   componentDidMount() {
@@ -30,8 +27,8 @@ class Home extends Component {
     return (
       <>
         <Modal
-          isOpen={this.state.showModal}
-          handleClose={() => this.setState({ showModal: false })}
+          isOpen={this.props.isOpen}
+          handleClose={this.props.handleClose}
         >
           <div className = "Home-modalText u-flexColumn"> 
             <div className = "Home-modalTextIntro"> 
@@ -55,7 +52,6 @@ class Home extends Component {
         </Modal>
         
         <div className="Home-container">
-          
           <div className="Home-requestsGroup Home-topGroup Home-leftGroup">
             <div className="Home-topWrapper u-flex-alignCenter">
               <div className="Home-iconText u-flex-justifyFlexEnd">
@@ -86,7 +82,7 @@ class Home extends Component {
             </div>
           </div>
 
-          <div className="Home-logoText u-logofont u-shadowPop u-shadowPopBlue" onClick={() => {this.setState({showModal: true})}}> musicards! </div>
+          <div className="Home-logoText u-logofont u-shadowPop u-shadowPopBlue" onClick={() => {this.props.openModal()}}> musicards! </div>
           
           <div className="Home-incomingGroup Home-bottomGroup Home-leftGroup">
             <div className="Home-topWrapper u-flex-alignCenter">
