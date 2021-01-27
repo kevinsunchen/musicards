@@ -1,110 +1,40 @@
-.MusicPreview-container {
-  border: var(--darkgrey) 1px solid;
+.MusicPreview-img {
+  background-color: black;
   border-radius: var(--l);
-  background-color: var(--white);
-  width: 30%;
-  text-align: center;
-  margin: var(--s);
-  box-shadow: 3px 5px 10px var(--blueshadow);
-  align-items: center;
-  padding: var(--l);
+  max-width: 100%;
 }
 
 .MusicPreview-imgContainer {
+  border: var(--darkgrey) 1px solid;
+  border-radius: var(--l);
   position: relative;
-  display: block;
+  display: flex;
+  justify-content: center;
+  max-width: 28%;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.MusicPreview-imgContainer:hover .MusicPreview-playButton {
+  opacity: 100%;
+}
+
+.shadow {
+  -webkit-filter: drop-shadow( 1px 2px 5px #787878 );
+  filter: drop-shadow( 1px 2px 8px #787878 );
+  /* Similar syntax to box-shadow */
 }
 
 .MusicPreview-playButton {
+
+  transition: opacity 0.2s ease;
+  opacity: 0%;
+  text-shadow: 10px;
   position: absolute;
-  top: 33%; 
-  width: 30%;
+  top: 28%; 
+  width: 38%;
   margin: 0 auto;
   left: 0px;
   right: 0px;
   z-index: 100;
-}
-
-
-.MusicPreview-image {
-  margin-top: var(--m);
-  background-color: var(--white);
-  border-radius: var(--l);
-  margin-bottom: var(--m);
-  width: 90%;
-}
-
-.MusicPreview-title {
-  font-size: 120%;
-  background-color: var(--white);
-  white-space: nowrap;
-}
-
-.MusicPreview-artists {
-  margin-top: var(--m);
-  background-color: var(--white);
-  font-size: 100%;
-  color: var(--greyfade);
-}
-
-.MusicPreview-album {
-  background-color: var(--white);
-  color: var(--greyfade);
-  white-space: nowrap;
-  font-size: 100%;
-  width: 90%
-}
-
-.MusicPreview-play{
-  background-color: var(--white);
-  width: 20%;
-  align-self: center;
-  margin: auto;
-  margin-top: var(--m);
-}
-
-.marquee {
-  width: 90%;
-  margin: 0 auto;
-  overflow: hidden;
-  box-sizing: border-box;
-}
-
-.marquee span {
-  display: inline-block;
-  width: max-content;
-
-  /*padding-left: 100%;
-   show the marquee just outside the paragraph */
-  will-change: transform;
-  animation: marquee-reset;
-  animation-play-state: paused;   
-  
-}
-
-.marquee span:hover {
-  animation: marquee 15s linear infinite;
-}
-
-@keyframes marquee-reset {
-  0% {transform: translate(-50%, 0);}  
-}
-
-@keyframes marquee {
-  0% {transform: translate(0%, 0);}    
-  50% {transform: translate(-100%, 0);}
-  50.001% {transform: translate(100%, 0);}
-  100% {transform: translate(0%, 0);}
-}
-/* Respect user preferences about animations */
-@media (prefers-reduced-motion: reduce) {
-  .marquee span {
-    animation-iteration-count: 1;
-    animation-duration: 0.01; 
-    /* instead of animation: none, so an animationend event is 
-     * still available, if previously attached.
-     */
-    width: auto;
-    padding-left: 0;
-  }
 }
