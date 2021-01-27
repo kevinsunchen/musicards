@@ -33,7 +33,8 @@ class MusicPreview extends Component {
       console.log("playing?", this.state.audioPlaying);
       (this.state.audioPlaying) ? (
         this.audio.play().catch((err) => {
-          console.log("err");
+          console.log("err", err);
+          window.alert("unfortunately, this song does have a preview url :( use your imagination maybe?");
           this.setState({ audioPlaying: false });
         })
       ) : (this.audio.pause());
