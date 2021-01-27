@@ -26,10 +26,7 @@ class ModalSelectTrack extends Component {
     get("/api/getMyDeckProcessed").then((deck) => {
       console.log("Deck received from server", deck);
       this.setState({ deck: deck });
-      console.log(this.state.deck.map((track) => {
-        return [track.name, track.artists];
-      }));
-    })
+    });
   }
 
   onOpen = () => {
@@ -41,12 +38,15 @@ class ModalSelectTrack extends Component {
     if (this.state.selectedOption) {
       console.log("Track selected:", this.state.selectedOption);
       this.props.handleSelect(this.state.selectedOption.value);
-      this.handleCloseModalClearDeck();
+      this.props.handleClose();
+      this.setState({ deck: undefined, selectedOption: undefined });
     }
   }
 
   handleCloseModalClearDeck = () => {
+    console.log("close modal");
     this.props.handleClose();
+    this.props.autoRefreshOn();
     this.setState({ deck: undefined, selectedOption: undefined });
   }
 

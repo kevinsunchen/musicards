@@ -28,9 +28,9 @@ class RequestFeed extends Component {
       this.populateRequestsList(requestObjs)
     });
   }
-
-  componentDidUpdate() {
-    
+  
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   autoRefreshOff = () => {
@@ -45,10 +45,6 @@ class RequestFeed extends Component {
     this.setState({ autoRefresh: true}, () => {
       console.log("autorefresh:", this.state.autoRefresh);
     });
-  }
-  
-  componentWillUnmount() {
-    this._isMounted = false;
   }
   
   populateRequestsList = (requestObjs) => {
@@ -110,8 +106,19 @@ class RequestFeed extends Component {
       <div className="u-pageWrap">
         <h1 className = "u-pageTitle">requests</h1>
         <h2 className = "u-pageDescription">what kind of song would you like to discover today?</h2>
-        {this.props.loggedInUser && <NewRequest addNewRequest={this.addNewRequest} />}
-        <button onClick={this.refreshFeed} className = "u-refresh">refresh feed</button>
+        {this.props.loggedInUser &&
+          <NewRequest
+            addNewRequest={this.addNewRequest}
+            autoRefreshOn={this.autoRefreshOn}
+            autoRefreshOff={this.autoRefreshOff}
+          />}
+        <button
+          onClick={() => {
+            this.refreshFeed();
+            this.setState({ autoRefresh: true });
+          }}
+          className="u-refresh"
+        > refresh feed </button>
         {requestsList}
       </div>
     );
