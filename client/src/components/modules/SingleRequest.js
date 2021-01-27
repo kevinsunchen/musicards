@@ -36,22 +36,22 @@ class SingleRequest extends Component {
   
     return (
       <div className="u-flex RequestCard-story">
-        <div className = "u-flexColumn"> 
-          <div> 
+        <div className = "u-flexColumn RequestCard-Text"> 
+          <div className = "RequestCard-user"> 
             <Link to={`/profile/${this.props.requesterId}`} className="u-link u-bold">
               {this.props.requesterName}
             </Link>
           </div>
-          <div>
-            <p>Looking for {this.props.requestedLabel},</p>
+          <div className = "RequestCard-lookingText">
+            <p>Looking for <b>{this.props.requestedLabel}</b>,</p>
           </div>
           <div>
-            <p>will trade for {this.props.offeredLabel}!</p>
+            <p>will trade for <b>{this.props.offeredLabel}</b>!</p>
           </div>
 
         </div>
 
-        <div className="u-flexColumn u-flex-alignCenter">
+        <div className="u-flexColumn u-flex-alignCenter RequestCard-Preview">
           {this.props.offeredTrackInfo &&
             <MusicPreview
               trackInfo={this.props.offeredTrackInfo}
