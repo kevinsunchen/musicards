@@ -132,7 +132,7 @@ class RequestCard extends Component {
       tradeOrConfirmButton = "Log in to trade!"
     }
     return (
-      <>
+      <div>
         <ModalSelectTrack
           isOpen={this.state.showModal}
           handleClose={() => this.setState({ showModal: false })}
@@ -161,7 +161,7 @@ class RequestCard extends Component {
           )} 
           {tradeOrConfirmButton}
         </div>
-      </>
+      </div>
     );
   }
 }
