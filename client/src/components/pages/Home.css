@@ -91,3 +91,116 @@
     height: 100%;
     max-width: 100%;
 }
+
+.Home-requestsText {
+    font-size: 38px;
+    text-decoration: none;
+    color: white;
+    top: 0;
+    left: 0;
+    -webkit-transition: all 0.12s ease;
+    -moz-transition:    all 0.12s ease;
+    -ms-transition:     all 0.12s ease;
+    -o-transition:      all 0.12s ease;
+    transition:      all 0.2s ease;
+    text-shadow: 3px 3px #f6d9fc, 
+                6px 6px #ddc3e2, 
+                9px 9px #c4adc9;
+      }
+
+.Home-requestGroup:hover .Home-requestsText {
+    position: relative; 
+    top: -9px; 
+    left: -9px;
+    text-shadow: 3px 3px   #f6d9fc, 
+                6px 6px #ddc3e2, 
+                9px 9px #c4adc9,
+                12px 12px #ac97b0, 
+                15px 15px #938297;
+}
+
+.Home-requestGroup:hover {
+    
+}
+
+.Home-profileText {
+    font-size: 38px;
+    text-decoration: none;
+    color: white;
+    top: 0;
+    left: 0;
+    -webkit-transition: all 0.12s ease;
+    -moz-transition:    all 0.12s ease;
+    -ms-transition:     all 0.12s ease;
+    -o-transition:      all 0.12s ease;
+    transition:      all 0.2s ease;
+    text-shadow: 3px 3px #b592f0, 
+    6px 6px #a283d8, 
+    9px 9px #9074c0;
+  }
+  
+  .Home-profileGroup:hover .Home-profileText {
+    position: relative; 
+    top: -9px; 
+    left: -9px;
+    text-shadow: 3px 3px   #b592f0, 
+    6px 6px #a283d8, 
+                 9px 9px #9074c0,
+                 12px 12px #7e66a8, 
+                 15px 15px #6c5790;
+  }
+
+
+  .Home-incomingText {
+    font-size: 38px;
+    text-decoration: none;
+    color: white;
+    top: 0;
+    left: 0;
+    -webkit-transition: all 0.12s ease;
+    -moz-transition:    all 0.12s ease;
+    -ms-transition:     all 0.12s ease;
+    -o-transition:      all 0.12s ease;
+    transition:      all 0.2s ease;
+    text-shadow: 3px 3px #ec9272, 
+                 6px 6px #ea8561, 
+                 9px 9px #bc745b;
+  }
+  
+  .Home-incomingGroup:hover .Home-incomingText {
+    position: relative; 
+    top: -9px; 
+    left: -9px;
+    text-shadow: 3px 3px   #ec9272, 
+                 6px 6px   #ea8561, 
+                 9px 9px   #bc745b,
+                 12px 12px #a5664f, 
+                 15px 15px #8d5744;
+  }
+
+  .Home-deckText {
+    font-size: 38px;
+    text-decoration: none;
+    color: white;
+    top: 0;
+    left: 0;
+    -webkit-transition: all 0.12s ease;
+    -moz-transition:    all 0.12s ease;
+    -ms-transition:     all 0.12s ease;
+    -o-transition:      all 0.12s ease;
+    transition:      all 0.2s ease;
+    text-shadow: 3px 3px #f3c583, 
+                 6px 6px #f1bd71, 
+                 9px 9px #dab175;
+  }
+  
+  .Home-deckGroup:hover .Home-deckText {
+    position: relative; 
+    top: -9px; 
+    left: -9px;
+    text-shadow: 3px 3px   #f3c583, 
+                 6px 6px   #f1bd71, 
+                 9px 9px   #dab175,
+                 12px 12px #c29d68, 
+                 15px 15px #aa895b;
+  }
