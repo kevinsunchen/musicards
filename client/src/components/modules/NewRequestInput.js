@@ -63,7 +63,7 @@ class NewRequestInput extends Component {
           autoRefreshOn={this.props.autoRefreshOn}
           autoRefreshOff={this.props.autoRefreshOff}
         >
-          Choose a song from your deck!
+          choose a song from your deck!
         </ModalSelectTrack>
 
         <div className="u-flex NewRequest-main">
@@ -111,7 +111,7 @@ class NewRequestInput extends Component {
               value="Submit"
               onClick={() => this.setState({ showModal: true })}
               >
-              Add song
+              add song
             </button>
 
             <button
@@ -120,7 +120,7 @@ class NewRequestInput extends Component {
               value="Submit"
               onClick={this.handleSubmit}
             >
-              Post!
+              post!
             </button>
           </div>
         </div>
