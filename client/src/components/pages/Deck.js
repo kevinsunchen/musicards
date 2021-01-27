@@ -54,7 +54,7 @@ class Deck extends Component {
     console.log(deckCards)
     return (
       <>
-        <h2 className = "u-pageDescription">click a title to visit the track on Spotify, or an image to hear a preview!</h2>
+        <h2 className = "u-pageDescription">click a title to visit the track on Spotify or an image to hear a preview!</h2>
         <div className = "Deck-deckGroup"> {deckCards} </div>
       </>
     )
