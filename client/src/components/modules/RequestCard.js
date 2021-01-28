@@ -101,6 +101,7 @@ class RequestCard extends Component {
       window.alert("Can't trade with yourself!");
     } else {
       this.setState({ showModal: true });
+      this.props.autoRefreshOn();
     }
   }
 

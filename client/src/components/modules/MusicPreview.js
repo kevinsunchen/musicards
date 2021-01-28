@@ -18,7 +18,6 @@ class MusicPreview extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.trackInfo);
     this.audio.addEventListener('ended', () => this.toggleAudioPlaying());
   }
 

@@ -1,17 +1,17 @@
-.ModalTrackReceived-ModalContent {
+.ModalMusicard-ModalContent {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0 0 3% 0;
 }
 
-.ModalTrackReceived-ModalText {
+.ModalMusicard-ModalText {
   font-size: 24px;
   margin-bottom: 2%;
   text-align: center;
 }
 
-.ModalTrackReceived-ModalSubtitle {
+.ModalMusicard-ModalSubtitle {
   font-size: 18px;
   margin-bottom: 2%;
   text-align: center;

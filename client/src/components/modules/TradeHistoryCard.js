@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "@reach/router"
 import MusicPreview from "./MusicPreview.js"
 
-import "./TradeHistoryCard.css";
+import "./TradeHistory.css";
 
 /**
  * Card is a component for displaying content like stories

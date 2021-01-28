@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import TradeHistory from "../modules/TradeHistory.js";
-import ModalTrackReceived from "../modules/ModalTrackReceived.js";
+import ModalMusicard from "../modules/ModalMusicard.js";
 import { get } from "../../utilities";
 
 import "../../utilities.css";
@@ -50,7 +50,7 @@ class Profile extends Component {
     else {
       return (
         <div className="u-pageWrap">
-          <ModalTrackReceived
+          <ModalMusicard
             isOpen={this.state.showModal}
             handleClose={() => { this.setState({ showModal: false }); }}
             trackId={this.state.trackIdModal}
@@ -58,7 +58,7 @@ class Profile extends Component {
             subtitle="click on the album cover to hear a preview, or click on the title to go to the song's Spotify page."
           >
 
-          </ModalTrackReceived>
+          </ModalMusicard>
           <h1 className = "u-pageTitle u-shadowPop u-shadowPopPurple u-logofont"><strong>{this.state.viewingUser.name}</strong>'s profile</h1>
           {//<p className = "u-pageDescription">Viewing profile of user <strong>{this.state.viewingUser.name}</strong>, who has ID <strong>{this.state.viewingUser._id}</strong>.</p>
           }
@@ -72,7 +72,6 @@ class Profile extends Component {
             </>
           ) : (<p className="u-pageDescription">you're not logged in!</p>)
           }
-          
           <TradeHistory
             profileId={this.props.profileId}
             activateMusicardModal={this.activateMusicardModal}

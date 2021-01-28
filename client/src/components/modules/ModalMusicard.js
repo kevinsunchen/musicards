@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Modal from "./Modal.js"
 import Musicard from "./Musicard.js";
 
-import "./ModalTrackReceived.css";
+import "./ModalMusicard.css";
 
 /**
  * Story is a component that renders creator and content of a story
@@ -13,7 +13,7 @@ import "./ModalTrackReceived.css";
  * @param {string} creator_id
  * @param {string} content of the story
  */
-class ModalTrackReceived extends Component {
+class ModalMusicard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,18 +48,16 @@ class ModalTrackReceived extends Component {
           isOpen={this.props.isOpen}
           handleClose={this.props.handleClose}
         >
-          <div className="ModalTrackReceived-ModalContent">
-            <div className="ModalTrackReceived-ModalText">
+          <div className="ModalMusicard-ModalContent">
+            <div className="ModalMusicard-ModalText">
               {this.props.title}
             </div>
-            <div className="ModalTrackReceived-ModalSubtitle">
+            <div className="ModalMusicard-ModalSubtitle">
               {this.props.subtitle}  
             </div>
             <Musicard trackId={this.props.trackId}/>
           </div>
         </Modal>
-    } else {
-      content = <div> No track ID received! </div>
     }
     return (
       <>
@@ -69,4 +67,4 @@ class ModalTrackReceived extends Component {
   }
 }
 
-export default ModalTrackReceived;
+export default ModalMusicard;

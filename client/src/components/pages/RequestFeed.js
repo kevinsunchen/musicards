@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import RequestCard from "../modules/RequestCard.js";
 import { NewRequest } from "../modules/NewRequestInput.js";
-import ModalTrackReceived from "../modules/ModalTrackReceived.js"
+import ModalMusicard from "../modules/ModalMusicard.js"
 
 import { socket } from "../../client-socket.js";
 import { get } from "../../utilities";
@@ -45,7 +45,7 @@ class RequestFeed extends Component {
 
   populateRequestsList = (requestObjs) => {
     if (this._isMounted && this.state.autoRefresh) {
-      console.log("autorefresh?", this.autoRefresh);
+      console.log("autorefresh?", this.state.autoRefresh);
       this.setState({ requests: [] });
       let reversedRequestObjs = requestObjs.reverse();
       reversedRequestObjs.map((requestObj) => {
@@ -118,7 +118,7 @@ class RequestFeed extends Component {
     return (
       <div className="u-pageWrap">
         {this.state.trackReceivedId &&
-          <ModalTrackReceived
+          <ModalMusicard
             isOpen={this.state.showTrackReceivedModal}
             handleClose={() => { this.setState({ showTrackReceivedModal: false }); }}
             trackId={this.state.trackReceivedId}

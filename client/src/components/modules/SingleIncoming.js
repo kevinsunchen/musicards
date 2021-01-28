@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
-import ModalTrackReceived from "./ModalTrackReceived.js"
+import ModalMusicard from "./ModalMusicard.js"
 
 import "./IncomingCard.css";
 
@@ -54,7 +54,7 @@ class SingleIncoming extends Component {
 
     return (
       <>
-        <ModalTrackReceived
+        <ModalMusicard
           isOpen={this.state.showModal}
           handleClose={this.handleClose}
           trackId={this.props.incomingTrackInfo._id}

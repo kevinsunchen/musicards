@@ -377,6 +377,7 @@ router.get("/getUserIncomingFeed", async (req, res) => {
         const tradeInfo = await Trade.findById(incomingObj.tradeId);
         const incomingTrackInfo = await getTrackProcessed(incomingObj.incomingTrackId);
         const tradedTrackInfo = await getTrackProcessed(incomingObj.tradedTrackId);
+        console.log(tradeInfo)
         const tradeInfoProcessed = getTradeProcessed(tradeInfo);
         return {
           tradeInfo: tradeInfoProcessed,

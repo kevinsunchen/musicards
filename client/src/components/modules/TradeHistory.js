@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import TradeHistoryCard from "./TradeHistoryCard.js"
 import { get } from "../../utilities";
 
+import "./TradeHistory.css";
 import "../../utilities.css";
 
 class TradeHistory extends Component {
@@ -23,7 +24,6 @@ class TradeHistory extends Component {
         this.setState({ tradeHistory: this.state.tradeHistory.concat([tradeHistoryObjs]) });
       });
     });
-    
   }
 
   render() {
@@ -53,7 +53,7 @@ class TradeHistory extends Component {
     }
     return (
       <>
-        <h1>TRADE HISTORY</h1>
+        <div className="TradeHistory-title u-logofont u-shadowPop u-shadowPopPurple">trade history</div>
         {tradeHistoryList}
       </>
     );
