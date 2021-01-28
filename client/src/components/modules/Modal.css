@@ -16,7 +16,7 @@
 .modal-main {
   position:fixed;
   background: white;
-  width: 60%;
+  min-width: 53%;
   padding: var(--l);
   border-color: var(--greyfade);
   border-radius: var(--l);

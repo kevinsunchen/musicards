@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import RequestCard from "../modules/RequestCard.js";
 import { NewRequest } from "../modules/NewRequestInput.js";
-import ModalSongReceived from "../modules/ModalSongReceived.js"
+import ModalTrackReceived from "../modules/ModalTrackReceived.js"
 
 import { socket } from "../../client-socket.js";
 import { get } from "../../utilities";
