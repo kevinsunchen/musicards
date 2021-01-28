@@ -1,0 +1,46 @@
+.TradeHistoryCard-container {
+  border: var(--darkgrey) 1px solid;
+  border-radius: var(--m);
+  margin: var(--m) 0;
+  background-color: var(--white);
+  text-align: left;
+  display: flex;
+  box-shadow: 2px 2px 10px #1e8fc7BF;
+  padding: var(--m) var(--l) var(--m) var(--l);  
+}
+
+.TradeHistoryCard-previewSection {
+  padding: var(--m) 0;
+  width: 40%;
+  height: fit-content;
+  justify-content: center;
+  display: flex;
+  justify-items: space-evenly;
+}
+
+.TradeHistoryCard-musicPreview {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.TradeHistoryCard-textSection {
+  padding: var(--m);
+  width: 60%;
+}
+
+.TradeHistoryCard-lookingText {
+  font-size: 18px;
+  margin-bottom: var(--s);
+}
+
+.TradeHistoryCard-wrapReceivedText {
+  display: inline;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--primary);
+}
+
+.TradeHistoryCard-wrapReceivedText:hover {
+  color: var(--blue--dim);
+}

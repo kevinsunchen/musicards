@@ -36,6 +36,29 @@ class RequestFeed extends Component {
   componentWillUnmount() {
     this._isMounted = false;
   }
+  
+  getRequestFeed = () => {
+    get("/api/getRequestFeed").then((requestObjs) => {
+      this.populateRequestsList(requestObjs);
+    });
+  }
+
+  populateRequestsList = (requestObjs) => {
+    if (this._isMounted && this.state.autoRefresh) {
+      console.log("autorefresh?", this.autoRefresh);
+      this.setState({ requests: [] });
+      let reversedRequestObjs = requestObjs.reverse();
+      reversedRequestObjs.map((requestObj) => {
+        this.setState({ requests: this.state.requests.concat([requestObj]) });
+      });
+      console.log(this.state.requests);
+    }
+  }
+ 
+  refreshFeed = () => {
+    this.setState({ requests: undefined });
+    this.getRequestFeed();
+  }
 
   autoRefreshOff = () => {
     console.log("turning autorefresh off");
@@ -50,30 +73,7 @@ class RequestFeed extends Component {
       console.log("autorefresh:", this.state.autoRefresh);
     });
   }
-  
-  populateRequestsList = (requestObjs) => {
-    if (this._isMounted && this.state.autoRefresh) {
-      console.log(this.autoRefresh);
-      this.setState({ requests: [] });
-      let reversedRequestObjs = requestObjs.reverse();
-      reversedRequestObjs.map((requestObj) => {
-        this.setState({ requests: this.state.requests.concat([requestObj]) });
-      });
-      console.log(this.state.requests);
-    }
-  }
-
-  getRequestFeed = () => {
-    get("/api/getRequestFeed").then((requestObjs) => {
-      this.populateRequestsList(requestObjs);
-    });
-  }
-
-  refreshFeed = () => {
-    this.setState({ requests: undefined });
-    this.getRequestFeed();
-  }
-
+ 
   // this gets called when the user pushes "Submit", so their
   // post gets added to the screen right away
   addNewRequest = (requestObj) => {
