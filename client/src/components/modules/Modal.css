@@ -44,6 +44,7 @@
   height: 40px;
   font-size: 15px;
   font-weight: 600;
+  margin: var(--s) var(--s) 0 var(--s);
 }
 
 .modal-buttonLong {
@@ -57,6 +58,7 @@
   font-weight: 600;
   margin-left: 10%;
   margin-right: 10%;
+  align-self: center;
 }
 
 .modal-okbutton {
@@ -69,7 +71,6 @@
   background-color: white;
   border: 2px solid #E58282;
   color: #E58282;
-  margin-right: var(--m);
 }
 
 .modal-okbutton:hover {

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
-import Modal from "./Modal.js"
-import Musicard from "./Musicard.js"
+import ModalSongReceived from "./ModalSongReceived.js"
 
 import "./IncomingCard.css";
 
@@ -55,20 +54,12 @@ class SingleIncoming extends Component {
 
     return (
       <>
-        <Modal
+        <ModalTrackReceived
           isOpen={this.state.showModal}
           handleClose={this.handleClose}
-        >
-          <div className="IncomingCard-ModalContent">
-            <div className="IncomingCard-ModalText">
-              you received a song!
-            </div>
-            <div className="IncomingCard-ModalSubtitle">
-              click on the album cover to hear a preview, or click on the title to go to the song's Spotify page.
-            </div>
-            <Musicard trackId={this.props.incomingTrackInfo._id}/>
-          </div>
-        </Modal>
+          trackId={this.props.incomingTrackInfo._id}
+        />
+
         <div className="IncomingCard-storyContent">
           {requestInfoText}
           {traderTrackText}

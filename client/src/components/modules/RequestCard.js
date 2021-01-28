@@ -82,8 +82,8 @@ class RequestCard extends Component {
       }
       post("/api/performTrade", body).then((trade) => {
         console.log("Traded")
-        console.log(trade);
-        window.alert("card has been added to your deck!");
+        console.log("TRADE RECEIVED:", trade);
+        this.props.activateTrackReceivedModal(trade.requesterTrackId);
       }).catch((err) => {
         console.log(err);
         window.alert("this request has already been fulfilled!");

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import RequestCard from "../modules/RequestCard.js";
 import { NewRequest } from "../modules/NewRequestInput.js";
+import ModalSongReceived from "../modules/ModalSongReceived.js"
+
 import { socket } from "../../client-socket.js";
 import { get } from "../../utilities";
 
@@ -12,7 +14,9 @@ class RequestFeed extends Component {
     super(props);
     this.state = {
       requests: undefined,
-      autoRefresh: true
+      autoRefresh: true,
+      showTrackReceivedModal: false,
+      trackReceivedId: undefined
     };
   }
 
@@ -78,6 +82,14 @@ class RequestFeed extends Component {
     });
   };
 
+  activateTrackReceivedModal = (trackId) => {
+    this.setState({
+      trackReceivedId: trackId,
+      showTrackReceivedModal: true
+    })
+    console.log("INFO INFO INFO:", trackId);
+  }
+
   render() {
     let requestsList = null;
     if (!this.state.requests) {
@@ -99,11 +111,19 @@ class RequestFeed extends Component {
           triggerFeedRefresh={this.refreshFeed}
           autoRefreshOn={this.autoRefreshOn}
           autoRefreshOff={this.autoRefreshOff}
+          activateTrackReceivedModal={this.activateTrackReceivedModal}
         />
       ));
     }
     return (
       <div className="u-pageWrap">
+        {this.state.trackReceivedId &&
+          <ModalTrackReceived
+            isOpen={this.state.showTrackReceivedModal}
+            handleClose={() => { this.setState({ showTrackReceivedModal: false }); }}
+            trackId={this.state.trackReceivedId}
+          />
+        }
         <h1 className = "u-pageTitle u-shadowPop u-shadowPopPink u-logofont">requests</h1>
         <h2 className = "u-pageDescription">what kind of song would you like to discover today?</h2>
         {this.props.loggedInUser &&
