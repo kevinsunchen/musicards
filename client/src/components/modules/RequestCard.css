@@ -5,6 +5,7 @@
   background-color: var(--white);
   text-align: left;
   display: flex;
+  box-shadow: 2px 2px 10px #1e8fc7BF;
 }
 
 .RequestCard-story,
