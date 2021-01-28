@@ -25,3 +25,17 @@
     color: #555555;
     margin-top: var(--m);
 }
+
+.Deck-addButton {
+    background-color: #60E59C;
+    color: white; 
+    cursor: pointer;
+    border-radius: var(--s);
+    width: 40%;
+    height: 40px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+

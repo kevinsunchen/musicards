@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
-import ModalSongReceived from "./ModalSongReceived.js"
+import ModalTrackReceived from "./ModalTrackReceived.js"
 
 import "./IncomingCard.css";
 
