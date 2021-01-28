@@ -2,13 +2,18 @@
   border: var(--darkgrey) 1px solid;
   border-radius: var(--l);
   background-color: var(--white);
-  width: 30%;
+  min-width: 30%;
+  max-width: 40%;
   text-align: center;
   margin: var(--s);
   align-items: center;
-  padding: var(--l);
-  box-shadow: 2px 2px 10px var(--blueshadow);
+  padding: var(--l) calc(var(--m) + 2px);
+  box-shadow: 2px 2px 12px var(--blueshadow);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.Deck-deckGroup .Musicard-container {
+  max-width: 30%;
 }
 
 .Musicard-container:hover {

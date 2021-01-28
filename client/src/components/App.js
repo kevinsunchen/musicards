@@ -8,12 +8,9 @@ import Deck from "./pages/Deck.js";
 import IncomingFeed from "./pages/IncomingFeed.js";
 import Login from "./pages/Login.js";
 import Profile from "./pages/Profile.js";
-import MyRequests from "./pages/MyRequests.js";
-import TradeHistory from "./pages/TradeHistory.js";
 import NotFound from "./pages/NotFound.js";
 
 import { get, post } from "../utilities";
-import { socket } from "../client-socket.js";
 
 import "../utilities.css";
 import "./App.css";
@@ -91,8 +88,6 @@ class App extends Component {
             handleLogout={this.handleLogout}
             loggedInUser={this.state.loggedInUser}
             />
-          <MyRequests path="/profile/:profileId/my_requests" />
-          <TradeHistory path="/profile/:profileId/trade_history" />
           <NotFound default />
         </Router>
         </main>

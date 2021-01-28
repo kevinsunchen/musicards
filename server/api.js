@@ -377,6 +377,7 @@ router.get("/getUserIncomingFeed", async (req, res) => {
         const tradeInfo = await Trade.findById(incomingObj.tradeId);
         const incomingTrackInfo = await getTrackProcessed(incomingObj.incomingTrackId);
         const tradedTrackInfo = await getTrackProcessed(incomingObj.tradedTrackId);
+        console.log(tradeInfo)
         const tradeInfoProcessed = getTradeProcessed(tradeInfo);
         return {
           tradeInfo: tradeInfoProcessed,
@@ -402,7 +403,6 @@ rateUser = async (trade, rating) => {
   return await ratingUser.save();
 }
 
-
 router.post("/declineIncoming", auth.ensureLoggedIn, async (req, res) => {
   const user = await User.findById(req.user._id);
   const trade = await Trade.findById(req.body.tradeId);
@@ -423,6 +423,31 @@ router.post("/addIncomingToDeck", auth.ensureLoggedIn, async (req, res) => {
   user.deck = [...new Set(user.deck)];
   await user.save();
   res.send({});
+})
+
+router.get("/getUserTradeHistory", async (req, res) => {
+    const userTradeHistory = await Trade.find().or([ {requesterId: req.query.userId}, {fulfillerId: req.query.userId} ]);
+    console.log("user trade history:", userTradeHistory);
+    const processTradeHistory = userTradeHistory.map(async (trade) => {
+      return {
+        _id: trade._id,
+        requesterName: trade.requesterName,
+        requesterId: trade.requesterId,
+        requesterLabel: trade.requesterLabel,
+        requesterTrackInfo: await getTrackProcessed(trade.requesterTrackId),
+        fulfillerName:  trade.fulfillerName,
+        fulfillerId: trade.fulfillerId,
+        fulfillerLabel: trade.fulfillerLabel,
+        fulfillerTrackInfo: await getTrackProcessed(trade.fulfillerTrackId)
+      }
+    })
+    Promise.all(processTradeHistory).then((results) => {
+      console.log(results.length);
+      res.send(results);
+    }).catch((err) => {
+      console.log("err in getting processed trade history:", err);
+      res.send(err)
+    })
 })
 
 // anything else falls to this "not found" case

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import TradeHistory from "../modules/TradeHistory.js";
+import ModalMusicard from "../modules/ModalMusicard.js";
 import { get } from "../../utilities";
 
 import "../../utilities.css";
@@ -9,12 +11,11 @@ class Profile extends Component {
     super(props);
     // Initialize Default State
     this.state = {
-      viewingUser: undefined
+      viewingUser: undefined,
+      tradeHistory: undefined,
+      showModal: false,
+      trackIdModal: undefined
     };
-  }
-
-  updateViewingUser() {
-    get(`/api/user`, { userid: this.props.profileId }).then((user) => this.setState({ viewingUser: user })); 
   }
 
   componentDidMount() {
@@ -22,6 +23,18 @@ class Profile extends Component {
     // remember -- api calls go here!
     console.log("Mounting -- profileId prop:", this.props.profileId);
     this.updateViewingUser();
+  }
+
+  updateViewingUser() {
+    get(`/api/user`, { userid: this.props.profileId }).then((user) => this.setState({ viewingUser: user })); 
+  }
+
+  activateMusicardModal = (trackId) => {
+    this.setState({
+      trackIdModal: trackId,
+      showModal: true
+    })
+    console.log("INFO INFO INFO:", trackId);
   }
 
   render() {
@@ -37,6 +50,15 @@ class Profile extends Component {
     else {
       return (
         <div className="u-pageWrap">
+          <ModalMusicard
+            isOpen={this.state.showModal}
+            handleClose={() => { this.setState({ showModal: false }); }}
+            trackId={this.state.trackIdModal}
+            title="viewing song!"
+            subtitle="click on the album cover to hear a preview, or click on the title to go to the song's Spotify page."
+          >
+
+          </ModalMusicard>
           <h1 className = "u-pageTitle u-shadowPop u-shadowPopPurple u-logofont"><strong>{this.state.viewingUser.name}</strong>'s profile</h1>
           {//<p className = "u-pageDescription">Viewing profile of user <strong>{this.state.viewingUser.name}</strong>, who has ID <strong>{this.state.viewingUser._id}</strong>.</p>
           }
@@ -47,10 +69,13 @@ class Profile extends Component {
               {(this.props.loggedInUser._id === this.state.viewingUser._id) && (
                 <button onClick={this.props.handleLogout} className = "u-mainbutton">logout</button>
               )}
-
             </>
-          ) : (<p>Not logged in.</p>)
+          ) : (<p className="u-pageDescription">you're not logged in!</p>)
           }
+          <TradeHistory
+            profileId={this.props.profileId}
+            activateMusicardModal={this.activateMusicardModal}
+          />
         </div>
       );
     }

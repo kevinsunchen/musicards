@@ -10,10 +10,10 @@ import "./ModalSelectTrack.css"
  * Story is a component that renders creator and content of a story
  *
  * Proptypes
- * @param {string} isOpen
- * @param {string} handleClose
- * @param {string} handleSelect
- * @param {string} children
+ * @param {boolean} isOpen={this.state.showModal}
+ * @param {Function} handleClose={this.handleClose}
+ * @param {String} trackId={this.props.incomingTrackInfo._id}
+ * 
  */
 class ModalSelectTrack extends Component {
   constructor(props) {

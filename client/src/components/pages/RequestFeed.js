@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import RequestCard from "../modules/RequestCard.js";
 import { NewRequest } from "../modules/NewRequestInput.js";
+import ModalMusicard from "../modules/ModalMusicard.js"
+
 import { socket } from "../../client-socket.js";
 import { get } from "../../utilities";
 
@@ -12,7 +14,9 @@ class RequestFeed extends Component {
     super(props);
     this.state = {
       requests: undefined,
-      autoRefresh: true
+      autoRefresh: true,
+      showTrackReceivedModal: false,
+      trackReceivedId: undefined
     };
   }
 
@@ -32,6 +36,29 @@ class RequestFeed extends Component {
   componentWillUnmount() {
     this._isMounted = false;
   }
+  
+  getRequestFeed = () => {
+    get("/api/getRequestFeed").then((requestObjs) => {
+      this.populateRequestsList(requestObjs);
+    });
+  }
+
+  populateRequestsList = (requestObjs) => {
+    if (this._isMounted && this.state.autoRefresh) {
+      console.log("autorefresh?", this.state.autoRefresh);
+      this.setState({ requests: [] });
+      let reversedRequestObjs = requestObjs.reverse();
+      reversedRequestObjs.map((requestObj) => {
+        this.setState({ requests: this.state.requests.concat([requestObj]) });
+      });
+      console.log(this.state.requests);
+    }
+  }
+ 
+  refreshFeed = () => {
+    this.setState({ requests: undefined });
+    this.getRequestFeed();
+  }
 
   autoRefreshOff = () => {
     console.log("turning autorefresh off");
@@ -46,30 +73,7 @@ class RequestFeed extends Component {
       console.log("autorefresh:", this.state.autoRefresh);
     });
   }
-  
-  populateRequestsList = (requestObjs) => {
-    if (this._isMounted && this.state.autoRefresh) {
-      console.log(this.autoRefresh);
-      this.setState({ requests: [] });
-      let reversedRequestObjs = requestObjs.reverse();
-      reversedRequestObjs.map((requestObj) => {
-        this.setState({ requests: this.state.requests.concat([requestObj]) });
-      });
-      console.log(this.state.requests);
-    }
-  }
-
-  getRequestFeed = () => {
-    get("/api/getRequestFeed").then((requestObjs) => {
-      this.populateRequestsList(requestObjs);
-    });
-  }
-
-  refreshFeed = () => {
-    this.setState({ requests: undefined });
-    this.getRequestFeed();
-  }
-
+ 
   // this gets called when the user pushes "Submit", so their
   // post gets added to the screen right away
   addNewRequest = (requestObj) => {
@@ -77,6 +81,14 @@ class RequestFeed extends Component {
       requests: [requestObj].concat(this.state.requests),
     });
   };
+
+  activateTrackReceivedModal = (trackId) => {
+    this.setState({
+      trackReceivedId: trackId,
+      showTrackReceivedModal: true
+    })
+    console.log("INFO INFO INFO:", trackId);
+  }
 
   render() {
     let requestsList = null;
@@ -99,11 +111,21 @@ class RequestFeed extends Component {
           triggerFeedRefresh={this.refreshFeed}
           autoRefreshOn={this.autoRefreshOn}
           autoRefreshOff={this.autoRefreshOff}
+          activateTrackReceivedModal={this.activateTrackReceivedModal}
         />
       ));
     }
     return (
       <div className="u-pageWrap">
+        {this.state.trackReceivedId &&
+          <ModalMusicard
+            isOpen={this.state.showTrackReceivedModal}
+            handleClose={() => { this.setState({ showTrackReceivedModal: false }); }}
+            trackId={this.state.trackReceivedId}
+            title="you received a song!"
+            subtitle="click on the album cover to hear a preview, or click on the title to go to the song's Spotify page."
+          />
+        }
         <h1 className = "u-pageTitle u-shadowPop u-shadowPopPink u-logofont">requests</h1>
         <h2 className = "u-pageDescription">what kind of song would you like to discover today?</h2>
         {this.props.loggedInUser &&

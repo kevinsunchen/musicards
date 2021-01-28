@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
-import Modal from "./Modal.js"
-import Musicard from "./Musicard.js"
+import ModalMusicard from "./ModalMusicard.js"
 
 import "./IncomingCard.css";
 
@@ -50,25 +49,19 @@ class SingleIncoming extends Component {
       <Link to={`/profile/${this.props.traderId}`} className="u-link u-bold">
         {this.props.traderName}
       </Link> sent you <div className="incoming-wrapReceivedText" onClick={this.handleClick}>
-        "{this.props.incomingTrackInfo.name}" by {this.processTrackArtists(this.props.incomingTrackInfo.artists)}</div>!
+        "{this.props.incomingTrackInfo.name}"</div> by {this.processTrackArtists(this.props.incomingTrackInfo.artists)}!
     </div>
 
     return (
       <>
-        <Modal
+        <ModalMusicard
           isOpen={this.state.showModal}
           handleClose={this.handleClose}
-        >
-          <div className="IncomingCard-ModalContent">
-            <div className="IncomingCard-ModalText">
-              you received a song!
-            </div>
-            <div className="IncomingCard-ModalSubtitle">
-              click on the album cover to hear a preview, or click on the title to go to the song's Spotify page.
-            </div>
-            <Musicard trackId={this.props.incomingTrackInfo._id}/>
-          </div>
-        </Modal>
+          trackId={this.props.incomingTrackInfo._id}
+          title="you received a song!"
+          subtitle="click on the album cover to hear a preview, or click on the title to go to the song's Spotify page."
+        />
+
         <div className="IncomingCard-storyContent">
           {requestInfoText}
           {traderTrackText}

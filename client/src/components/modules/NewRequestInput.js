@@ -53,6 +53,7 @@ class NewRequestInput extends Component {
         requestedLabel: "",
         offeredTrack: undefined
       });
+      this.props.autoRefreshOn()
     } else {
       window.alert("Incomplete fields! Please check that all fields are filled before posting.")
       console.log("Incomplete fields!", this.state.offeredLabel, this.state.requestedLabel, this.state.offeredTrack)
