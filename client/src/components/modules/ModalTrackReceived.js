@@ -50,10 +50,10 @@ class ModalTrackReceived extends Component {
         >
           <div className="ModalTrackReceived-ModalContent">
             <div className="ModalTrackReceived-ModalText">
-              you received a song!
+              {this.props.title}
             </div>
             <div className="ModalTrackReceived-ModalSubtitle">
-              click on the album cover to hear a preview, or click on the title to go to the song's Spotify page.
+              {this.props.subtitle}  
             </div>
             <Musicard trackId={this.props.trackId}/>
           </div>

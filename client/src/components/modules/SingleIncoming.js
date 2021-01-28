@@ -58,6 +58,8 @@ class SingleIncoming extends Component {
           isOpen={this.state.showModal}
           handleClose={this.handleClose}
           trackId={this.props.incomingTrackInfo._id}
+          title="you received a song!"
+          subtitle="click on the album cover to hear a preview, or click on the title to go to the song's Spotify page."
         />
 
         <div className="IncomingCard-storyContent">

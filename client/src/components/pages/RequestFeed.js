@@ -122,6 +122,8 @@ class RequestFeed extends Component {
             isOpen={this.state.showTrackReceivedModal}
             handleClose={() => { this.setState({ showTrackReceivedModal: false }); }}
             trackId={this.state.trackReceivedId}
+            title="you received a song!"
+            subtitle="click on the album cover to hear a preview, or click on the title to go to the song's Spotify page."
           />
         }
         <h1 className = "u-pageTitle u-shadowPop u-shadowPopPink u-logofont">requests</h1>

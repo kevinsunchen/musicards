@@ -54,7 +54,11 @@ class Profile extends Component {
             isOpen={this.state.showModal}
             handleClose={() => { this.setState({ showModal: false }); }}
             trackId={this.state.trackIdModal}
-          />
+            title="viewing song!"
+            subtitle="click on the album cover to hear a preview, or click on the title to go to the song's Spotify page."
+          >
+
+          </ModalTrackReceived>
           <h1 className = "u-pageTitle u-shadowPop u-shadowPopPurple u-logofont"><strong>{this.state.viewingUser.name}</strong>'s profile</h1>
           {//<p className = "u-pageDescription">Viewing profile of user <strong>{this.state.viewingUser.name}</strong>, who has ID <strong>{this.state.viewingUser._id}</strong>.</p>
           }
