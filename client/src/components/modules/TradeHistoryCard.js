@@ -68,7 +68,10 @@ class TradeHistoryCard extends Component {
               <strong>{this.props.requesterLabel}</strong>,
               and was offering {' '}
               <strong>{this.props.fulfillerLabel}</strong>
-              {' '} (aka <span className="TradeHistoryCard-wrapReceivedText"> {this.props.requesterTrackInfo.name} </span> by {' '}
+              {' '} (aka {' '}
+              <span className="TradeHistoryCard-wrapReceivedText" onClick={() => {this.props.activateMusicardModal(this.props.requesterTrackInfo._id)}}>
+                {this.props.requesterTrackInfo.name}
+              </span> by {' '}
               {this.processTrackArtists(this.props.requesterTrackInfo.artists)}).
             </p>
           </div>
@@ -82,7 +85,9 @@ class TradeHistoryCard extends Component {
                 {this.props.fulfillerName}
               </Link>
               {' '} sent them {' '}
-              <span className="TradeHistoryCard-wrapReceivedText"> {this.props.fulfillerTrackInfo.name} </span> by {' '}
+              <span className="TradeHistoryCard-wrapReceivedText" onClick={() => {this.props.activateMusicardModal(this.props.fulfillerTrackInfo._id)}}>
+                {this.props.fulfillerTrackInfo.name}
+              </span> by {' '}
               {this.processTrackArtists(this.props.fulfillerTrackInfo.artists)}!
             </p>
           </div>

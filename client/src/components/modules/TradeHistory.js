@@ -47,6 +47,7 @@ class TradeHistory extends Component {
           fulfillerId={tradeHistoryObj.fulfillerId}
           fulfillerLabel={tradeHistoryObj.fulfillerLabel}
           fulfillerTrackInfo={tradeHistoryObj.fulfillerTrackInfo}
+          activateMusicardModal={this.props.activateMusicardModal}
         />
       ));
     }

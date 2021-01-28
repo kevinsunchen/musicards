@@ -49,7 +49,7 @@ class SingleIncoming extends Component {
       <Link to={`/profile/${this.props.traderId}`} className="u-link u-bold">
         {this.props.traderName}
       </Link> sent you <div className="incoming-wrapReceivedText" onClick={this.handleClick}>
-        "{this.props.incomingTrackInfo.name}" by {this.processTrackArtists(this.props.incomingTrackInfo.artists)}</div>!
+        "{this.props.incomingTrackInfo.name}"</div> by {this.processTrackArtists(this.props.incomingTrackInfo.artists)}!
     </div>
 
     return (

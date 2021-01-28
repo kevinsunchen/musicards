@@ -18,15 +18,23 @@ class Profile extends Component {
     };
   }
 
-  updateViewingUser() {
-    get(`/api/user`, { userid: this.props.profileId }).then((user) => this.setState({ viewingUser: user })); 
-  }
-
   componentDidMount() {
     document.title = "Profile";
     // remember -- api calls go here!
     console.log("Mounting -- profileId prop:", this.props.profileId);
     this.updateViewingUser();
+  }
+
+  updateViewingUser() {
+    get(`/api/user`, { userid: this.props.profileId }).then((user) => this.setState({ viewingUser: user })); 
+  }
+
+  activateMusicardModal = (trackId) => {
+    this.setState({
+      trackIdModal: trackId,
+      showModal: true
+    })
+    console.log("INFO INFO INFO:", trackId);
   }
 
   render() {
@@ -63,6 +71,7 @@ class Profile extends Component {
           
           <TradeHistory
             profileId={this.props.profileId}
+            activateMusicardModal={this.activateMusicardModal}
           />
         </div>
       );
