@@ -36,11 +36,12 @@ class Home extends Component {
             </div>
 
             <div className = "Home-modalTextBullets u-flexColumn"> 
-              <div className = "Home-modalTextBulletPoint"> 1.  <strong> login/profile</strong> - log in with your spotify </div>
-              <div className = "Home-modalTextBulletPoint"> 2.  <strong> deck</strong> - populate your deck with your first suit of musicards! </div>
-              <div className = "Home-modalTextBulletPoint"> 3.  <strong> request</strong> - make a request for a <i>~ v i b e ~</i> you've been searching for  </div>
-              <div className = "Home-modalTextBulletPoint"> 4.  <strong> request</strong> - fulfill somebody else's request while you're at it! </div>
-              <div className = "Home-modalTextBulletPoint"> 5.  <strong> incoming</strong> - check out what other people have sent u :O </div>
+              <div className="Home-modalTextBulletPoint"> 1. <strong>login/profile</strong> - log in with your spotify </div>
+              <div className="Home-modalTextBulletPoint"> 2. <strong>deck</strong> - populate your deck with your first suit of musicards! </div>
+              <div className="Home-modalTextBulletPoint"> 3. <strong>request</strong> - make a request for a <i>~ v i b e ~</i> you've been searching for  </div>
+              <div className="Home-modalTextBulletPoint"> 4. <strong>request</strong> - fulfill somebody else's request while you're at it! </div>
+              <div className="Home-modalTextBulletPoint"> 5. <strong>incoming</strong> - check out what other people have sent u :O </div>
+              <div className="Home-modalTextBulletPoint"> 6. <strong>about</strong> - click <Link to="/about" className="u-link u-bold">here</Link> to find out more about the team behind musicards! </div>
             </div>
 
             <div className = "Home-modalTextClosing"> 
