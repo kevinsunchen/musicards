@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { navigate, Router, Match, Link } from "@reach/router";
-import { push as Menu } from 'react-burger-menu'
+import { navigate, Router, Match } from "@reach/router";
 import NavBar from "./modules/NavBar.js";
+import About from "./pages/About.js";
 import Home from "./pages/Home.js";
 import RequestFeed from "./pages/RequestFeed.js";
 import Deck from "./pages/Deck.js";
@@ -66,6 +66,7 @@ class App extends Component {
         </Match>
         <main id="page-wrap" className="App-container">
         <Router>
+          <About path="/about"/>
           <Home
             path="/"
             loggedInUser={this.state.loggedInUser}
