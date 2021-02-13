@@ -23,7 +23,7 @@ class About extends Component {
           <li>
             amy: course 20 (bioeng)
           </li>
-          we created this site as part of MIT's <a href="https://weblab.mit.edu/" className="u-link u-bold">2021 Web.lab competition</a> and won 3rd Place in the main division, as well as the Most Unique Concept award and the Appian Special Category sponsor award.
+          we created this site as part of MIT's <a href="https://weblab.mit.edu/" target="_blank" className="u-link u-bold">2021 Web.lab competition</a> and won 3rd Place in the main division, as well as the Most Unique Concept award and the Appian Special Category sponsor award.
           
           but most importantly, we had a lot of fun making this site! and we hope you have a lot of fun using it :)
         </div>
