@@ -10,10 +10,6 @@ class Login extends Component {
     this.state = {};
   }
 
-  componentDidMount() {
-    // remember -- api calls go here!
-  }
-
   render() {
     return (
       <div className="u-pageWrap">
