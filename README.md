@@ -1,16 +1,13 @@
 # musicards! 
 
-## What you need to change
+## What is musicards?
 
-- Update this README file ;)
+musicards! (https://musicards-mit.herokuapp.com/) is a fun way to find new music and share your favorite songs with others! Log in with Spotify, make requests, trade songs, and build your deck :)
 
-## Socket stuff
+musicards! was originally made for the 2021 MIT Web.lab Competition (https://weblab.mit.edu/). It received 3rd place overall, the Most Unique Concept Award, and the Appian Sponsor Award.
 
-- If you are using socket, consider what you want to do with the FIXME in server-socket.js
 
-## don't touch
-
-the following files students do not need to edit. feel free to read them if you would like.
+## Don't touch
 
 ```
 client/src/index.js
@@ -25,4 +22,3 @@ package-lock.json
 webpack.config.js
 ```
 
-## Good luck on your project :)
